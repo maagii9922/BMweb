@@ -20,7 +20,7 @@ class Category(models.Model):
         verbose_name_plural = _("Ангилал")
 
     def __str__(self):
-         return self.catName
+        return self.catName
 
 class Manufacturer(models.Model):
     manName = models.CharField(max_length=50,verbose_name=_("Үйлдвэрлэгчийн нэр"))
@@ -53,7 +53,7 @@ class ProdBrand(models.Model):
         verbose_name_plural = _("Бүтээгдэхүүний бренд")
 
     def __str__(self):
-         return self.brandName+" "+str(self.manufacturer)
+        return self.brandName+" "+str(self.manufacturer)
 
 class Company(models.Model):
     comName = models.CharField(max_length=50, verbose_name=_("Компаний нэр"))
@@ -80,7 +80,7 @@ class Customer(models.Model):
         verbose_name_plural = _("Харилцагч")
 
     def __str__(self):
-         return self.name
+        return self.name
 
 class ProdType(models.Model):
     typeName = models.CharField(max_length=50, verbose_name=_("Төрлийн нэр"))
@@ -90,7 +90,7 @@ class ProdType(models.Model):
         verbose_name_plural = _("Барааны төрөл")
 
     def __str__(self):
-         return self.typeName
+        return self.typeName
 
 class State(models.Model):
     stateName = models.CharField(max_length=50, verbose_name=_("Төлөвийн нэр"))
@@ -100,7 +100,8 @@ class State(models.Model):
         verbose_name_plural = _("Барааны төлөв")
 
     def __str__(self):
-         return self.stateName
+        return self.stateName
+         
 
 class Paiz(models.Model):
     paizName = models.CharField(max_length=50, verbose_name=_("Пайзын нэр"))
@@ -114,7 +115,7 @@ class Paiz(models.Model):
         verbose_name_plural = _("Пайз")
 
     def __str__(self):
-         return self.paizName
+        return self.paizName
 
 class Product(models.Model):
     prodName = models.CharField(max_length=50, verbose_name=_("Барааны нэр"))
@@ -141,4 +142,4 @@ class Product(models.Model):
         verbose_name_plural = _("Бараа")
 
     def __str__(self):
-         return self.prodName+" "+str(self.state.stateName)
+        return self.prodName+" "+str(self.state.stateName)

@@ -1,7 +1,12 @@
+from BMweb.settings import AUTH_PASSWORD_VALIDATORS
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Customer, Hereglegch,Product,Manufacturer,ProdBrand
+from .models import Customer, Hereglegch,Product,Manufacturer,ProdBrand,Company
+from django.views.generic import ListView
 from .forms import NameForm
+
+class CompanyListView(ListView):
+    model = Company
 
 # def login(request):
 #     h = Hereglegch.objects.all()
@@ -37,3 +42,5 @@ def manufacturer(request):
 def prodBrand(request):
     b = ProdBrand.objects.all()
     return render(request,'test.html', {'prodBrand': b})
+
+

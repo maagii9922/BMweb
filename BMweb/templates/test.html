@@ -14,11 +14,26 @@
     <title>welcome</title>
 </head>
 <body>
+    <!-- {% extends "base.html" %} -->
+
+    {% block content %}
+        <h2>Company</h2>
+        <ul>
+            {% for company in object_list %}
+                <li>{{ publisher.comName }}</li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+
+    {{prodBrand}}
+    {{manufacturer}}
+
     <form action="/your-name/" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.as_p }}        
         <input type="submit" value="Submit">
     </form>
+
     <!-- <p><label for="id_subject">Subject:</label>
         <input id="id_subject" type="text" name="subject" maxlength="100" required></p>
     <p><label for="id_message">Message:</label>
@@ -27,7 +42,9 @@
         <input type="email" name="sender" id="id_sender" required></p>
     <p><label for="id_cc_myself">Cc myself:</label>
         <input type="checkbox" name="cc_myself" id="id_cc_myself"></p> -->
-        {{ form.non_field_errors }}
+
+
+        <!-- {{ form.non_field_errors }}
     <div class="fieldWrapper">
         {{ form.subject.errors }}
         <label for="{{ form.subject.id_for_label }}">Email subject:</label>
@@ -47,7 +64,9 @@
         {{ form.cc_myself.errors }}
         <label for="{{ form.cc_myself.id_for_label }}">CC yourself?</label>
         {{ form.cc_myself }}
-    </div>
+    </div> -->
+
+
     <!-- <div class="fieldWrapper">
         {{ form.subject.errors }}
         {{ form.subject.label_tag }}
