@@ -14,31 +14,46 @@
     <title>welcome</title>
 </head>
 <body>
-    <!-- {{customer}} -->
-    <!-- <li class="hh">{{hereglegch}}</li> -->
-    <table class="table table-hover  table-sm" style="width:100%">
-        <thead>
-            <tr>
-            <th scope="col">name</th>
-            <th scope="col">code</th>
-            <th scope="col">company</th>
-            <th scope="col">mail</th>
-            <th scope="col">password</th>
-            <th>i eseh</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for b in customer %}
-            <tr style="width: 100%">
-                <td>{{b.name}}</td>
-                <td>{{b.code}}</td>
-                <td>{{b.company}}</td>
-                <td>{{b.mail}}</td>
-                <td>{{b.password}}</td>
-                <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-            </tr>
-            {% endfor%}
-        </tbody>
-    </table>
+       <!-- <li class="hh">{{h}}</li> -->
+       {{form.as_ul}}
+       {{hereglegch}}
+       HELLO
+       <table style="width:100%">
+           <tr>
+             <th>name</th>
+             <th>code</th>
+           </tr>
+           {% for b in hereglegch %}
+           <tr style="width: 100%">
+               <td>{{b.name}}</td>
+               <td>{{b.code}}</t>
+           </tr>
+           {% endfor%}
+       <!-- {{customer}} -->
+       <!-- <li class="hh">{{hereglegch}}</li> -->
+       <table class="table table-hover  table-sm" style="width:100%">
+           <thead>
+               <tr>
+               <th scope="col">name</th>
+               <th scope="col">code</th>
+               <th scope="col">company</th>
+               <th scope="col">mail</th>
+               <th scope="col">password</th>
+               <th>i eseh</th>
+               </tr>
+           </thead>
+           <tbody>
+               {% for b in customer %}
+               <tr style="width: 100%">
+                   <td>{{b.name}}</td>
+                   <td>{{b.code}}</td>
+                   <td>{{b.company}}</td>
+                   <td>{{b.mail}}</td>
+                   <td>{{b.password}}</td>
+                   <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+               </tr>
+               {% endfor%}
+           </tbody>
+       </table>
 </body>
 </html>

@@ -14,10 +14,20 @@
     <title>welcome</title>
 </head>
 <body>
+    {{err_msg}}
+    <form action="/tt-name/" method="PUT">
+        {{form.your_name}}
+        {{ form.your_name.label_tag }}
+    </form>
+
+    <form action="/your-name/" method="post">
+        {% csrf_token %}
+        {{ form }}
     <!-- {% extends "base.html" %} -->
 
     {% block content %}
         <h2>Company</h2>
+        path('customer/', views.customer),
         <ul>
             {% for company in object_list %}
                 <li>{{ publisher.comName }}</li>
