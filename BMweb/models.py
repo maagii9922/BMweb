@@ -1,16 +1,44 @@
 from django.db import models
+from django.db.models.base import Model
+from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 
+
+class Company(models.Model):
+    comName = models.CharField(max_length=50, verbose_name=_("Компаний нэр"))
+    hayag = models.CharField(max_length=150, verbose_name=_("Компаний хаяг"))
+    phone = models.CharField(max_length=30, verbose_name=_("Компаний утас"))
+
+    class Meta:
+        verbose_name = _("Компани")
+        verbose_name_plural = _("Компани")
+    
+    def __str__(self):
+        #  return self.comName
+        return '%s %s %s' % (self.comName, self.hayag, self.phone)
+
+class HereglegchRole(models.Model):
+    levelname = models.CharField(max_length=300, verbose_name=_("Эрхийн түвшин"))
+    class Meta:
+        verbose_name = _("Эрхийн түвшин")
+        verbose_name_plural = _("Эрхийн түвшин")
+    def __str__(self):
+        return self.levelname
+
 class Hereglegch(models.Model):
-    name=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нэр"))
-    code=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн код"))
+    ovog=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн  овог"))
+    ner=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нэр"))
+    role = models.ForeignKey(HereglegchRole, on_delete=CASCADE )
+    company = models.ForeignKey(Company, on_delete=CASCADE )
+    password  = models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн  нууц үг"))
 
     class Meta:
         verbose_name = _("Хэрэглэгч")
         verbose_name_plural = _("Хэрэглэгч")
 
     def __str__(self):
-        return self.name
+        return '%s %s %s' % (self.ovog, self.ner, self.role)
+
 
 class Category(models.Model):
     catName = models.CharField(max_length=50, verbose_name=_("Ангилалын нэр"))
@@ -54,19 +82,6 @@ class ProdBrand(models.Model):
 
     def __str__(self):
         return self.brandName+" "+str(self.manufacturer)
-
-class Company(models.Model):
-    comName = models.CharField(max_length=50, verbose_name=_("Компаний нэр"))
-    hayag = models.CharField(max_length=150, verbose_name=_("Компаний хаяг"))
-    phone = models.CharField(max_length=30, verbose_name=_("Компаний утас"))
-
-    class Meta:
-        verbose_name = _("Компани")
-        verbose_name_plural = _("Компани")
-    
-    def __str__(self):
-        #  return self.comName
-        return '%s %s %s' % (self.comName, self.hayag, self.phone)
 
 class Customer(models.Model):
     name = models.CharField(max_length=30, verbose_name=_("Харилцагчийн нэр"))

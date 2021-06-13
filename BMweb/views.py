@@ -1,17 +1,44 @@
 from BMweb.settings import AUTH_PASSWORD_VALIDATORS
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
-from .models import Customer, Hereglegch,Product,Manufacturer,ProdBrand,Company
+from .models import Customer, Hereglegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company
 from django.views.generic import ListView
-from .forms import NameForm
+from .forms import NameForm, HereglegchForm
 
-class CompanyListView(ListView):
-    model = Company
+# class CompanyListView(ListView):
+#     model = Company
 
-# def login(request):
-#     h = Hereglegch.objects.all()
-#     print(h)
-#     return render(request,'login.html',{'hereglegch':h})
+def home(request):
+    return render(request,'home.html')
+
+def hereglegch(request):
+    # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
+    # r.save()
+    if request.method == 'GET':
+        form = HereglegchForm()
+        return render(request,'hereglegch.html', {'HereglegchForm': HereglegchForm})
+    elif request.method == 'POST':
+        p1 = request.POST['password']
+        p2 = request.POST['password1']
+        if( p1 == p2):
+            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'])
+            h.save()
+            return render(request,'home1.html' )
+        else:
+            h = HereglegchForm(request.POST)
+            return render(request,'hereglegch.html',{'HereglegchForm': h, "errmsg": "pass tohirohguii bn"})
+
+
+def hereglegchList(request):
+    h = Hereglegch.objects.all()
+    print(h)
+    return render(request,'hereglegchList.html',{'HereglegchList': h})
+    
+
+def login(request):
+    h = Hereglegch.objects.all()
+    print(h)
+    return render(request,'login.html',{'hereglegch':h})
 
 def customer(request):
     c = Customer.objects.all()
