@@ -3,6 +3,8 @@ from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 
+from datetime import datetime   
+
 
 class Company(models.Model):
     comName = models.CharField(max_length=50, verbose_name=_("Компаний нэр"))
@@ -18,19 +20,29 @@ class Company(models.Model):
         return '%s %s %s' % (self.comName, self.hayag, self.phone)
 
 class HereglegchRole(models.Model):
-    levelname = models.CharField(max_length=300, verbose_name=_("Эрхийн түвшин"))
+    levelName = models.CharField(max_length=300, verbose_name=_("Эрхийн түвшин"))
     class Meta:
         verbose_name = _("Эрхийн түвшин")
         verbose_name_plural = _("Эрхийн түвшин")
     def __str__(self):
-        return self.levelname
+        return self.levelName
 
+class HereglegchState(models.Model):
+    stateName = models.CharField(max_length=300, verbose_name=_("Хэрэглэгч төлөв"))
+    class Meta:
+        verbose_name = _("Хэрэглэгч төлөв")
+        verbose_name_plural = _("Хэрэглэгч төлөв")
+    def __str__(self):
+        return self.stateName
 class Hereglegch(models.Model):
     ovog=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн  овог"))
     ner=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нэр"))
+    mail = models.CharField(max_length=30, verbose_name=_("мейл хаяг"))
     role = models.ForeignKey(HereglegchRole, on_delete=CASCADE )
+    state = models.ForeignKey(HereglegchState, on_delete=CASCADE )
     company = models.ForeignKey(Company, on_delete=CASCADE )
     password  = models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн  нууц үг"))
+    reg_date = models.DateTimeField(default=datetime.now)
 
     class Meta:
         verbose_name = _("Хэрэглэгч")

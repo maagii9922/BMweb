@@ -8,15 +8,21 @@
 </head>
 <body>
     hereglegchList
+
+    
     <table>
     {% for h in HereglegchList %}
         <tr>
+            <td>{{ h.id }}</td>
             <td>{{ h.ovog }}</td>
             <td>{{ h.ovog }}</td>
             <td>{{ h.ovog }}</td>
             <td>{{ h.ovog }}</td>
-            <td><button>зөвшөөрөх</button></td>
-            <td><button>цуцлах</button></td>
+            <td>{{ h.state }}</td>
+            <td>{{ h.state_id }}</td>
+            <td>{{ h.reg_date | date:"Y-m-d" }}</td>
+            <td><a href="/change-state/{{h.id}}/2">зөвшөөрөх</a></td>
+            <td><a href="/change-state/{{h.id}}/3">цуцлах</a></td>
         </tr>
         
     
@@ -24,5 +30,22 @@
     {% endfor %}
 
     </table>
+
+    <!-- <script>
+        function accept_state(state_id){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/change-state/" + state_id + "/2");
+            xhr.responseType = "json"
+            xhr.addEventListener("load", ()=>{
+                console.log('accept_state=>', xhr.response)
+                console.log('accept_state=>', xhr.response.result)
+                if (xhr.response.result == 'ok'){
+                    console.log('amjilttai')
+                }
+            });            
+            xhr.send();
+        }
+    </script> -->
+
 </body>
 </html>
