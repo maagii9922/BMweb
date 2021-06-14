@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    <table  style="width:100%" class="table table-striped table-hover">
+      <thead>
+        <tr>
+            <th scope="col">Компаний нэр</th>
+            <th scope="col">Компаний хаяг</th>
+            <th scope="col">Компаний утас</th>
+        </tr> 
+      </thead>
+      <tbody>
+        {% for b in companyList %}
+        <tr style="width: 100%">
+          <td>{{b.comName}}</td>
+          <td>{{b.hayag}}</td>
+          <td>{{b.phone}}</td>
+        </tr>        
+        {% endfor %}
+      </tbody>
+    </table>
+</body>
+</html>
