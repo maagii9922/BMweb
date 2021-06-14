@@ -13,7 +13,6 @@ def home(request):
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         return render(request,'home.html', {'user': h  })
-    # if request.session.get('has_commented', False):
     return render(request,'home.html')
 
 def hereglegch(request):
@@ -66,6 +65,14 @@ def product(request):
         form = ProductForm()
         return render(request,'product.html', {'ProductForm': ProductForm})
     elif request.method == 'POST':
+        # print('asdfasjf sflj salfjsaljf slfj')
+        # print(request.POST['borBoloh'])
+        borb = False
+        if 'borBoloh' in request.POST:
+            borb = True
+        huda = False
+        if 'hudAwch' in request.POST:
+            huda = True
         h = Product(
                 prodName= request.POST['prodName'],
                 zCode= request.POST['zCode'],
@@ -81,8 +88,9 @@ def product(request):
                 uildwerlegch= request.POST['uildwerlegch'],
                 uNiiluulegch= request.POST['uNiiluulegch'],
                 category=  Category.objects.get(pk= int(request.POST['category'])),
-                borBoloh= request.POST['borBoloh'],
-                hudAwch= request.POST['hudAwch'],
+
+                borBoloh= borb,
+                hudAwch= huda,
                 state=  State.objects.get(pk= int(request.POST['state'])),
                 )
         h.save()
@@ -122,9 +130,11 @@ def login(request):
     elif request.method == 'POST':
         h_mail = request.POST['mail']
         p = request.POST['password']
-        h = Hereglegch.objects.filter(mail = h_mail)[0]
-        if( h.password == p ):
-            request.session['user_id'] = h.id
+        h = Hereglegch.objects.filter(mail = h_mail, state_id=2)
+        if ( len(h) == 0 ):
+            return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна..."})        
+        if( h[0].password == p ):
+            request.session['user_id'] = h[0].id
             return redirect('/')
         else:
             return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна"})
@@ -161,8 +171,21 @@ def init(request):
     h2 = Hereglegch.objects.create(ovog='ovog2', ner='ner2', mail = 'user2@gmail.com', role=l1, state=s1, company=c1, password='123')
     h3 = Hereglegch.objects.create(ovog='ovog3', ner='ner3', mail = 'user3@gmail.com', role=l1, state=s1, company=c1, password='123')
     h4 = Hereglegch.objects.create(ovog='ovog4', ner='ner4', mail = 'user4@gmail.com', role=l1, state=s1, company=c1, password='123')
+    pt1 = ProdType.objects.create(typeName="prodType1")
+    pt2 = ProdType.objects.create(typeName="prodType2")
+    paiz1 = Paiz.objects.create(paizName="paizname1", paizKey='paizKey1', description='description1', ontslohEseh=True)
+    paiz2 = Paiz.objects.create(paizName="paizname2", paizKey='paizKey2', description='description2', ontslohEseh=True)
+    cat1 = Category.objects.create(catName="catName1")
+    cat2 = Category.objects.create(catName="catName2")
+    cat3 = Category.objects.create(catName="catName3")
+    state1 = State.objects.create(stateName="stateName1")
+    state2 = State.objects.create(stateName="stateName2")
+    state3 = State.objects.create(stateName="stateName3")
+    prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, state=state1)
+    # prod1 = Product.objects.create(prodName="prodName1", zCode="zCode1", prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, state=state1)
 
 
-    
+
+
     return render(request,'home.html')
     

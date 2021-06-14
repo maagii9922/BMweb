@@ -136,7 +136,7 @@ class Paiz(models.Model):
     paizKey = models.CharField(max_length=50, verbose_name=_("Пайзын түлхүүр"))
     description = models.TextField(verbose_name=_("Тайлбар"))
     ontslohEseh = models.BooleanField(verbose_name=_("Онцлох эсэх"))
-    picPaiz = models.ImageField(upload_to="media/paiz/", verbose_name=_("Зураг"))
+    picPaiz = models.ImageField(upload_to="media/paiz/", verbose_name=_("Зураг"), null=True)
 
     class Meta:
         verbose_name = _("Пайз")
@@ -150,7 +150,7 @@ class Product(models.Model):
     zCode = models.IntegerField(null=True, blank=True, verbose_name=_("Зураасан код"))
     prodType = models.ForeignKey(ProdType, related_name='products',on_delete=models.CASCADE, verbose_name=_("Төрлийн нэр"))
     zzCode = models.IntegerField(null=True, blank=True, verbose_name=_("Нэмэлт зураасан код"))
-    price = models.IntegerField(null=True, blank=True, verbose_name=_("Үнэ"))
+    price = models.DecimalField(max_digits=16, decimal_places=2, verbose_name=_("Үнэ"))
     hemNegj = models.IntegerField(null=True, blank=True, verbose_name=_("Хэмжих нэгж"))
     hudNegj = models.IntegerField(null=True, blank=True, verbose_name=_("Худалдан авалтын нэгж"))
     company = models.ForeignKey(Company,related_name='products', on_delete=models.CASCADE, verbose_name=_("Компани"))
