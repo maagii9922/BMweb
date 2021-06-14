@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM</title>
+    <title>Document</title>
 </head>
 <body>
-    <a href="reg-user">Хэрэглэгч бүртгэх</a>
-    <a href="reg-list">Хэрэглэгч жагсаалт</a>
-    <a href="company-list">Компаний жагсаалт</a>
+    <form method='POST'>
+    {% csrf_token %}
+    {{CompanyForm}}
+        <input type='submit' value='Хадгалах'/>
+    </form>
 </body>
 </html>
