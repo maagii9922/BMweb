@@ -25,7 +25,7 @@ def hereglegch(request):
         p1 = request.POST['password']
         p2 = request.POST['password1']
         if(p1 == p2):
-            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'])
+            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'],mail= request.POST['mail'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  ,state=  State.objects.get(pk= int(request.POST['state']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'],reg_date= request.POST['reg_date'])
             h.save()
             return render(request,'home1.html' )
         else:
