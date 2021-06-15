@@ -12,7 +12,8 @@ urlpatterns = [
     path('company/', views.company),
     path('company-list',views.companyList),
     path('product',views.product),
-    # path('product-list',views.productList),
+    path('product-list',views.productList),
+    path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
 
 
     path('customer/', views.customer),

@@ -23,12 +23,10 @@
             <td>{{ h.state }}</td>
             <td>{{ h.state_id }}</td>
             <td>{{ h.reg_date | date:"Y-m-d" }}</td>
-            <td><a href="/change-state/{{h.id}}/2">зөвшөөрөх</a></td>
-            <td><a href="/change-state/{{h.id}}/3">цуцлах</a></td>
-        </tr>
-        
+            <td><a href="/change-state/{{h.id}}/2">Батлах</a></td>
+            <td><a href="/change-state/{{h.id}}/3">Цуцлах</a></td>
+        </tr>        
     {% endfor %}
-
     </table>
 
     <!-- <script>

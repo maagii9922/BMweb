@@ -19,6 +19,8 @@ class HereglegchForm(ModelForm):
 class ProductForm(ModelForm):
     borBoloh = forms.BooleanField(required=False, initial=True)
     hudAwch = forms.BooleanField(required=False, initial=True)
+    zarBoloh = forms.BooleanField(required=False, initial=True)
+
     class Meta:
         model = Product
         fields = [
@@ -39,4 +41,6 @@ class ProductForm(ModelForm):
             'category',
             'borBoloh',
             'hudAwch',
-            'state',]
+            'zarBoloh',
+            'state',
+            ]

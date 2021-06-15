@@ -14,7 +14,7 @@ class CompanyAdmin(admin.ModelAdmin):
 admin.site.register(Company, CompanyAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display= ('prodName', 'zCode', 'prodType','zzCode', 'price', 'hemNegj','hudNegj', 'company', 'erNershil','emHelber', 'paiz', 'uildwerlegch', 'uNiiluulegch','category', 'borBoloh', 'hudAwch','state')    
+    list_display= ('prodName', 'zCode', 'prodType','zzCode', 'price', 'hemNegj','hudNegj', 'company', 'erNershil','emHelber', 'paiz', 'uildwerlegch', 'uNiiluulegch','category', 'borBoloh', 'hudAwch', 'zarBoloh','state')    
 admin.site.register(Product, ProductAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):
@@ -34,7 +34,7 @@ class PaizAdmin(admin.ModelAdmin):
 admin.site.register(Paiz, PaizAdmin)
 
 class HereglegchAdmin(admin.ModelAdmin):
-    list_display= ('ovog', 'ner','role', 'company', 'password')    
+    list_display= ('ovog', 'ner','mail','role', 'company', 'password')    
 admin.site.register(Hereglegch, HereglegchAdmin)
 
 
@@ -42,7 +42,7 @@ admin.site.register(State)
 admin.site.register(Category)
 admin.site.register(ProdType)
 admin.site.register(HereglegchRole)
-# admin.site.register(Hereglegch)
+admin.site.register(HereglegchState)
 # admin.site.register(Customer)
 # admin.site.register(Company)
 # admin.site.register(Product)

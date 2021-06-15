@@ -21,6 +21,7 @@ class Company(models.Model):
 
 class HereglegchRole(models.Model):
     levelName = models.CharField(max_length=300, verbose_name=_("Эрхийн түвшин"))
+
     class Meta:
         verbose_name = _("Эрхийн түвшин")
         verbose_name_plural = _("Эрхийн түвшин")
@@ -30,11 +31,14 @@ class HereglegchRole(models.Model):
 
 class HereglegchState(models.Model):
     stateName = models.CharField(max_length=300, verbose_name=_("Хэрэглэгч төлөв"))
+
     class Meta:
         verbose_name = _("Хэрэглэгч төлөв")
         verbose_name_plural = _("Хэрэглэгч төлөв")
+
     def __str__(self):
         return self.stateName
+
 class Hereglegch(models.Model):
     ovog=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн  овог"))
     ner=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нэр"))
@@ -50,7 +54,7 @@ class Hereglegch(models.Model):
         verbose_name_plural = _("Хэрэглэгч")
 
     def __str__(self):
-        return '%s %s %s' % (self.ovog, self.ner, self.role)
+        return '%s %s %s %s' % (self.ovog, self.ner, self.mail, self.role)
 
 
 class Category(models.Model):
@@ -163,6 +167,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category,related_name='products', on_delete=models.CASCADE,verbose_name=_("Ангилал"))
     borBoloh = models.BooleanField(verbose_name=_("Борлуулж болох эсэх"),default=False)
     hudAwch = models.BooleanField(verbose_name=_("Худалдан авч болох эсэх"),default=False)
+    zarBoloh = models.BooleanField(verbose_name=_("Зарлагдаж болох эсэх"),default=False)
     state = models.ForeignKey(State,related_name='products', on_delete=models.CASCADE, verbose_name=_("Төлөв"))
 
     class Meta:
