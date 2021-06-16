@@ -14,6 +14,11 @@ def home(request):
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         return render(request,'home.html', {'user': h })
     return render(request,'home.html')
+    # if 'user_id' in request.session:
+    #     h = Hereglegch.objects.get(pk=request.session['user_id'])
+    #     if h in request.PO:
+    #         return render(request,'home.html', {'user': h })
+    # return render(request,'home.html')
 
 def hereglegch(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')

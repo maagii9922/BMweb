@@ -30,7 +30,7 @@ class HereglegchRole(models.Model):
         return self.levelName
 
 class HereglegchState(models.Model):
-    stateName = models.CharField(max_length=300, verbose_name=_("Хэрэглэгч төлөв"))
+    stateName = models.CharField(max_length=300, verbose_name=_("Хэрэглэгчийн төлөв"))
 
     class Meta:
         verbose_name = _("Хэрэглэгч төлөв")
@@ -40,7 +40,7 @@ class HereglegchState(models.Model):
         return self.stateName
 
 class Hereglegch(models.Model):
-    ovog=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн  овог"))
+    ovog=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн овог"))
     ner=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нэр"))
     mail = models.CharField(max_length=30, verbose_name=_("мейл хаяг"))
     role = models.ForeignKey(HereglegchRole, on_delete=CASCADE )
