@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,6 +10,7 @@
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -46,8 +48,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="prodList.html">Бараа шинээр бүртгэх</a>
-                                    <a class="nav-link" href="customerList.html">Харилцагч шинээр бүртгэх</a>
+                                    <a class="nav-link" href="product-list">Бараа шинээр бүртгэх</a>
+                                    <a class="nav-link" href="customer">Харилцагч шинээр бүртгэх</a>
                                 </nav>
                             </div>
                         </div>
