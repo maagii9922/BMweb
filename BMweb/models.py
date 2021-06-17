@@ -149,6 +149,16 @@ class Paiz(models.Model):
     def __str__(self):
         return self.paizName
 
+class EmHelber(models.Model):
+    EmHelberName = models.CharField(max_length=50,verbose_name=_("Эмийн хэлбэрийн нэр"))
+
+    class Meta:
+        verbose_name = _("Эмийн хэлбэр")
+        verbose_name_plural = _("Эмийн хэлбэр")
+
+    def __str__(self):
+        return self.EmHelberName
+
 class Product(models.Model):
     prodName = models.CharField(max_length=50, verbose_name=_("Барааны нэр"))
     zCode = models.IntegerField(null=True, blank=True, verbose_name=_("Зураасан код"))
@@ -157,11 +167,11 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=16, decimal_places=2, verbose_name=_("Үнэ"))
     hemNegj = models.IntegerField(null=True, blank=True, verbose_name=_("Хэмжих нэгж"))
     hudNegj = models.IntegerField(null=True, blank=True, verbose_name=_("Худалдан авалтын нэгж"))
-    company = models.ForeignKey(Company,related_name='products', on_delete=models.CASCADE, verbose_name=_("Компани"))
+    company = models.ManyToManyField(Company,related_name='products',verbose_name=_("Компани"))
     erNershil = models.CharField(max_length=50, verbose_name=_("Ерөнхий нэршил"))
-    emHelber = models.CharField(max_length=50, verbose_name=_("Эмийн хэлбэр"))
+    emHelber = models.ForeignKey(EmHelber, on_delete=models.CASCADE,verbose_name=_("Эмийн хэлбэр"))
     paiz = models.ForeignKey(Paiz, on_delete=models.CASCADE,verbose_name=_("Пайз"))
-    uildwerlegch = models.CharField(max_length=50, verbose_name=_("Үйлдвэрлэгч"))
+    uildwerlegch = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, verbose_name=_("Үйлдвэрлэгч"))
     uNiiluulegch = models.CharField(max_length=50, verbose_name=_("Үндсэн нийлүүлэгч"))
     # category = models.CharField(max_length=50, verbose_name=_("Дотоод ангилал"))
     category = models.ForeignKey(Category,related_name='products', on_delete=models.CASCADE,verbose_name=_("Ангилал"))

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    hereglegchList
+
+    
+    <table>
+    {% for h in HereglegchList %}
+        <tr>
+            <td>{{ h.id }}</td>
+            <td>{{ h.ovog }}</td>
+            <td>{{ h.ovog }}</td>
+            <td>{{ h.ovog }}</td>
+            <td>{{ h.ovog }}</td>
+            <td>{{ h.state }}</td>
+            <td>{{ h.state_id }}</td>
+            <td>{{ h.reg_date | date:"Y-m-d" }}</td>
+            <td><a href="/change-state/{{h.id}}/2">Батлах</a></td>
+            <td><a href="/change-state/{{h.id}}/3">Цуцлах</a></td>
+        </tr>        
+    {% endfor %}
+    </table>
+
+    <!-- <script>
+        function accept_state(state_id){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/change-state/" + state_id + "/2");
+            xhr.responseType = "json"
+            xhr.addEventListener("load", ()=>{
+                console.log('accept_state=>', xhr.response)
+                console.log('accept_state=>', xhr.response.result)
+                if (xhr.response.result == 'ok'){
+                    console.log('amjilttai')
+                }
+            });            
+            xhr.send();
+        }
+    </script> -->
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Hereglegch,Customer,Company,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState
+from .models import Hereglegch,Customer,Company,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState,EmHelber
 
 
 # class CompanyAdmin(admin.ModelAdmin):
@@ -14,7 +14,8 @@ class CompanyAdmin(admin.ModelAdmin):
 admin.site.register(Company, CompanyAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display= ('prodName', 'zCode', 'prodType','zzCode', 'price', 'hemNegj','hudNegj', 'company', 'erNershil','emHelber', 'paiz', 'uildwerlegch', 'uNiiluulegch','category', 'borBoloh', 'hudAwch', 'zarBoloh','state')    
+    filter_horizontal = ('company',)
+    list_display= ('prodName', 'zCode', 'prodType','zzCode', 'price', 'hemNegj','hudNegj', 'erNershil','emHelber', 'paiz', 'uildwerlegch', 'uNiiluulegch','category', 'borBoloh', 'hudAwch', 'zarBoloh','state')    
 admin.site.register(Product, ProductAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):
@@ -37,7 +38,7 @@ class HereglegchAdmin(admin.ModelAdmin):
     list_display= ('ovog', 'ner','mail','role', 'company', 'password')    
 admin.site.register(Hereglegch, HereglegchAdmin)
 
-
+admin.site.register(EmHelber)
 admin.site.register(State)
 admin.site.register(Category)
 admin.site.register(ProdType)

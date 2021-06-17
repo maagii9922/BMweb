@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Customer, Hereglegch,Paiz,State, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
+from .models import Customer, EmHelber, Hereglegch,Paiz,State, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 
 
 # class CompanyListView(ListView):
@@ -38,6 +38,9 @@ def hereglegch(request):
             return render(request,'hereglegch.html',{'HereglegchForm': h, "errmsg": "Нууц үг тохирохгүй байна."})
 
 def hereglegchList(request):
+    if 'user_id' in request.session:
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        return render(request,'hereglegchList.html', {'user': h })
     h = Hereglegch.objects.filter(state_id = 1).order_by('-reg_date')
     return render(request,'hereglegchList.html',{'HereglegchList': h})
 
@@ -104,6 +107,9 @@ def product(request):
         return render(request,'home1.html' )
 
 def productList(request):
+    if 'user_id' in request.session:
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        return render(request,'productList.html', {'user': h })
     p = Product.objects.all()
     return render(request, 'productList.html',{'productList': p})
 
@@ -157,10 +163,10 @@ def init(request):
     c1 = Company.objects.create(comName='comp1', hayag='hayag1', phone='utas1')
     c2 = Company.objects.create(comName='comp2', hayag='hayag2', phone='utas2')
     c3 = Company.objects.create(comName='comp3', hayag='hayag3', phone='utas3')
-    h1 = Hereglegch.objects.create(ovog='ovog1', ner='ner1', mail = 'user1@gmail.com', role=l1, state=s1, company=c1, password='123')
-    h2 = Hereglegch.objects.create(ovog='ovog2', ner='ner2', mail = 'user2@gmail.com', role=l1, state=s1, company=c1, password='123')
-    h3 = Hereglegch.objects.create(ovog='ovog3', ner='ner3', mail = 'user3@gmail.com', role=l1, state=s1, company=c1, password='123')
-    h4 = Hereglegch.objects.create(ovog='ovog4', ner='ner4', mail = 'user4@gmail.com', role=l1, state=s1, company=c1, password='123')
+    h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
+    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l1, state=s1, company=c1, password='123')
+    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l1, state=s1, company=c1, password='123')
+    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l1, state=s1, company=c1, password='123')
     pt1 = ProdType.objects.create(typeName="Үйлчилгээ")
     pt2 = ProdType.objects.create(typeName="Үлдэгдэл тооцох")
     paiz1 = Paiz.objects.create(paizName="emonos", paizKey='paizKey1', description='description1', ontslohEseh=True)
@@ -171,7 +177,8 @@ def init(request):
     state1 = State.objects.create(stateName="Батлагдсан")
     state2 = State.objects.create(stateName="Цуцалсан")
     state3 = State.objects.create(stateName="Захиалсан")
-    prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    em1 = EmHelber.objects.create(EmHelberName="Тун")
+    # prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     # prod1 = Product.objects.create(prodName="prodName1", zCode="zCode1", prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
 
 
