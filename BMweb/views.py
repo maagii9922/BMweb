@@ -5,14 +5,17 @@ from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
-
+from django.contrib.auth.models import User
 
 # class CompanyListView(ListView):
 
 def home(request):    
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'home.html', {'user': h })
+        if h.role_id == 1:
+            return redirect('/product-list')
+        elif h.role_id == 2:
+            return redirect('/company-list')
     else:
         return redirect('/login')        
         
@@ -131,11 +134,13 @@ def product(request):
         return render(request,'home1.html' )
 
 def productList(request):
+    
     if 'user_id' in request.session:
+        p = Product.objects.all()
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'productList.html', {'user': h })
-    p = Product.objects.all()
-    return render(request, 'productList.html',{'productList': p})
+        return render(request,'productList.html', {'user': h, 'productList': p })
+    else: 
+        return redirect('/login')  
 
 @csrf_exempt
 def changeStateProd(request, product_id, state_id):
@@ -217,6 +222,10 @@ def prodBrand(request):
     return render(request,'test.html', {'prodBrand': b})
 
 def init(request):
+    # admin = User.objects.create_user(value['USERNAME'], value['EMAIL'], value['PASSWORD'])
+    # admin = User.objects.create_superuser('admin1', 'aa@gmail.com', '123')
+    # admin.is_staff = True
+    # admin.save()
     s1 = HereglegchState.objects.create(stateName='Хүсэлт илгээсэн')
     s2 = HereglegchState.objects.create(stateName='Зөвшөөрөгдсөн')
     s3 = HereglegchState.objects.create(stateName='Цуцлагдсан')
@@ -248,11 +257,18 @@ def init(request):
     em2 = EmHelber.objects.create(emHelberName="Капсул")
     hemNegj1 = HemNegj.objects.create(hemNegjName="гр")
     hemNegj2 = HemNegj.objects.create(hemNegjName="мл")
-    # prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
-    # prod1 = Product.objects.create(prodName="prodName1", zCode="zCode1", prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    uildver1 = Manufacturer.objects.create(manName="manu1")
+    uildver2 = Manufacturer.objects.create(manName="manu2")
+    uildver3 = Manufacturer.objects.create(manName="manu3")
+    uildver4 = Manufacturer.objects.create(manName="manu4")
+    prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    prod1.company.add(c1)
+    prod1.company.add(c2)
+    prod1.company.add(c3)
+    # prod1 = Product.objects.create(prodName="prodName2", zCode="zCode1", prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
 
 
 
 
-    return render(request,'home.html')
+    return redirect('/')
     

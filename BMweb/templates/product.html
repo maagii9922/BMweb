@@ -39,51 +39,9 @@
             </ul>
         </nav>
         <div id="layoutSidenav"> 
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div>
-                                Хүсэлтийн жагсаалт
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="product-list">Бараа бүртгүүлэх хүсэлтийн жагсаалт</a>
-                                    <a class="nav-link" href="company-list">Харилцагч бүртгүүлэх хүсэлтийн жагсаалт</a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>  
+            {% include "leftNav.html" %} 
             <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
-                        <ol class="breadcrumb mb-4">
-                        </ol>
-                        <div class="card mb-4">
-                            
-                            <div class="card-body">
-                                <div class="dataTable-top">
-                                    <div class="dataTable-dropdown">
-                                     
-                                </div>
-                                <div>
-                                    <form method='POST'>
-                                        {% csrf_token %}
-                                        {{ProductForm}}
-                                            <input type='submit' value='Хадгалах'/>
-                                    </form>
-                                </div>
-                                
-                            </div>
-                           
-                        </div>
-                    </div>
-                </main>
+                {% include "reg_prod.html" %}
             </div>        
 
             

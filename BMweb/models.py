@@ -79,7 +79,7 @@ class Category(models.Model):
 
 class Manufacturer(models.Model):
     manName = models.CharField(max_length=300,verbose_name=_("Үйлдвэрлэгчийн нэр"))
-    manPic = models.ImageField(upload_to="media/manufacturer/", verbose_name=_("Зураг"))
+    manPic = models.ImageField(upload_to="media/manufacturer/", blank = True, null=True, verbose_name=_("Зураг"))
 
     class Meta:
         verbose_name = ("Үйлдвэрлэгч")

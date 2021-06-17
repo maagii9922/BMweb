@@ -1,0 +1,46 @@
+<main>
+    <div class="container-fluid px-4">
+        <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
+        <ol class="breadcrumb mb-4">
+        </ol>
+        <div class="card mb-4">
+            
+            <div class="card-body">
+                <div class="dataTable-top">
+                    <div class="dataTable-dropdown">
+                     
+                </div>
+                <div>
+                    <form method='POST' id="reg_prod_form" >
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="prodName1" class="form-label">Бүтээгдэхүүний нэр</label>
+                            <input type="text" class="form-control" id="prodName1" name="prodName" placeholder="Бүтээгдэхүүний нэр" required onblur="checkValid()"/>
+                          </div>
+                          <div class="mb-3">
+                            <label for="prodName2" class="form-label">Бүтээгдэхүүний нэр2</label>
+                            <input type="text" class="form-control" id="prodName2" name="prodName2" placeholder="Бүтээгдэхүүний нэр2" required onblur="checkValid()"/>
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          </div>
+                        <!-- {{ProductForm.id}} -->
+                        <!-- <input id="had" type='submit'  value='Хадгалах' onclick="hadgalah()"/> -->
+                        <button id="had" disabled>Хадгалах</button>
+                        <script>
+                            function checkValid(){                                
+                                const form = document.getElementById('reg_prod_form');
+                                form.addEventListener("change", () => {
+                                    document.getElementById('had').disabled = !form.checkValidity()
+                                });
+                            }
+                        </script>
+                    </form>
+                </div>
+                
+            </div>
+           
+        </div>
+    </div>
+</main>
