@@ -57,8 +57,68 @@
                         </div>
                     </div>
                 </nav>
-            </div>         
+            </div>  
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">                       
+                        {% if user.role_id == 1 %}
+                            <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
+                        {% elif user.role_id == 2 %}
+                            <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх</h5>
+                        {% endif %}
+                        <ol class="breadcrumb mb-4">
+                        </ol>
+                        <div class="card mb-4">
+                            <!-- <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Жагсаалт
+                            </div> -->
+                            <div class="card-body">
+                                <div class="dataTable-top">
+                                    <div class="dataTable-dropdown">
+                                        <label>
+                                            {% if user.role_id == 1 %}
+                                            <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
+                                            {% elif user.role_id == 2 %}
+                                                <a href="{% url 'reg-user' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                    <div class="dataTable-search">
+                                        <!-- <input class="dataTable-input" placeholder="Хайх..." type="text"> -->
+                                    </div>
+                                </div>
+                                <!-- <div>
+                                    {% if user.role_id == 1 %}
+                                        <a href="{% url 'product' %}">prod burtguuleh</a>
+                                        <input class="btn btn-lg btn-secondary btn-block" type="submit"  value='Нэвтрэх'></input>
+                                    {% elif user.role_id == 2 %}
+                                        <a href="{% url 'reg-user' %}">cus burtguuleh</a>
+                                    {% endif %}
+                                </div> -->
+                                
+                            </div>
+                            <!-- <div class="dataTable-bottom">
+                                <div class="dataTable-info">Showing 51 to 57 of 57 entries</div>
+                                <nav class="dataTable-pagination">
+                                    <ul class="dataTable-pagination-list">
+                                        <li class="pager"><a href="#" data-page="5">‹</a></li>
+                                        <li class=""><a href="#" data-page="1">1</a></li>
+                                        <li class=""><a href="#" data-page="2">2</a></li>
+                                        <li class=""><a href="#" data-page="3">3</a></li>
+                                        <li class=""><a href="#" data-page="4">4</a></li>
+                                        <li class=""><a href="#" data-page="5">5</a></li>
+                                        <li class="active"><a href="#" data-page="6">6</a></li>
+                                        <li class="pager"><a href="#" data-page="6">›</a></li>
+                                    </ul>
+                                </nav>
+                            </div> -->
+                        </div>
+                    </div>
+                </main>
+            </div>        
 
+            
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>

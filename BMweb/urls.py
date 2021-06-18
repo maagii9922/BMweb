@@ -4,14 +4,14 @@ from . import views
 
 urlpatterns = [
     path('',views.home),
-    path('reg-user', views.hereglegch),
+    path('reg-user', views.hereglegch,name='reg-user'),
     path('reg-list', views.hereglegchList),
     path('change-state/<hereglegch_id>/<state_id>', views.changeState),
     path('login', views.login),
     path('thanks/', views.thanks),
     path('company/', views.company),
     path('company-list',views.companyList),
-    path('product',views.product),
+    path('product',views.product,name='product'),
     path('product-list',views.productList),
     path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
 

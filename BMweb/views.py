@@ -9,10 +9,11 @@ from .models import Customer, EmHelber, Hereglegch,Paiz,State, HereglegchRole,Pr
 
 # class CompanyListView(ListView):
 
-def home(request):
+def home(request):    
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         return render(request,'home.html', {'user': h })
+        
     return render(request,'home.html')
     # if 'user_id' in request.session:
     #     h = Hereglegch.objects.get(pk=request.session['user_id'])
@@ -159,14 +160,14 @@ def init(request):
     l1 = HereglegchRole.objects.create(levelName='Бараа шинээр бүртгэх хүсэлт илгээх')
     l2 = HereglegchRole.objects.create(levelName='Харилцагч шинээр бүртгэх хүсэлт илгээх')
     l3 = HereglegchRole.objects.create(levelName='Бараа болон харилцагч шинээр бүртгэх хүсэлт хянаад зөвшөөрөх')
-    l3 = HereglegchRole.objects.create(levelName='Дата бүртгэлийн ажилтан')
+    l4 = HereglegchRole.objects.create(levelName='Дата бүртгэлийн ажилтан')
     c1 = Company.objects.create(comName='comp1', hayag='hayag1', phone='utas1')
     c2 = Company.objects.create(comName='comp2', hayag='hayag2', phone='utas2')
     c3 = Company.objects.create(comName='comp3', hayag='hayag3', phone='utas3')
     h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
-    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l1, state=s1, company=c1, password='123')
-    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l1, state=s1, company=c1, password='123')
-    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l1, state=s1, company=c1, password='123')
+    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s1, company=c1, password='123')
+    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s1, company=c1, password='123')
+    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s1, company=c1, password='123')
     pt1 = ProdType.objects.create(typeName="Үйлчилгээ")
     pt2 = ProdType.objects.create(typeName="Үлдэгдэл тооцох")
     paiz1 = Paiz.objects.create(paizName="emonos", paizKey='paizKey1', description='description1', ontslohEseh=True)

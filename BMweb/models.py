@@ -42,12 +42,12 @@ class HereglegchState(models.Model):
 class Hereglegch(models.Model):
     ovog=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн овог"))
     ner=models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нэр"))
-    mail = models.CharField(max_length=30, verbose_name=_("мейл хаяг"))
-    role = models.ForeignKey(HereglegchRole, on_delete=CASCADE )
-    state = models.ForeignKey(HereglegchState, on_delete=CASCADE )
-    company = models.ForeignKey(Company, on_delete=CASCADE )
+    mail = models.CharField(max_length=30, verbose_name=_("И-майл хаяг"))
+    role = models.ForeignKey(HereglegchRole, on_delete=CASCADE ,verbose_name=_("Эрхийн түвшин"))
+    state = models.ForeignKey(HereglegchState, on_delete=CASCADE , verbose_name=_("Хэрэглэгчийн төлөв"))
+    company = models.ForeignKey(Company, on_delete=CASCADE , verbose_name=_("Компани"))
     password  = models.CharField(max_length=30, verbose_name=_("Хэрэглэгчийн нууц үг"))
-    reg_date = models.DateTimeField(default=datetime.now)
+    reg_date = models.DateTimeField(default=datetime.now, verbose_name=_("Нэвтэрсэн огноо"))
 
     class Meta:
         verbose_name = _("Хэрэглэгч")
@@ -158,6 +158,8 @@ class EmHelber(models.Model):
 
     def __str__(self):
         return self.EmHelberName
+
+
 
 class Product(models.Model):
     prodName = models.CharField(max_length=50, verbose_name=_("Барааны нэр"))
