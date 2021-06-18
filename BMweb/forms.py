@@ -14,7 +14,7 @@ class HereglegchForm(ModelForm):
 
     class Meta:
         model = Hereglegch
-        fields = ['ovog', 'ner','mail', 'role', 'company', 'password']
+        fields = ['ovog', 'ner','mail', 'role','state', 'company', 'password','reg_date']
 
 class ProductForm(ModelForm):
     borBoloh = forms.BooleanField(required=False, initial=True)

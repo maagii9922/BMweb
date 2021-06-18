@@ -28,7 +28,13 @@
     <title>Нэвтрэх  </title>
 </head>
 <body class="bg-secondary">
-      {{errmsg}}
+      <!-- <div class="alert alert-danger" role="alert">
+        {{errmsg}}
+      </div> -->
+  <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">{{errmsg}}</span>
+  </button> -->
+     
      <!-- <form action='login' method='POST'>
         {% csrf_token %}
         <input type='email' name='mail' />
@@ -42,9 +48,9 @@
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-lg-5">
-                        <div class="card shadow-lg mt-5 bg-white rounded-lg">
+                        <div class="card shadow-lg mt-5 bg-light rounded-lg">
                           <!-- <div class="card shadow-lg border-0 rounded-lg mt-5"> -->
-                              <div class="card-header"><h5 class="text-center font-weight-light my-4">НЭВТРЭХ</h5></div>
+                              <div class="card-header" ><h5 class="text-center font-weight-light my-4 text-primary">~НЭВТРЭХ~</h5></div>
                               <div class="card-body">
                                   <form  role="form" action='login' method='POST'>
                                     {% csrf_token %}
@@ -62,16 +68,25 @@
                                       </div>
                                       <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                           <!-- <a class="small" href="password.html">Нууц үгээ мартсан?</a> -->
-                                          <input class="btn btn-lg btn-secondary btn-block" type="submit"  value='Нэвтрэх'></input>
+                                          <input class="btn btn-lg btn-primary btn-block" type="submit"  value='Нэвтрэх'></input>
                                       </div>
                                   </form>
                               </div>
+                              
                               <!-- <div class="card-footer text-center py-3">
                                   <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
                               </div> -->
                           </div>
+                            {% if errmsg %}
+                                <div class="alert alert-danger" role="alert">
+                                  {{errmsg}}
+                                </div>
+                            {% else %}
+                                <p></p> 
+                            {% endif %}
                       </div>
                   </div>
+                  
               </div>
           </main>
       </div>

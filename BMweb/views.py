@@ -31,7 +31,7 @@ def hereglegch(request):
         p1 = request.POST['password']
         p2 = request.POST['password1']
         if(p1 == p2):
-            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'],mail= request.POST['mail'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  ,state=  State.objects.get(pk= int(request.POST['state']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'],reg_date= request.POST['reg_date'])
+            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'],mail= request.POST['mail'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  ,state=  HereglegchState.objects.get(pk= int(request.POST['state']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'],reg_date= request.POST['reg_date'])
             h.save()
             return render(request,'home1.html' )
         else:
@@ -136,6 +136,8 @@ def login(request):
             return redirect('/')
         else:
             return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна"})
+    # else:
+    #     return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна"})
 
 def customer(request):
     c = Customer.objects.all()
@@ -179,6 +181,7 @@ def init(request):
     state2 = State.objects.create(stateName="Цуцалсан")
     state3 = State.objects.create(stateName="Захиалсан")
     em1 = EmHelber.objects.create(EmHelberName="Тун")
+    em2 = EmHelber.objects.create(EmHelberName="Капсул")
     # prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     # prod1 = Product.objects.create(prodName="prodName1", zCode="zCode1", prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
 

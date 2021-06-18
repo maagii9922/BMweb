@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 {% if user.role_id == 1 %}
-                                <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
+                                <a href="{% url 'product-list' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
                                 <table id="datatablesSimple" class="dataTable-table">
                                     <thead>
                                         <tr>
@@ -100,7 +100,7 @@
                                                 <a href="#" class="dataTable-sorter">Нэр</a>
                                             </th>
                                             <th data-sortable="" class="asc">
-                                                <a href="#" class="dataTable-sorter">майл</a>
+                                                <a href="#" class="dataTable-sorter">И-майл</a>
                                             </th>
                                             <th data-sortable="" class="asc">
                                                 <a href="#" class="dataTable-sorter">role</a>
@@ -155,7 +155,7 @@
                                     {% endfor %}    
                                 </table>
                                 {% elif user.role_id == 2 %}
-                                    <a href="{% url 'reg-user' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
+                                    <a href="{% url 'reg-list' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
                                     <table id="datatablesSimple" class="dataTable-table">
                                         <thead>
                                             <tr>
