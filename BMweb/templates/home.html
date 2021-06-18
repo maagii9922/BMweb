@@ -77,17 +77,138 @@
                                 <div class="dataTable-top">
                                     <div class="dataTable-dropdown">
                                         <label>
-                                            {% if user.role_id == 1 %}
+                                            <!-- {% if user.role_id == 1 %}
                                             <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
                                             {% elif user.role_id == 2 %}
                                                 <a href="{% url 'reg-user' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
-                                            {% endif %}
+                                            {% endif %} -->
                                         </label>
                                     </div>
                                     <div class="dataTable-search">
                                         <!-- <input class="dataTable-input" placeholder="Хайх..." type="text"> -->
                                     </div>
                                 </div>
+                                {% if user.role_id == 1 %}
+                                <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
+                                <table id="datatablesSimple" class="dataTable-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">ID</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">Нэр</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">майл</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">role</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter"></a>Төлөв</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">Нууц</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">Хаяг</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter">Хэрэглэгч</a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter"></a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter"></a>
+                                            </th>
+                                            <th data-sortable="" class="asc">
+                                                <a href="#" class="dataTable-sorter"></a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    {% for h in productList %}
+                                        <tr>
+                                            <td>{{ h.prodName }}</td>
+                                            <!-- <td>{{ h.zCode }}</td> -->
+                                            <td>{{ h.prodType }}</td>
+                                            <!-- <td>{{ h.zzCode }}</td> -->
+                                            <!-- <td>{{ h.price }}</td> -->
+                                            <!-- <td>{{ h.hemNegj }}</td> -->
+                                            <!-- <td>{{ h.hudNegj }}</td> -->
+                                            <td>{{ h.company }}</td>
+                                            <!-- <td>{{ h.erNershil }}</td> -->
+                                            <td>{{ h.emHelber }}</td>
+                                            <!-- <td>{{ h.paiz }}</td> -->
+                                            <!-- <td>{{ h.uildwerlegch }}</td> -->
+                                            <td>{{ h.uNiiluulegch }}</td>
+                                            <td>{{ h.category }}</td>
+                                            <!-- <td>{{ h.borBoloh }}</td> -->
+                                            <!-- <td>{{ h.hudAwch }}</td> -->
+                                            <td>{{ h.zarBoloh }}</td>
+                                            <td>{{ h.state }}</td>
+                                            <td><a href="/change-stateProd/{{h.id}}/1">Батлах</a></td>
+                                            <td><a href="/change-stateProd/{{h.id}}/2">Цуцлах</a></td>
+                                            <td><a href="/change-stateProd/{{h.id}}/3">Захиалах</a></td>
+                                        </tr>            
+                                    {% endfor %}    
+                                </table>
+                                {% elif user.role_id == 2 %}
+                                    <a href="{% url 'reg-user' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
+                                    <table id="datatablesSimple" class="dataTable-table">
+                                        <thead>
+                                            <tr>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">ID</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">Нэр</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">хаяг</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">role</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter"></a>Төлөв</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">Нууц үг</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">Хаяг</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter">Хэрэглэгч</a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter"></a>
+                                                </th>
+                                                <th data-sortable="" class="asc">
+                                                    <a href="#" class="dataTable-sorter"></a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        {% for h in HereglegchList %}
+                                            <tr>
+                                                <td>{{ h.id }}</td>
+                                                <td>{{ h.ovog }}</td>
+                                                <td>{{ h.ner }}</td>
+                                                <td>{{ h.mail }}</td>
+                                                <td>{{ h.role }}</td>
+                                                <td>{{ h.state }}</td>
+                                                <td>{{ h.state_id }}</td>
+                                                <td>{{ h.reg_date | date:"Y-m-d" }}</td>
+                                                <td><a href="/change-state/{{h.id}}/2">Батлах</a></td>
+                                                <td><a href="/change-state/{{h.id}}/3">Цуцлах</a></td>
+                                            </tr>        
+                                        {% endfor %}
+                                        </table>
+                                {% elif user.role_id == 4 %}
+                                <p>Дата бүртгэлийн ажилтан</p>
+                                {% endif %}
                                 <!-- <div>
                                     {% if user.role_id == 1 %}
                                         <a href="{% url 'product' %}">prod burtguuleh</a>
