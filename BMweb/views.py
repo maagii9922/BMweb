@@ -75,6 +75,9 @@ def company(request):
         return render(request,'home1.html' )
 
 def companyList(request):
+    if 'user_id' in request.session:
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        return render(request,'home.html', {'user': h })
     c = Company.objects.all()
     return render(request, 'companyList.html',{'companyList': c})
 
