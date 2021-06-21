@@ -154,9 +154,7 @@ def login(request):
             return redirect('/')
         else:
             return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна"})
-    # else:
-    #     return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна"})
-
+    
 def customer(request):
     c = Customer.objects.all()
     # print(h)
@@ -185,7 +183,7 @@ def init(request):
     c2 = Company.objects.create(comName='comp2', hayag='hayag2', phone='utas2')
     c3 = Company.objects.create(comName='comp3', hayag='hayag3', phone='utas3')
     h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
-    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s1, company=c1, password='123')
+    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s2, company=c1, password='123')
     h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s1, company=c1, password='123')
     h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s1, company=c1, password='123')
     pt1 = ProdType.objects.create(typeName="Үйлчилгээ")

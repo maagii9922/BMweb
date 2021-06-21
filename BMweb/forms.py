@@ -20,6 +20,7 @@ class ProductForm(ModelForm):
     borBoloh = forms.BooleanField(required=False, initial=True)
     hudAwch = forms.BooleanField(required=False, initial=True)
     zarBoloh = forms.BooleanField(required=False, initial=True)
+    # company = forms.ModelMultipleChoiceField(queryset=Company.objects.all(),widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Product
