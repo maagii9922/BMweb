@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Hereglegch,Customer,Company,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState,EmHelber
+from .models import Hereglegch,Customer,Company,HemNegj ,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState,EmHelber
 
 
 # class CompanyAdmin(admin.ModelAdmin):
@@ -27,7 +27,7 @@ class ProdBrandAdmin(admin.ModelAdmin):
 admin.site.register(ProdBrand, ProdBrandAdmin)
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display= ('name', 'code','company', 'mail', 'password')    
+    list_display= ('name', 'hayag','company', 'mail', 'password')    
 admin.site.register(Customer, CustomerAdmin)
 
 class PaizAdmin(admin.ModelAdmin):
@@ -39,6 +39,7 @@ class HereglegchAdmin(admin.ModelAdmin):
 admin.site.register(Hereglegch, HereglegchAdmin)
 
 admin.site.register(EmHelber)
+admin.site.register(HemNegj)
 admin.site.register(State)
 admin.site.register(Category)
 admin.site.register(ProdType)

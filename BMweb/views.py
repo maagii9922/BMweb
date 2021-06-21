@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Customer, EmHelber, Hereglegch,Paiz,State, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
+from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 
 
 # class CompanyListView(ListView):
@@ -101,13 +101,13 @@ def product(request):
                 prodType=  ProdType.objects.get(pk= int(request.POST['prodType'])),
                 zzCode= request.POST['zzCode'],
                 price= request.POST['price'],
-                hemNegj= request.POST['hemNegj'],
+                hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj'])),
                 hudNegj= request.POST['hudNegj'],
                 company=  Company.objects.get(pk= int(request.POST['company'])),
                 erNershil= request.POST['erNershil'],
-                emHelber= request.POST['emHelber'],
+                emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
                 paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
-                uildwerlegch= request.POST['uildwerlegch'],
+                uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
                 uNiiluulegch= request.POST['uNiiluulegch'],
                 category=  Category.objects.get(pk= int(request.POST['category'])),
                 borBoloh= borb,
@@ -131,6 +131,13 @@ def changeStateProd(request, product_id, state_id):
     h.state = State.objects.get(pk=state_id) 
     h.save()    
     return redirect('/product-list')
+
+# @csrf_exempt
+# def changeStateCom(request, company_id, state_id):
+#     h = Product.objects.get(pk=company_id)
+#     h.state = State.objects.get(pk=state_id) 
+#     h.save()    
+#     return redirect('/product-list')
 
 def login(request):
     if request.method == 'GET':
@@ -188,11 +195,16 @@ def init(request):
     cat1 = Category.objects.create(catName="catName1")
     cat2 = Category.objects.create(catName="catName2")
     cat3 = Category.objects.create(catName="catName3")
+    # cus1 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
+    # cus2 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
+    # cus3 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     state1 = State.objects.create(stateName="Батлагдсан")
     state2 = State.objects.create(stateName="Цуцалсан")
     state3 = State.objects.create(stateName="Захиалсан")
-    em1 = EmHelber.objects.create(EmHelberName="Тун")
-    em2 = EmHelber.objects.create(EmHelberName="Капсул")
+    em1 = EmHelber.objects.create(emHelberName="Тун")
+    em2 = EmHelber.objects.create(emHelberName="Капсул")
+    hemNegj1 = HemNegj.objects.create(hemNegjName="гр")
+    hemNegj2 = HemNegj.objects.create(hemNegjName="мл")
     # prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     # prod1 = Product.objects.create(prodName="prodName1", zCode="zCode1", prodType=pt1, zzCode=123, price=123, hemNegj=123, hudNegj=123, company=c1, erNershil= 'erNershil1', emHelber="emHelber1", paiz=paiz1, uildwerlegch="uildwerlegch1", category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
 
