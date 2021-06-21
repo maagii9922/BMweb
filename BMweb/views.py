@@ -13,8 +13,19 @@ def home(request):
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         return render(request,'home.html', {'user': h })
+    else:
+        return redirect('/login')        
         
-    return render(request,'home.html')
+    return render(request,'home.html') 
+
+
+      
+    # if 'user_id' in request.session:
+    #     h = Hereglegch.objects.get(pk=request.session['user_id'])
+    #     return render(request,'home.html', {'user': h })
+        
+    # return render(request,'home.html')
+
     # if 'user_id' in request.session:
     #     h = Hereglegch.objects.get(pk=request.session['user_id'])
     #     if h in request.PO:
