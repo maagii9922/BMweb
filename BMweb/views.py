@@ -207,6 +207,7 @@ def customer(request):
 def thanks(request):
     return HttpResponse('thanks')
 
+
 def manufacturer(request):
     m = Manufacturer.objects.all()
     return render(request,'test.html', {'manufacturer': m})
