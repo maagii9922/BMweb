@@ -22,9 +22,9 @@ class ManufacturerAdmin(admin.ModelAdmin):
     list_display= ('manName', 'manPic')    
 admin.site.register(Manufacturer, ManufacturerAdmin)
 
-class ProdBrandAdmin(admin.ModelAdmin):
-    list_display= ('brandName', 'brandCode','slug', 'description', 'ontslohEseh','idewhiteiEseh', 'pic', 'picBig','thumbimage', 'erembe', 'category','manufacturer')    
-admin.site.register(ProdBrand, ProdBrandAdmin)
+# class ProdBrandAdmin(admin.ModelAdmin):
+#     list_display= ('brandName', 'brandCode','slug', 'description', 'ontslohEseh','idewhiteiEseh', 'pic', 'picBig','thumbimage', 'erembe', 'category','manufacturer')    
+# admin.site.register(ProdBrand, ProdBrandAdmin)
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display= ('name', 'hayag','company', 'mail', 'password')    

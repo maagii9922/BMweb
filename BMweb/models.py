@@ -60,6 +60,7 @@ class Hereglegch(models.Model):
 class Category(models.Model):
     catName = models.CharField(max_length=300, verbose_name=_("Ангилалын нэр"))
     # parent = models.ForeignKey('self',blank=True, null=True,related_name='child', on_delete=models.CASCADE)
+    parent = models.IntegerField(null=True, blank=True, verbose_name=_("эцэг ангилал"))
 
     class Meta:
         verbose_name = _("Ангилал")
@@ -98,17 +99,17 @@ class ProdBrand(models.Model):
     idewhiteiEseh = models.BooleanField(verbose_name=_("Идэвхитэй эсэх"))
     pic = models.ImageField(null=True, blank=True, upload_to="media/brand/", verbose_name=_("Зураг"))
     picBig = models.ImageField(null=True, blank=True, upload_to="media/brand/", verbose_name=_("Том зураг"))
-    thumbimage = models.ImageField(null=True, blank=True,upload_to="media/brandthumb/", verbose_name=_("Зураг"))
+    thumbimage = models.ImageField(null=True, blank=True, upload_to="media/brandthumb/", verbose_name=_("Зураг"))
     erembe = models.IntegerField(null=True, blank=True, verbose_name=_("Эрэмбэ"))
-    category = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name=_("Ангилал"))
-    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE,verbose_name=_("Үйлдвэрлэгч"))
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name=_("Ангилал"))
+    # manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE,verbose_name=_("Үйлдвэрлэгч"))
 
     class Meta:
         verbose_name = _("Бүтээгдэхүүний бренд")
         verbose_name_plural = _("Бүтээгдэхүүний бренд")
 
     def __str__(self):
-        return self.brandName+" "+str(self.manufacturer)
+        return self.brandName   #+" "+str(self.manufacturer)
 
 class Customer(models.Model):
     name = models.CharField(max_length=300, verbose_name=_("Харилцагчийн нэр"))
@@ -181,7 +182,9 @@ class HemNegj(models.Model):
 
 class Product(models.Model):
     prodName = models.CharField(max_length=300, verbose_name=_("Барааны нэр"))
-    zCode = models.IntegerField(null=True, blank=True, verbose_name=_("Зураасан код"))
+    prodName_en = models.CharField(max_length=300, verbose_name=_("Барааны нэр англи"))
+    brand = models.ForeignKey(ProdBrand, related_name='brands',on_delete=models.CASCADE, verbose_name=_("Брэнд нэр"))
+    zCode = models.CharField(max_length=300, null=True, blank=True, verbose_name=_("Зураасан код"))
     prodType = models.ForeignKey(ProdType, related_name='products',on_delete=models.CASCADE, verbose_name=_("Төрлийн нэр"))
     zzCode = models.IntegerField(null=True, blank=True, verbose_name=_("Нэмэлт зураасан код"))
     price = models.DecimalField(max_digits=16, decimal_places=2, verbose_name=_("Үнэ"))
@@ -193,9 +196,8 @@ class Product(models.Model):
     paiz = models.ForeignKey(Paiz, on_delete=models.CASCADE,verbose_name=_("Пайз"))
     uildwerlegch = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, verbose_name=_("Үйлдвэрлэгч"))
     uNiiluulegch = models.CharField(max_length=300, verbose_name=_("Үндсэн нийлүүлэгч"))
-    # prodBrand = models.ForeignKey(ProdBrand,  on_delete=models.CASCADE,verbose_name=_("Барааны бренд"))
     # category = models.CharField(max_length=50, verbose_name=_("Дотоод ангилал"))
-    category = models.ForeignKey(Category,related_name='products', on_delete=models.CASCADE,verbose_name=_("Ангилал"))
+    category = models.ForeignKey(Category,related_name='categories', on_delete=models.CASCADE, verbose_name=_("Ангилал"))
     borBoloh = models.BooleanField(verbose_name=_("Борлуулж болох эсэх"),default=False)
     hudAwch = models.BooleanField(verbose_name=_("Худалдан авч болох эсэх"),default=False)
     zarBoloh = models.BooleanField(verbose_name=_("Зарлагдаж болох эсэх"),default=False)

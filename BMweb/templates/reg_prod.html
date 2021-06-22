@@ -1,3 +1,4 @@
+{{errmsg}}
 <main>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
@@ -11,26 +12,147 @@
                         <form method='POST' id="reg_prod_form" >
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="prodName1" class="form-label">Бүтээгдэхүүний нэр</label>
-                                <input type="text" class="form-control" id="prodName1" name="prodName" placeholder="Бүтээгдэхүүний нэр" required onblur="checkValid()"/>
+                                <label for="prodName" class="form-label">Бүтээгдэхүүний нэр</label>
+                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required onblur="checkValid()" value="{{data.prodName}}"}/>
                               </div>
                               <div class="mb-3">
-                                <label for="prodName2" class="form-label">Бүтээгдэхүүний нэр2</label>
-                                <input type="text" class="form-control" id="prodName2" name="prodName2" placeholder="Бүтээгдэхүүний нэр2" required onblur="checkValid()"/>
+                                <label for="prodName_en" class="form-label">Бүтээгдэхүүний нэр англи</label>
+                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required onblur="checkValid()" value="{{data.prodName_en}}"/>
                               </div>
                               <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Тайлбар</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label for="brand" class="form-label">Брэнд нэр</label>
+                                <select name="brand" id="brand">
+                                    <option>-------------</option>
+                                    {% for b in brand %}
+                                    <option value="{{b.brandCode}}">{{b.brandName}}</option>
+                                    {% endfor %} 
+                                </select>
                               </div>
-                            <!-- {{ProductForm.id}} -->
-                            <!-- <input id="had" type='submit'  value='Хадгалах' onclick="hadgalah()"/> -->
-                            <button type="button" class="btn btn-primary" id="had" disabled>Хадгалах</button>
+                              <div class="mb-3">
+                                <label for="type" class="form-label">төрөл</label>
+                                <select name="type" id="type">
+                                    <option>-------------</option>
+                                    {% for t in type %}
+                                    <option value="{{t.id}}">{{t.typeName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="emHelber" class="form-label">эм хэлбэр</label>
+                                <select name="emHelber" id="emHelber">
+                                    <option>-------------</option>
+                                    {% for eh in emHelber %}
+                                    <option value="{{eh.id}}">{{eh.emHelberName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <style>
+                                    ul, #myUL {
+                                      list-style-type: none;
+                                    }
+                                    
+                                    #myUL {
+                                      margin: 0;
+                                      padding: 0;
+                                    }
+                                    
+                                    .caret {
+                                      cursor: pointer;
+                                      -webkit-user-select: none; /* Safari 3.1+ */
+                                      -moz-user-select: none; /* Firefox 2+ */
+                                      -ms-user-select: none; /* IE 10+ */
+                                      user-select: none;
+                                    }
+                                    
+                                    .caret::before {
+                                      content: "\25B6";
+                                      color: black;
+                                      display: inline-block;
+                                      margin-right: 6px;
+                                    }
+                                    
+                                    .caret-down::before {
+                                      -ms-transform: rotate(90deg); /* IE 9 */
+                                      -webkit-transform: rotate(90deg); /* Safari */'
+                                      transform: rotate(90deg);  
+                                    }
+                                    
+                                    .nested {
+                                      display: none;
+                                    }
+                                    
+                                    .active {
+                                      display: block;
+                                    }
+                                    </style>
+                                <ul id="myUL">
+                                    {% for c in cat %}
+                                    {% if c.parent == None %}
+                                    <li value="{{c.id}}"><span class="caret">{{c.catName}} {{c.parent}}</span>
+                                      <ul class="nested">
+                                        {% for c1 in cat %}
+                                        {% if c1.parent == c.id %}
+                                        <li value="{{c1.id}}"><span class="caret">{{c1.catName}} {{c1.parent}}</span>
+                                            <ul class="nested">
+                                                {% for c2 in cat %}
+                                                {% if c2.parent == c1.id %}
+                                                <li value="{{c2.id}}"><span class="caret">{{c2.catName}} {{c2.parent}}</span>
+                                                    <ul class="nested">
+                                                        {% for c3 in cat %}
+                                                        {% if c3.parent == c2.id %}
+                                                        <li value="{{c3.id}}"><span class="caret">{{c3.catName}} {{c3.parent}}</span>
+                                                            <ul class="nested">
+                                                                {% for c4 in cat %}
+                                                                {% if c4.parent == c3.id %}
+                                                                <li value="{{c4.id}}"><span class="caret">{{c4.catName}} {{c4.parent}}</span>
+                                                                    <ul class="nested">
+                                                                        {% for c5 in cat %}
+                                                                        {% if c5.parent == c4.id %}
+                                                                        <li value="{{c3.id}}"><span class="caret">{{c5.catName}} {{c5.parent}}</span>
+                                                                         
+                                                                        </li>  
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                      </ul>
+                                                                </li>  
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                              </ul>
+                                                        </li>  
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                      </ul>
+                                                </li>  
+                                                {% endif %}
+                                                {% endfor %}
+                                              </ul>
+                                        </li>  
+                                        {% endif %}
+                                        {% endfor %}
+                                      </ul>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                  </ul>
+                              </div>
+                            <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах'/>
+                            <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
                             <script>
+                                var toggler = document.getElementsByClassName("caret");
+                                var i;
+
+                                for (i = 0; i < toggler.length; i++) {
+                                toggler[i].addEventListener("click", function() {
+                                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                                    this.classList.toggle("caret-down");
+                                });
+                                }
                                 function checkValid(){                                
-                                    const form = document.getElementById('reg_prod_form');
-                                    form.addEventListener("change", () => {
-                                        document.getElementById('had').disabled = !form.checkValidity()
-                                    });
+                                    // const form = document.getElementById('reg_prod_form');
+                                    // form.addEventListener("change", () => {
+                                    //     document.getElementById('had').disabled = !form.checkValidity()
+                                    // });
                                 }
                             </script>
                         </form>
