@@ -59,6 +59,7 @@ class Hereglegch(models.Model):
 
 class Category(models.Model):
     catName = models.CharField(max_length=300, verbose_name=_("Ангилалын нэр"))
+    # parent = models.ForeignKey('self',blank=True, null=True,related_name='child', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("Ангилал")
@@ -66,6 +67,15 @@ class Category(models.Model):
 
     def __str__(self):
         return self.catName
+
+    # def __str__(self):                           
+    #     full_path = [self.catName]            
+    #     k = self.parent
+    #     while k is not None:
+    #         full_path.append(k.catName)
+    #         k = k.parent
+
+    #     return ' -> '.join(full_path[::-1])
 
 class Manufacturer(models.Model):
     manName = models.CharField(max_length=300,verbose_name=_("Үйлдвэрлэгчийн нэр"))

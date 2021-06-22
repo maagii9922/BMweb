@@ -83,7 +83,7 @@ def companyList(request):
 
 def companyUpdate(request,company_id):
     h = Product.objects.get(pk=company_id)
-    print(h)
+    # print(h)
     if request.method == 'POST':
         form = CompanyForm(data=request.POST)
         if form.is_valid():
@@ -147,7 +147,7 @@ def changeStateProd(request, product_id, state_id):
 @csrf_exempt
 def productUpdate(request, product_id):
     h = Product.objects.get(pk=product_id)
-    print(h)
+    # print(h)
     if request.method == 'GET':
         form = ProductForm()
         return render(request,'product.html', {'ProductForm': ProductForm})
