@@ -81,6 +81,15 @@ def companyList(request):
     c = Company.objects.all()
     return render(request, 'companyList.html',{'companyList': c})
 
+def companyUpdate(request,company_id):
+    h = Product.objects.get(pk=company_id)
+    print(h)
+    if request.method == 'POST':
+        form = CompanyForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('company-list')
+
 def product(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
     # r.save()
@@ -135,12 +144,44 @@ def changeStateProd(request, product_id, state_id):
     h.save()    
     return redirect('/product-list')
 
-# @csrf_exempt
-# def changeStateCom(request, company_id, state_id):
-#     h = Product.objects.get(pk=company_id)
-#     h.state = State.objects.get(pk=state_id) 
-#     h.save()    
-#     return redirect('/product-list')
+@csrf_exempt
+def productUpdate(request, product_id):
+    h = Product.objects.get(pk=product_id)
+    print(h)
+    if request.method == 'GET':
+        form = ProductForm()
+        return render(request,'product.html', {'ProductForm': ProductForm})
+    elif request.method == 'POST':
+        borb = False
+        if 'borBoloh' in request.POST:
+            borb = True
+        huda = False
+        if 'hudAwch' in request.POST:
+            huda = True
+        if 'zarBoloh' in request.POST:
+            zarb = True
+        h = Product(
+                prodName= request.POST['prodName'],
+                zCode= request.POST['zCode'],
+                prodType=  ProdType.objects.get(pk= int(request.POST['prodType'])),
+                zzCode= request.POST['zzCode'],
+                price= request.POST['price'],
+                hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj'])),
+                hudNegj= request.POST['hudNegj'],
+                company=  Company.objects.get(pk= int(request.POST['company'])),
+                erNershil= request.POST['erNershil'],
+                emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
+                paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
+                uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
+                uNiiluulegch= request.POST['uNiiluulegch'],
+                category=  Category.objects.get(pk= int(request.POST['category'])),
+                borBoloh= borb,
+                hudAwch= huda,
+                zarBoloh= zarb,
+                state=  State.objects.get(pk= int(request.POST['state'])),
+                )
+        h.save()
+        return render(request,'home1.html' )
 
 def login(request):
     if request.method == 'GET':
@@ -193,9 +234,9 @@ def init(request):
     pt2 = ProdType.objects.create(typeName="Үлдэгдэл тооцох")
     paiz1 = Paiz.objects.create(paizName="emonos", paizKey='paizKey1', description='description1', ontslohEseh=True)
     paiz2 = Paiz.objects.create(paizName="Ундрам хан хангай ХХК", paizKey='paizKey2', description='description2', ontslohEseh=True)
-    cat1 = Category.objects.create(catName="catName1")
-    cat2 = Category.objects.create(catName="catName2")
-    cat3 = Category.objects.create(catName="catName3")
+    cat1 = Category.objects.create(catName="Хүнс")
+    cat2 = Category.objects.create(catName="гэр ахуй")
+    cat3 = Category.objects.create(catName="гоо сайхан")
     # cus1 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus2 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus3 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
