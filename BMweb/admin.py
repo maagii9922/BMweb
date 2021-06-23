@@ -15,7 +15,7 @@ admin.site.register(Company, CompanyAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
     filter_horizontal = ('company',)
-    list_display= ('prodName', 'zCode', 'prodType','zzCode', 'price', 'hemNegj','hudNegj', 'erNershil','emHelber', 'paiz', 'uildwerlegch', 'uNiiluulegch','category', 'borBoloh', 'hudAwch', 'zarBoloh','state')    
+    list_display= ('prodName', 'zCode', 'prodType','zzCode', 'price', 'hemNegj','hudNegj', 'erNershil','emHelber', 'paiz', 'uildwerlegch','uNiiluulegch','category', 'borBoloh', 'hudAwch', 'zarBoloh','state')    
 admin.site.register(Product, ProductAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):
@@ -35,7 +35,7 @@ class PaizAdmin(admin.ModelAdmin):
 admin.site.register(Paiz, PaizAdmin)
 
 class HereglegchAdmin(admin.ModelAdmin):
-    list_display= ('ovog', 'ner','mail','role', 'company', 'password')    
+    list_display= ('ovog', 'ner','mail','role','state', 'company', 'password','reg_date')    
 admin.site.register(Hereglegch, HereglegchAdmin)
 
 admin.site.register(EmHelber)

@@ -129,6 +129,7 @@ def product(request):
                     paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
                     uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
                     uNiiluulegch= request.POST['uNiiluulegch'],
+                    # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
                     category=  Category.objects.get(pk= int(request.POST['category'])),
                     borBoloh= borb,
                     hudAwch= huda,
@@ -184,6 +185,7 @@ def productUpdate(request, product_id):
                 paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
                 uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
                 uNiiluulegch= request.POST['uNiiluulegch'],
+                # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
                 category=  Category.objects.get(pk= int(request.POST['category'])),
                 borBoloh= borb,
                 hudAwch= huda,
@@ -266,6 +268,8 @@ def init(request):
     uildver2 = Manufacturer.objects.create(manName="manu2")
     uildver3 = Manufacturer.objects.create(manName="manu3")
     uildver4 = Manufacturer.objects.create(manName="manu4")
+    prodBrand = ProdBrand.objects.create(brandName="brandName", brandCode="brandCode", slug="pt1", description="12ad3", ontslohEseh=True, idewhiteiEseh=True,  uildwerlegch=uildver1,category=cat1)
+    
     prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch='монос', category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     prod1.company.add(c1)
     prod1.company.add(c2)
