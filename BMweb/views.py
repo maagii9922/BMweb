@@ -69,20 +69,23 @@ def changeState(request, hereglegch_id, state_id):
 def company(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
     # r.save()
-    if request.method == 'GET':
-        form = CompanyForm()
-        return render(request,'company.html', {'CompanyForm': CompanyForm})
-    elif request.method == 'POST':
-        h = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
-        h.save()
-        return render(request,'home1.html' )
+    if 'user_id' in request.session:
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        if request.method == 'GET':
+            form = CompanyForm()
+            return render(request,'company.html', {'CompanyForm': CompanyForm,'user': h})
+        elif request.method == 'POST':
+            h = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
+            h.save()
+            return render(request,'home1.html' )
 
 def companyList(request):
     if 'user_id' in request.session:
+        p = Company.objects.all()
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'home.html', {'user': h })
-    c = Company.objects.all()
-    return render(request, 'companyList.html',{'companyList': c})
+        return render(request,'companyList.html', {'user': h, 'companyList': p })
+    else: 
+        return redirect('/login')  
 
 def companyUpdate(request,company_id):
     h = Product.objects.get(pk=company_id)
@@ -96,42 +99,44 @@ def companyUpdate(request,company_id):
 def product(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
     # r.save()
-    if request.method == 'GET':
-        form = ProductForm()
-        return render(request,'product.html', {'ProductForm': ProductForm})
-    elif request.method == 'POST':
-        # print('asdfasjf sflj salfjsaljf slfj')
-        # print(request.POST['borBoloh'])
-        borb = False
-        if 'borBoloh' in request.POST:
-            borb = True
-        huda = False
-        if 'hudAwch' in request.POST:
-            huda = True
-        if 'zarBoloh' in request.POST:
-            zarb = True
-        h = Product(
-                prodName= request.POST['prodName'],
-                zCode= request.POST['zCode'],
-                prodType=  ProdType.objects.get(pk= int(request.POST['prodType'])),
-                zzCode= request.POST['zzCode'],
-                price= request.POST['price'],
-                hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj'])),
-                hudNegj= request.POST['hudNegj'],
-                company=  Company.objects.get(pk= int(request.POST['company'])),
-                erNershil= request.POST['erNershil'],
-                emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
-                paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
-                uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
-                uNiiluulegch= request.POST['uNiiluulegch'],
-                category=  Category.objects.get(pk= int(request.POST['category'])),
-                borBoloh= borb,
-                hudAwch= huda,
-                zarBoloh= zarb,
-                state=  State.objects.get(pk= int(request.POST['state'])),
-                )
-        h.save()
-        return render(request,'home1.html' )
+    if 'user_id' in request.session:
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        if request.method == 'GET':
+            form = ProductForm()
+            return render(request,'product.html', {'ProductForm': ProductForm,'user': h})
+        elif request.method == 'POST':
+            # print('asdfasjf sflj salfjsaljf slfj')
+            # print(request.POST['borBoloh'])
+            borb = False
+            if 'borBoloh' in request.POST:
+                borb = True
+            huda = False
+            if 'hudAwch' in request.POST:
+                huda = True
+            if 'zarBoloh' in request.POST:
+                zarb = True
+            h = Product(
+                    prodName= request.POST['prodName'],
+                    zCode= request.POST['zCode'],
+                    prodType=  ProdType.objects.get(pk= int(request.POST['prodType'])),
+                    zzCode= request.POST['zzCode'],
+                    price= request.POST['price'],
+                    hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj'])),
+                    hudNegj= request.POST['hudNegj'],
+                    company=  Company.objects.get(pk= int(request.POST['company'])),
+                    erNershil= request.POST['erNershil'],
+                    emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
+                    paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
+                    uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
+                    uNiiluulegch= request.POST['uNiiluulegch'],
+                    category=  Category.objects.get(pk= int(request.POST['category'])),
+                    borBoloh= borb,
+                    hudAwch= huda,
+                    zarBoloh= zarb,
+                    state=  State.objects.get(pk= int(request.POST['state'])),
+                    )
+            h.save()
+            return render(request,'home1.html' )
 
 def productList(request):
     
@@ -233,9 +238,9 @@ def init(request):
     l2 = HereglegchRole.objects.create(levelName='Харилцагч шинээр бүртгэх хүсэлт илгээх')
     l3 = HereglegchRole.objects.create(levelName='Бараа болон харилцагч шинээр бүртгэх хүсэлт хянаад зөвшөөрөх')
     l4 = HereglegchRole.objects.create(levelName='Дата бүртгэлийн ажилтан')
-    c1 = Company.objects.create(comName='comp1', hayag='hayag1', phone='utas1')
-    c2 = Company.objects.create(comName='comp2', hayag='hayag2', phone='utas2')
-    c3 = Company.objects.create(comName='comp3', hayag='hayag3', phone='utas3')
+    c1 = Company.objects.create(comName='emonos', hayag='hayag1', phone='utas1')
+    c2 = Company.objects.create(comName='Ундрам хан хангай ХХК', hayag='hayag2', phone='utas2')
+    c3 = Company.objects.create(comName='МУБ', hayag='hayag3', phone='utas3')
     h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
     h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s2, company=c1, password='123')
     h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s1, company=c1, password='123')
@@ -261,7 +266,7 @@ def init(request):
     uildver2 = Manufacturer.objects.create(manName="manu2")
     uildver3 = Manufacturer.objects.create(manName="manu3")
     uildver4 = Manufacturer.objects.create(manName="manu4")
-    prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    prod1 = Product.objects.create(prodName="prodName1", zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch='монос', category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     prod1.company.add(c1)
     prod1.company.add(c2)
     prod1.company.add(c3)

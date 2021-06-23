@@ -7,143 +7,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Тавтай </title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="login.html">Start</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Хайх..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!"><i class="fas fa-user"></i>  {{user.ner}}</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="login"><i class="fas fa-sign-out-alt"></i>   Гарах</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+        {% include "topNav.html" %}
         <div id="layoutSidenav"> 
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div>
-                                Хүсэлтийн жагсаалт
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="product-list">Бараа бүртгүүлэх хүсэлтийн жагсаалт</a>
-                                    <a class="nav-link" href="company-list">Харилцагч бүртгүүлэх хүсэлтийн жагсаалт</a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>  
+            {% include "leftNav.html" %}
             <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>
-                        <ol class="breadcrumb mb-4">
-                        </ol>
-                        <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Жагсаалт
-                            </div>
-                            <div class="card-body">
-                                <div class="dataTable-top">
-                                    <div class="dataTable-dropdown">
-                                        <label>
-                                            <select class="dataTable-selector">
-                                                <option value="2">2</option>
-                                                <option value="10" selected="">10</option>
-                                                <option value="15">15</option>
-                                                <option value="20">20</option>
-                                                <option value="25">25</option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <div class="dataTable-search">
-                                        <input class="dataTable-input" placeholder="Хайх..." type="text">
-                                    </div>
-                                </div>
-                                <table id="datatablesSimple" class="dataTable-table">
-                                  <thead>
-                                      <tr>
-                                          <th data-sortable="" class="asc">
-                                              <a href="#" class="dataTable-sorter">Нэр</a>
-                                          </th>
-                                          <th data-sortable="" class="asc">
-                                              <a href="#" class="dataTable-sorter">хаяг</a>
-                                          </th>
-                                          <th data-sortable="" class="asc">
-                                              <a href="#" class="dataTable-sorter">утас</a>
-                                          </th>
-                                          
-                                      </tr>
-                                  </thead>
-                                  {% for h in companyList %}
-                                      <tr>
-                                          <td>{{ h.comName }}</td>
-                                          <td>{{ h.hayag }}</td>
-                                          <td>{{ h.phone }}</td>
-                                          <td><a href="/change-state/{{h.id}}/2">Батлах</a></td>
-                                          <td><a href="/change-state/{{h.id}}/3">Цуцлах</a></td>
-
-                                          <td><a href="/company-update/{{h.id}}">Засах</a></td>
-                                          <td><a href="/company-update/{{h.id}}">Устгах</a></td>
-                                      </tr>        
-                                  {% endfor %}
-                                  </table>
-                            </div>
-                            <div class="dataTable-bottom">
-                                <div class="dataTable-info">Showing 51 to 57 of 57 entries</div>
-                                <nav class="dataTable-pagination">
-                                    <ul class="dataTable-pagination-list">
-                                        <li class="pager"><a href="#" data-page="5">‹</a></li>
-                                        <li class=""><a href="#" data-page="1">1</a></li>
-                                        <li class=""><a href="#" data-page="2">2</a></li>
-                                        <li class=""><a href="#" data-page="3">3</a></li>
-                                        <li class=""><a href="#" data-page="4">4</a></li>
-                                        <li class=""><a href="#" data-page="5">5</a></li>
-                                        <li class="active"><a href="#" data-page="6">6</a></li>
-                                        <li class="pager"><a href="#" data-page="6">›</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-    
-
-
-
+                {%  include "comList.html" %}
+            </div>  
         </div>
-
-        
-
-
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
