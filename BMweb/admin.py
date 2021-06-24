@@ -7,6 +7,7 @@ from .models import Hereglegch,Customer,Company,HemNegj ,ProdType,Product,State,
 
 # class CompanyInline(admin.TabularInline):
 #     model = Company
+##ooo
 
 class CompanyAdmin(admin.ModelAdmin):
     list_display= ('comName', 'hayag', 'phone')
