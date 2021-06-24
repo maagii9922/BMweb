@@ -1,6 +1,9 @@
 <main>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>
+        <div class="alert alert-danger" role="alert">
+            {{errmsg}}
+        </div>
         <ol class="breadcrumb mb-4">
         </ol>
         <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
@@ -10,22 +13,7 @@
                 Жагсаалт
             </div>
             <div class="card-body">
-                <div class="dataTable-top">
-                    <div class="dataTable-dropdown">
-                        <label>
-                            <select class="dataTable-selector">
-                                <option value="2">2</option>
-                                <option value="10" selected="">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="dataTable-search">
-                        <input class="dataTable-input" placeholder="Хайх..." type="text">
-                    </div>
-                </div>
+                {% include "tableTop.html" %}
                 <table id="datatablesSimple" class="dataTable-table">
                   <thead>
                       <tr>
@@ -55,21 +43,7 @@
                   {% endfor %}
                   </table>
             </div>
-            <div class="dataTable-bottom">
-                <div class="dataTable-info">Showing 51 to 57 of 57 entries</div>
-                <nav class="dataTable-pagination">
-                    <ul class="dataTable-pagination-list">
-                        <li class="pager"><a href="#" data-page="5">‹</a></li>
-                        <li class=""><a href="#" data-page="1">1</a></li>
-                        <li class=""><a href="#" data-page="2">2</a></li>
-                        <li class=""><a href="#" data-page="3">3</a></li>
-                        <li class=""><a href="#" data-page="4">4</a></li>
-                        <li class=""><a href="#" data-page="5">5</a></li>
-                        <li class="active"><a href="#" data-page="6">6</a></li>
-                        <li class="pager"><a href="#" data-page="6">›</a></li>
-                    </ul>
-                </nav>
-            </div>
+            {% include "tableBottom.html" %}
         </div>
     </div>
 </main>

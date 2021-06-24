@@ -1,11 +1,11 @@
-{{errmsg}}
+<!-- {{errmsg}} -->
 <main>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
         <ol class="breadcrumb mb-4">
         </ol>
-        <div class="card mb-4">
-            
+        
+        <div class="card mb-4">           
             <div class="card-body">
                 <div class="dataTable-top">
                     <div class="dataTable-dropdown">
@@ -74,7 +74,7 @@
                                     
                                     .caret-down::before {
                                       -ms-transform: rotate(90deg); /* IE 9 */
-                                      -webkit-transform: rotate(90deg); /* Safari */'
+                                      -webkit-transform: rotate(90deg); /* Safari */
                                       transform: rotate(90deg);  
                                     }
                                     
@@ -138,6 +138,13 @@
                               </div>
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах'/>
                             <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
+                            
+                            
+                                    {% if errmsg %}
+                                    <div id ="errmsg" class="alert alert-danger" role="alert">
+                                      {{errmsg}}
+                                    </div>
+                                    {% endif %} 
                             <script>
                                 var toggler = document.getElementsByClassName("caret");
                                 var i;

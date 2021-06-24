@@ -143,10 +143,10 @@ def product(request):
             #         )
 
             if Product.objects.filter(prodName = request.POST['prodName']):
-                errmsg = "Барааны монгол нэр давхацлаа"
+                errmsg = "Барааны монгол нэр давхардлаа"
                 return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh})
             if Product.objects.filter(prodName_en = request.POST['prodName_en']):
-                errmsg = "Барааны англи нэр давхацлаа"
+                errmsg = "Барааны англи нэр давхардлаа"
                 return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh})
 
             # h.save()

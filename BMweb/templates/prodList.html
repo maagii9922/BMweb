@@ -1,34 +1,21 @@
 <main>
-    <div class="container-fluid px-4">                       
-        {% if user.role_id == 1 %}
+    <div class="container-fluid px-4"> 
+        <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>                             
+        <!-- {% if user.role_id == 1 %}
             <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
         {% elif user.role_id == 2 %}
             <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх</h5>
-        {% endif %}
+        {% endif %} -->
         <ol class="breadcrumb mb-4">
-        </ol>
+        </ol>        
+        <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
         <div class="card mb-4">
             <!-- <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 Жагсаалт
             </div> -->
             <div class="card-body">
-                <div class="dataTable-top">
-                    <div class="dataTable-dropdown">
-                        <label>
-                            <!-- {% if user.role_id == 1 %}
-                            <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
-                            {% elif user.role_id == 2 %}
-                                <a href="{% url 'reg-user' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
-                            {% endif %} -->
-                        </label>
-                    </div>
-                    <div class="dataTable-search">
-                        <!-- <input class="dataTable-input" placeholder="Хайх..." type="text"> -->
-                    </div>
-                </div>
-                {% if user.role_id == 1 %}
-                    <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
+                {% include "tableTop.html" %}
                     <table id="datatablesSimple" class="dataTable-table">
                         <thead>
                             <tr>
@@ -93,36 +80,6 @@
                             </tr>            
                     {% endfor %}    
                     </table>
-                {% elif user.role_id == 2 %}
-                    <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
-                    <table id="datatablesSimple" class="dataTable-table">
-                        <thead>
-                            <tr>
-                                <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">Нэр</a>
-                                </th>
-                                <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">хаяг</a>
-                                </th>
-                                <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">утас</a>
-                                </th>
-                                
-                            </tr>
-                        </thead>
-                        {% for h in companyList %}
-                            <tr>
-                                <td>{{ h.comName }}</td>
-                                <td>{{ h.hayag }}</td>
-                                <td>{{ h.phone }}</td>
-                                <td><a href="/change-state/{{h.id}}/2">Батлах</a></td>
-                                <td><a href="/change-state/{{h.id}}/3">Цуцлах</a></td>
-                            </tr>        
-                        {% endfor %}
-                        </table>
-                {% elif user.role_id == 4 %}
-                <p>Дата бүртгэлийн ажилтан</p>
-                {% endif %}
                 <!-- <div>
                     {% if user.role_id == 1 %}
                         <a href="{% url 'product' %}">prod burtguuleh</a>
@@ -133,21 +90,7 @@
                 </div> -->
                 
             </div>
-            <!-- <div class="dataTable-bottom">
-                <div class="dataTable-info">Showing 51 to 57 of 57 entries</div>
-                <nav class="dataTable-pagination">
-                    <ul class="dataTable-pagination-list">
-                        <li class="pager"><a href="#" data-page="5">‹</a></li>
-                        <li class=""><a href="#" data-page="1">1</a></li>
-                        <li class=""><a href="#" data-page="2">2</a></li>
-                        <li class=""><a href="#" data-page="3">3</a></li>
-                        <li class=""><a href="#" data-page="4">4</a></li>
-                        <li class=""><a href="#" data-page="5">5</a></li>
-                        <li class="active"><a href="#" data-page="6">6</a></li>
-                        <li class="pager"><a href="#" data-page="6">›</a></li>
-                    </ul>
-                </nav>
-            </div> -->
+            {% include "tableBottom.html" %}
         </div>
     </div>
 </main>
