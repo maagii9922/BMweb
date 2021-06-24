@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
+from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 
 # class CompanyListView(ListView):
@@ -133,7 +133,7 @@ def product(request):
             #         emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
             #         paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
             #         uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
-            #         uNiiluulegch= request.POST['uNiiluulegch'],
+            #         uNiiluulegch= Niiluulegch.objects.get(pk= int(request.POST['uNiiluulegch'])),
             #         # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
             #         category=  Category.objects.get(pk= int(request.POST['category'])),
             #         borBoloh= borb,
@@ -197,7 +197,7 @@ def productUpdate(request, product_id):
                 emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
                 paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
                 uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
-                uNiiluulegch= request.POST['uNiiluulegch'],
+                uNiiluulegch= Niiluulegch.objects.get(pk= int(request.POST['uNiiluulegch'])),
                 # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
                 category=  Category.objects.get(pk= int(request.POST['category'])),
                 borBoloh= borb,
@@ -264,12 +264,12 @@ def init(request):
     pt2 = ProdType.objects.create(typeName="Үлдэгдэл тооцох")
     paiz1 = Paiz.objects.create(paizName="emonos", paizKey='paizKey1', description='description1', ontslohEseh=True)
     paiz2 = Paiz.objects.create(paizName="Ундрам хан хангай ХХК", paizKey='paizKey2', description='description2', ontslohEseh=True)
-    cat1 = Category.objects.create(catName="Expenses")
-    cat2 = Category.objects.create(catName="Saleable")
-    cat3 = Category.objects.create(catName="PoS", parent=2)
-    cat4 = Category.objects.create(catName="гоо сайхан")
-    cat5 = Category.objects.create(catName="Нүүр будалт", parent=4)
-    cat6 = Category.objects.create(catName="Нүд хэсгийн будалт", parent=5)
+    cat1 = Category.objects.create(catName="ЭМ")
+    cat2 = Category.objects.create(catName="ЭМН.ТУСЛАМЖ")
+    cat3 = Category.objects.create(catName="ВИТАМИН", parent=2)
+    cat4 = Category.objects.create(catName="Эмнэлгийн хэрэгсэл")
+    cat5 = Category.objects.create(catName="Гэмтлийн үеийн хэрэгсэл", parent=4)
+    cat6 = Category.objects.create(catName="Сойлт, бэхэлгээ, чиг", parent=5)
     # cus1 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus2 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus3 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
@@ -280,17 +280,21 @@ def init(request):
     em2 = EmHelber.objects.create(emHelberName="Капсул")
     hemNegj1 = HemNegj.objects.create(hemNegjName="гр")
     hemNegj2 = HemNegj.objects.create(hemNegjName="мл")
-    uildver1 = Manufacturer.objects.create(manName="manu1")
-    uildver2 = Manufacturer.objects.create(manName="manu2")
-    uildver3 = Manufacturer.objects.create(manName="manu3")
-    uildver4 = Manufacturer.objects.create(manName="manu4")
-    brand1 = ProdBrand.objects.create(brandName="brandname1", brandCode="brandCode1", description="description1", ontslohEseh=False, idewhiteiEseh=True)
-    brand2 = ProdBrand.objects.create(brandName="brandname2", brandCode="brandCode2", description="description2", ontslohEseh=False, idewhiteiEseh=True)
-    prod1 = Product.objects.create(prodName="prodName1", prodName_en="prodName1_en", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    uildver1 = Manufacturer.objects.create(manName="Япон")
+    uildver2 = Manufacturer.objects.create(manName="Америк")
+    uildver3 = Manufacturer.objects.create(manName="Орос")
+    uildver4 = Manufacturer.objects.create(manName="Хятад")
+    niil1 = Niiluulegch.objects.create(niiName="Буман Ай Ти")
+    niil2 = Niiluulegch.objects.create(niiName="МУБ")
+    niil3 = Niiluulegch.objects.create(niiName="Ундрам хан хангай ХХК")
+    niil4 = Niiluulegch.objects.create(niiName="emonos")
+    brand1 = ProdBrand.objects.create(brandName="Pigeon", brandCode="brandCode1", description="description1", ontslohEseh=False, idewhiteiEseh=True)
+    brand2 = ProdBrand.objects.create(brandName="Friso", brandCode="brandCode2", description="description2", ontslohEseh=False, idewhiteiEseh=True)
+    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     prod1.company.add(c1)
     prod1.company.add(c2)
     prod1.company.add(c3)
-    prod2 = Product.objects.create(prodName="prodName2", prodName_en="prodName2_en", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
     prod2.company.add(c3)
     prod2.company.add(c2)
     prod2.company.add(c1)

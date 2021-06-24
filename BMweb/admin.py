@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Hereglegch,Customer,Company,HemNegj ,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState,EmHelber
+from .models import Hereglegch,Customer,Company,HemNegj ,Niiluulegch,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState,EmHelber
 
 
 # class CompanyAdmin(admin.ModelAdmin):
@@ -46,7 +46,7 @@ admin.site.register(Category)
 admin.site.register(ProdType)
 admin.site.register(HereglegchRole)
 admin.site.register(HereglegchState)
-# admin.site.register(Customer)
+admin.site.register(Niiluulegch)
 # admin.site.register(Company)
 # admin.site.register(Product)
 # admin.site.register(Manufacturer)

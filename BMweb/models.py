@@ -42,7 +42,7 @@ class HereglegchState(models.Model):
 class Hereglegch(models.Model):
     ovog=models.CharField(max_length=300, verbose_name=_("Хэрэглэгчийн овог"))
     ner=models.CharField(max_length=300, verbose_name=_("Хэрэглэгчийн нэр"))
-    mail = models.CharField(max_length=300, verbose_name=_("И-майл хаяг"))
+    mail = models.CharField(max_length=300, verbose_name=_("И-мейл хаяг"))
     role = models.ForeignKey(HereglegchRole, on_delete=CASCADE ,verbose_name=_("Эрхийн түвшин"))
     state = models.ForeignKey(HereglegchState, on_delete=CASCADE , verbose_name=_("Хэрэглэгчийн төлөв"))
     company = models.ForeignKey(Company, on_delete=CASCADE , verbose_name=_("Компани"))
@@ -60,7 +60,7 @@ class Hereglegch(models.Model):
 class Category(models.Model):
     catName = models.CharField(max_length=300, verbose_name=_("Ангилалын нэр"))
     # parent = models.ForeignKey('self',blank=True, null=True,related_name='child', on_delete=models.CASCADE)
-    parent = models.IntegerField(null=True, blank=True, verbose_name=_("эцэг ангилал"))
+    parent = models.IntegerField(null=True, blank=True, verbose_name=_("Эцэг ангилал"))
 
     class Meta:
         verbose_name = _("Ангилал")
@@ -89,6 +89,16 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.manName
 
+class Niiluulegch(models.Model):
+    niiName = models.CharField(max_length=300,verbose_name=_("Нийлүүлэгчийн нэр"))
+
+    class Meta:
+        verbose_name = ("Нийлүүлэгч")
+        verbose_name_plural = ("Нийлүүлэгч")
+
+    def __str__(self):
+        return self.niiName
+
 class ProdBrand(models.Model):
     brandName = models.CharField(max_length=300, verbose_name=_("Бренд нэр"))
     brandCode = models.CharField(max_length=300,  verbose_name=_("Бренд код"))
@@ -116,7 +126,7 @@ class Customer(models.Model):
     hayag = models.CharField(max_length=300, verbose_name=_("Харилцагчийн код"))
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     mail = models.CharField(max_length=300, verbose_name=_("Компаний майл"))
-    password = models.CharField(max_length=300, verbose_name=_("Майлын нууц үг"))
+    password = models.CharField(max_length=300, verbose_name=_("Мейлын нууц үг"))
 
     class Meta:
         verbose_name = _("Харилцагч")
@@ -195,7 +205,7 @@ class Product(models.Model):
     emHelber = models.ForeignKey(EmHelber, on_delete=models.CASCADE,verbose_name=_("Эмийн хэлбэр"))
     paiz = models.ForeignKey(Paiz, on_delete=models.CASCADE,verbose_name=_("Пайз"))
     uildwerlegch = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, verbose_name=_("Үйлдвэрлэгч"))
-    uNiiluulegch = models.CharField(max_length=300, verbose_name=_("Үндсэн нийлүүлэгч"))
+    uNiiluulegch = models.ForeignKey(Niiluulegch, on_delete=models.CASCADE, verbose_name=_("Үндсэн нийлүүлэгч"))
     # category = models.CharField(max_length=50, verbose_name=_("Дотоод ангилал"))
     category = models.ForeignKey(Category,related_name='categories', on_delete=models.CASCADE, verbose_name=_("Ангилал"))
     borBoloh = models.BooleanField(verbose_name=_("Борлуулж болох эсэх"),default=False)
