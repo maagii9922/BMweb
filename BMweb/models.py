@@ -125,8 +125,8 @@ class Customer(models.Model):
     name = models.CharField(max_length=300, verbose_name=_("Харилцагчийн нэр"))
     hayag = models.CharField(max_length=300, verbose_name=_("Харилцагчийн код"))
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    mail = models.CharField(max_length=300, verbose_name=_("Компаний майл"))
-    password = models.CharField(max_length=300, verbose_name=_("Мейлын нууц үг"))
+    mail = models.CharField(max_length=300, verbose_name=_("Компаний и-мейл"))
+    password = models.CharField(max_length=300, verbose_name=_("И-мейлын нууц үг"))
 
     class Meta:
         verbose_name = _("Харилцагч")

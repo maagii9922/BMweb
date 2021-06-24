@@ -217,13 +217,16 @@ def login(request):
         p = request.POST['password']
         h = Hereglegch.objects.filter(mail = h_mail, state_id=2)
         if ( len(h) == 0 ):
-            return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна..."})        
+            return render(request,'login.html', {'errmsg': "Нэвтрэх нэр эсвэл нууц үг тохирохгүй байна..."})        
         if( h[0].password == p ):
             request.session['user_id'] = h[0].id
             return redirect('/')
         else:
-            return render(request,'login.html', {'errmsg': "нэр эсвэл нууц үг тохирохгүй байна"})
+            return render(request,'login.html', {'errmsg': "Нэвтрэх нэр эсвэл нууц үг тохирохгүй байна"})
     
+def register(request):
+    return render(request,'register.html')
+
 def customer(request):
     c = Customer.objects.all()
     # print(h)

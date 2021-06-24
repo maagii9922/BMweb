@@ -9,6 +9,8 @@ urlpatterns = [
     path('reg-list', views.hereglegchList,name='reg-list'),
     path('change-state/<hereglegch_id>/<state_id>', views.changeState),
     
+    path('register', views.register),
+
     path('thanks/', views.thanks),
     path('company/', views.company,name='company'),
     path('company-list',views.companyList,name='company-list'),
