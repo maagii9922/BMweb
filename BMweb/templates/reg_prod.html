@@ -1,11 +1,11 @@
-<!-- {{errmsg}} -->
+{{errmsg}}
 <main>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
         <ol class="breadcrumb mb-4">
         </ol>
-        
-        <div class="card mb-4">           
+        <div class="card mb-4">
+            
             <div class="card-body">
                 <div class="dataTable-top">
                     <div class="dataTable-dropdown">
@@ -13,18 +13,18 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="prodName" class="form-label">Бүтээгдэхүүний нэр</label>
-                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required onblur="checkValid()" value="{{data.prodName}}"}/>
+                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required  value="{{data.prodName}}"}/>
                               </div>
                               <div class="mb-3">
                                 <label for="prodName_en" class="form-label">Бүтээгдэхүүний нэр англи</label>
-                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required onblur="checkValid()" value="{{data.prodName_en}}"/>
+                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required  value="{{data.prodName_en}}"/>
                               </div>
                               <div class="mb-3">
                                 <label for="brand" class="form-label">Брэнд нэр</label>
                                 <select name="brand" id="brand">
                                     <option>-------------</option>
                                     {% for b in brand %}
-                                    <option value="{{b.brandCode}}">{{b.brandName}}</option>
+                                    <option value="{{b.id}}" {% if data.brand == b.id %} selected {% endif %}>{{b.brandName}}</option>
                                     {% endfor %} 
                                 </select>
                               </div>
@@ -33,7 +33,7 @@
                                 <select name="type" id="type">
                                     <option>-------------</option>
                                     {% for t in type %}
-                                    <option value="{{t.id}}">{{t.typeName}}</option>
+                                    <option value="{{t.id}}" {% if data.type == t.id|stringformat:"i"  %} selected {% endif %}>{{t.typeName}}</option>
                                     {% endfor %} 
                                 </select>
                               </div>
@@ -42,11 +42,20 @@
                                 <select name="emHelber" id="emHelber">
                                     <option>-------------</option>
                                     {% for eh in emHelber %}
-                                    <option value="{{eh.id}}">{{eh.emHelberName}}</option>
+                                    <option value="{{eh.id}}" {% if data.emHelber == eh.id|stringformat:"i"  %} selected {% endif %}>{{eh.emHelberName}}</option>
                                     {% endfor %} 
                                 </select>
                               </div>
                               <div class="mb-3">
+                                <label for="category" class="form-label">эм ангилал</label>
+                                <select name="category" id="category">
+                                    <option>-------------</option>
+                                    {% for c in cat %}
+                                    <option value="{{c.id}}" {% if data.category == c.id|stringformat:"i"  %} selected {% endif %}>{{c.catName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <!-- <div class="mb-3">
                                 <style>
                                     ul, #myUL {
                                       list-style-type: none;
@@ -74,7 +83,7 @@
                                     
                                     .caret-down::before {
                                       -ms-transform: rotate(90deg); /* IE 9 */
-                                      -webkit-transform: rotate(90deg); /* Safari */
+                                      -webkit-transform: rotate(90deg); /* Safari */'
                                       transform: rotate(90deg);  
                                     }
                                     
@@ -135,17 +144,74 @@
                                     {% endif %}
                                     {% endfor %}
                                   </ul>
+                              </div> -->
+                              <div class="mb-3">
+                                <label for="borBoloh" class="form-label">ПОС-р борлуулж болох эсэх</label>
+                                <input type="checkbox" id="borBoloh" name="borBoloh" {% if data.borBoloh %} checked {% endif %} onclick='borBolohClick(this);'/>
+                              </div>
+                              <div class="mb-3">
+                                <label for="company" class="form-label">Ашиглах компани</label>
+                                <select name="company" id="company">
+                                    <option>-------------</option>
+                                    {% for co in comp %}
+                                    <option value="{{co.id}}" {% if data.company == co.id|stringformat:"i"  %} selected {% endif %}>{{co.comName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="hemNegj" class="form-label">Хэмжих нэгж</label>
+                                <select name="hemNegj" id="hemNegj">
+                                    <option>-------------</option>
+                                    {% for hj in hemNegj %}
+                                    <option value="{{hj.id}}" {% if data.hemNegj == hj.id|stringformat:"i"  %} selected {% endif %}>{{hj.hemNegjName  }}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="hudNegj" class="form-label">Худалдах нэгж</label>
+                                <input type="number" class="form-control" id="hudNegj" name="hudNegj" placeholder="Худалдах нэгж" value="{{data.hudNegj}}"/>
+                              </div>
+                              <div class="mb-3">
+                                <label for="erNershil" class="form-label">Ерөнхий нэршил</label>
+                                <input type="text" class="form-control" id="erNershil" name="erNershil" placeholder="Ерөнхий нэршил" value="{{data.erNershil}}"/>
+                              </div>
+                              <div class="mb-3">
+                                <label for="zCode" class="form-label">Зураасан код</label>
+                                <input type="number" class="form-control" id="zCode" name="zCode" placeholder="Зураасан код" required  value="{{data.zCode}}"/>
+                              </div>
+                              <div class="mb-3">
+                                <label for="paiz" class="form-label">Пайз</label>
+                                <select name="paiz" id="paiz">
+                                    <option>-------------</option>
+                                    {% for p in paiz %}
+                                    <option value="{{p.id}}" {% if data.paiz == p.id|stringformat:"i"  %} selected {% endif %}>{{p.paizName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="uildwerlegch" class="form-label">Үйлдвэрлэгч</label>
+                                <select name="uildwerlegch" id="uildwerlegch">
+                                    <option>-------------</option>
+                                    {% for ui in uildwerlegch %}
+                                    <option value="{{ui.id}}" {% if data.uildwerlegch == ui.id|stringformat:"i"  %} selected {% endif %}>{{ui.manName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="uNiiluulegch" class="form-label">Үндсэн нийлүүлэгч</label>
+                                <select name="uNiiluulegch" id="uNiiluulegch">
+                                    <option>-------------</option>
+                                    {% for ui in uNiiluulegch %}
+                                    <option value="{{ui.id}}" {% if data.uNiiluulegch == ui.id|stringformat:"i"  %} selected {% endif %}>{{ui.niiName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="price" class="form-label">Үнэ</label>
+                                <input type="number" class="form-control" id="price" name="price" placeholder="Үнэ"  value="{{data.price}}"/>
                               </div>
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах'/>
                             <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
-                            
-                            
-                                    {% if errmsg %}
-                                    <div id ="errmsg" class="alert alert-danger" role="alert">
-                                      {{errmsg}}
-                                    </div>
-                                    {% endif %} 
-                                    
                             <script>
                                 var toggler = document.getElementsByClassName("caret");
                                 var i;
@@ -161,6 +227,9 @@
                                     // form.addEventListener("change", () => {
                                     //     document.getElementById('had').disabled = !form.checkValidity()
                                     // });
+                                }
+                                function borBolohClick(cb) {
+                                  console.log("Clicked, new value = " + cb.checked);
                                 }
                             </script>
                         </form>

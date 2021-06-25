@@ -18,8 +18,6 @@ urlpatterns = [
     path('product-list',views.productList,name='product-list'),
     path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
 
-    path('product-update/<product_id>',views.productUpdate,name='product-Update'),
-    # path('product-Delete/<product_id>', views.productDelete),
     path('company-update/<company_id>',views.companyUpdate,name='company-Update'),
     # path('company-Delete/<company_id>', views.company-Delete),
 

@@ -77,6 +77,7 @@
                                 <td><a href="/change-stateProd/{{h.id}}/1">Батлах</a></td>
                                 <td><a href="/change-stateProd/{{h.id}}/2">Цуцлах</a></td>
                                 <td><a href="/change-stateProd/{{h.id}}/3">Захиалах</a></td>
+                                <td><form action="product" method="POST">{% csrf_token %}<input type="hidden" name="edit" value="{{h.id}}" /><input type="submit" value="засах" /></form></td>
                             </tr>            
                     {% endfor %}    
                     </table>
