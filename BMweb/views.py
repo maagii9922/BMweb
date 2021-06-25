@@ -29,11 +29,6 @@ def home(request):
         
     # return render(request,'home.html')
 
-    # if 'user_id' in request.session:
-    #     h = Hereglegch.objects.get(pk=request.session['user_id'])
-    #     if h in request.PO:
-    #         return render(request,'home.html', {'user': h })
-    # return render(request,'home.html')
 
 def hereglegch(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
@@ -121,13 +116,13 @@ def product(request):
                 return render(request,'product.html',{'user': h,  "data": p, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch} )
             else:
                 if Product.objects.filter(prodName = request.POST['prodName']):
-                    errmsg = "Барааны монгол нэр давхацлаа"
+                    errmsg = "Барааны монгол нэр давхардлаа"
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
                 if Product.objects.filter(prodName_en = request.POST['prodName_en']):
-                    errmsg = "Барааны англи нэр давхацлаа"
+                    errmsg = "Барааны англи нэр давхардлаа"
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
                 if Product.objects.filter(zCode = request.POST['zCode']):
-                    errmsg = "Зураасан код давхацлаа"
+                    errmsg = "Зураасан код давхардлаа"
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
 
                 borb = False
@@ -254,9 +249,9 @@ def init(request):
     # cus1 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus2 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus3 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
-    state1 = State.objects.create(stateName="Батлагдсан")
+    state1 = State.objects.create(stateName="Захиалсан")
     state2 = State.objects.create(stateName="Цуцалсан")
-    state3 = State.objects.create(stateName="Захиалсан")
+    state3 = State.objects.create(stateName="Батлагдсан")
     em1 = EmHelber.objects.create(emHelberName="Тун")
     em2 = EmHelber.objects.create(emHelberName="Капсул")
     hemNegj1 = HemNegj.objects.create(hemNegjName="гр")

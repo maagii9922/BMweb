@@ -32,7 +32,7 @@
                                     <a href="#" class="dataTable-sorter">э.хэлбэр</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter"></a>Нийлүүлэгч</a>
+                                    <a href="#" class="dataTable-sorter">Нийлүүлэгч</a>
                                 </th>
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">ангилал</a>
@@ -44,14 +44,14 @@
                                     <a href="#" class="dataTable-sorter">төлөв</a>
                                 </th>
                                 <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
+                                </th>
+                                <!-- <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter"></a>
                                 </th>
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter"></a>
-                                </th>
-                                <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter"></a>
-                                </th>
+                                </th> -->
                             </tr>
                         </thead>
                         {% for h in productList %}
@@ -74,10 +74,12 @@
                                 <!-- <td>{{ h.hudAwch }}</td> -->
                                 <td>{{ h.zarBoloh }}</td>
                                 <td>{{ h.state }}</td>
-                                <td><a href="/change-stateProd/{{h.id}}/1">Батлах</a></td>
-                                <td><a href="/change-stateProd/{{h.id}}/2">Цуцлах</a></td>
-                                <td><a href="/change-stateProd/{{h.id}}/3">Захиалах</a></td>
-                                <td><form action="product" method="POST">{% csrf_token %}<input type="hidden" name="edit" value="{{h.id}}" /><input type="submit" value="засах" /></form></td>
+                                <td><a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-check-square"></i></a>
+                                <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                                <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-paper-plane"></i></a>
+                                <form action="product" method="POST">{% csrf_token %}
+                                    <input type="hidden" name="edit" value="{{h.id}}" />
+                                    <input type="submit" value="засах" class="fas fa-edit"/></form></td>
                             </tr>            
                     {% endfor %}    
                     </table>
