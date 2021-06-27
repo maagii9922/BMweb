@@ -77,9 +77,9 @@
                                 <td><a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-check-square"></i></a>
                                 <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
                                 <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-paper-plane"></i></a>
-                                <form action="product" method="POST">{% csrf_token %}
-                                    <input type="hidden" name="edit" value="{{h.id}}" />
-                                    <input type="submit" value="засах" class="fas fa-edit"/></form></td>
+                                <a href="/product?edit={{h.id}}">Засах</a></form>
+                                <a href="/product?del={{h.id}}">Устгах</a></form>
+                                </td>
                             </tr>            
                     {% endfor %}    
                     </table>

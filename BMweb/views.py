@@ -107,23 +107,69 @@ def product(request):
         uNiiluulegch = Niiluulegch.objects.all()
         paiz = Paiz.objects.all()
         if request.method == 'GET':
-            return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
+            if 'edit' in request.GET :
+                p = Product.objects.get(pk=request.GET['edit'])
+                cc = p.company.all().values_list('id', flat=True)
+                kk = []
+                for id in cc:
+                    kk.append(str(id))
+                print(p)    
+                print(kk)    
+
+                return render(request,'product.html',{'user': h, "edit": request.GET['edit'],  "data": p, 'selected_company': kk,'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch} )
+            elif 'del' in request.GET :
+                p = Product.objects.get(pk=request.GET['del'])
+                p.delete()
+                return render(request,'home.html' )
+            else:
+                return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
         elif request.method == 'POST':
             
             print(request.POST)
             if 'edit' in request.POST :
                 p = Product.objects.get(pk=request.POST['edit'])
-                return render(request,'product.html',{'user': h,  "data": p, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch} )
+                print(p)
+                print(ProdBrand.objects.get(pk= request.POST['brand_id']))
+                p.prodName= request.POST['prodName']
+                p.prodName_en= request.POST['prodName_en']
+                p.brand = ProdBrand.objects.get(pk= request.POST['brand_id'])
+                p.zCode= request.POST['zCode']
+                p.prodType=  ProdType.objects.get(pk= int(request.POST['prodType_id']))
+                        # zzCode= request.POST['zzCode'],
+                p.price= request.POST['price']
+                p.hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj_id']))
+                p.hudNegj= request.POST['hudNegj']
+                p.category=  Category.objects.get(pk= int(request.POST['category_id']))
+                p.erNershil= request.POST['erNershil']
+                p.emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber_id']))
+                p.paiz=  Paiz.objects.get(pk= int(request.POST['paiz_id']))
+                p.uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch_id']))
+                p.uNiiluulegch= Niiluulegch.objects.get(pk= int(request.POST['uNiiluulegch_id']))
+                        # uNiiluulegch= request.POST['uNiiluulegch'],
+                        # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
+                borb = False
+                if 'borBoloh' in request.POST:
+                    borb = True
+                p.borBoloh= borb
+                        # hudAwch= huda,
+                        # zarBoloh= zarb,
+                # p.state=  State.objects.get(pk= 1),
+                p.save()
+                p.company.clear()
+                company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
+                print(company)
+                p.company.add(*company)
+                return render(request,'home.html' )
             else:
                 if Product.objects.filter(prodName = request.POST['prodName']):
-                    errmsg = "Барааны монгол нэр давхардлаа"
-                    return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
+                    errmsg = "Барааны монгол нэр давхацлаа"         #Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
+                    return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company') , "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
                 if Product.objects.filter(prodName_en = request.POST['prodName_en']):
-                    errmsg = "Барааны англи нэр давхардлаа"
-                    return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
+                    errmsg = "Барааны англи нэр давхацлаа"
+                    return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company'), "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
                 if Product.objects.filter(zCode = request.POST['zCode']):
-                    errmsg = "Зураасан код давхардлаа"
-                    return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
+                    errmsg = "Зураасан код давхацлаа"
+                    return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company'), "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
 
                 borb = False
                 if 'borBoloh' in request.POST:
@@ -136,19 +182,19 @@ def product(request):
                 h = Product(
                         prodName= request.POST['prodName'],
                         prodName_en= request.POST['prodName_en'],
-                        brand = ProdBrand.objects.get(pk= request.POST['brand']),
+                        brand = ProdBrand.objects.get(pk= request.POST['brand_id']),
                         zCode= request.POST['zCode'],
-                        prodType=  ProdType.objects.get(pk= int(request.POST['type'])),
+                        prodType=  ProdType.objects.get(pk= int(request.POST['prodType_id'])),
                         # zzCode= request.POST['zzCode'],
                         price= request.POST['price'],
-                        hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj'])),
+                        hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj_id'])),
                         hudNegj= request.POST['hudNegj'],
-                        category=  Category.objects.get(pk= int(request.POST['category'])),
-                        # erNershil= request.POST['erNershil'],
-                        emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber'])),
-                        paiz=  Paiz.objects.get(pk= int(request.POST['paiz'])),
-                        uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch'])),
-                        uNiiluulegch= Niiluulegch.objects.get(pk= int(request.POST['uNiiluulegch'])),
+                        category=  Category.objects.get(pk= int(request.POST['category_id'])),
+                        erNershil= request.POST['erNershil'],
+                        emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber_id'])),
+                        paiz=  Paiz.objects.get(pk= int(request.POST['paiz_id'])),
+                        uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch_id'])),
+                        uNiiluulegch= Niiluulegch.objects.get(pk= int(request.POST['uNiiluulegch_id'])),
                         # uNiiluulegch= request.POST['uNiiluulegch'],
                         # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
                         
@@ -159,8 +205,10 @@ def product(request):
                         )
 
                 h.save()
-                company=  Company.objects.get(pk= int(request.POST['company'])),
-                h.companies.add(company)
+                company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
+                print(company)
+                h.company.add(*company)
+                
                 # return render(request,'product.html',{'user': h,  "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch} )
                 return render(request, 'home.html')
        
