@@ -74,11 +74,12 @@
                                 <!-- <td>{{ h.hudAwch }}</td> -->
                                 <td>{{ h.zarBoloh }}</td>
                                 <td>{{ h.state }}</td>
-                                <td><a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-check-square"></i></a>
+                                <td>
+                                <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
                                 <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
-                                <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-paper-plane"></i></a>
-                                <a href="/product?edit={{h.id}}">Засах</a></form>
-                                <a href="/product?del={{h.id}}">Устгах</a></form>
+                                <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
+                                <a href="/product?edit={{h.id}}"><i class="fas fa-edit"></i></a></form>
+                                <a href="/product?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></form>
                                 </td>
                             </tr>            
                     {% endfor %}    

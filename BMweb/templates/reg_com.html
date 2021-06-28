@@ -7,42 +7,41 @@
             
             <div class="card-body">
                 <div class="dataTable-top">
-                    <div class="dataTable-dropdown">
+                    <div class="dataTable-dropdown"> 
+                        {% if errmsg %}
+                        <div id ="errmsg" class="alert alert-danger" role="alert">
+                        {{errmsg}}
+                        </div>
+                        {% endif %} 
                         <form method='POST' id="reg_com_form" >
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="comName" class="form-label">Харилцагчийн нэр:</label>
-                                <input type="text" class="form-control" id="comName" name="comName" placeholder="Харилцагчийн нэр" required onblur="checkValid()"/>
+                                <input type="text" class="form-control" id="comName" name="comName" placeholder="Харилцагчийн нэр" required onblur="checkValid()" value="{{data.comName}}"/>
                               </div>
                               <div class="mb-3">
                                 <label for="hayag" class="form-label">Харилцагчийн хаяг:</label>
-                                <input type="text" class="form-control" id="hayag" name="hayag" placeholder="Харилцагчийн хаяг" required onblur="checkValid()"/>
+                                <input type="text" class="form-control" id="hayag" name="hayag" placeholder="Харилцагчийн хаяг" required onblur="checkValid()" value="{{data.hayag}}"/>
                               </div>
                               <div class="mb-3">
                                 <label for="phone" class="form-label">Харилцагчийн утас:</label>
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Харилцагчийн утас" required onblur="checkValid()"/>
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Харилцагчийн утас" required onblur="checkValid()" value="{{data.phone}}"/>
                               </div>
                             <!-- {{ProductForm.id}} -->
                             <!-- <input id="had" type='submit'  value='Хадгалах' onclick="hadgalah()"/> -->
-                            <button type="button" class="btn btn-primary" id="had" disabled>Хадгалах</button>
-
+                            <!-- <button type="submit" class="btn btn-primary" id="had" disabled>Хадгалах</button> -->
+                            <button type="submit" class="btn btn-primary" id="had" >Хадгалах</button>
                           
 
                             <script>
-                                function checkValid(){                                
-                                    const form = document.getElementById('reg_com_form');
-                                    form.addEventListener("change", () => {
-                                        document.getElementById('had').disabled = !form.checkValidity()
-                                    });
-                                }
-                            </script>
-
-                              
-                    {% if errmsg %}
-                    <div id ="errmsg" class="alert alert-danger" role="alert">
-                    {{errmsg}}
-                    </div>
-                    {% endif %} 
+                                // function checkValid(){                                
+                                //     const form = document.getElementById('reg_com_form');
+                                //     form.addEventListener("change", () => {
+                                //         document.getElementById('had').disabled = !form.checkValidity()
+                                //     });
+                                // }
+                            </script>                              
+                   
                         </form>
                 </div>
                 <div>

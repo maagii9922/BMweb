@@ -3,13 +3,23 @@ from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 
-from datetime import datetime   
+from datetime import datetime 
 
+class State(models.Model):
+    stateName = models.CharField(max_length=300, verbose_name=_("Төлөвийн нэр"))
+
+    class Meta:
+        verbose_name = _("Барааны төлөв")
+        verbose_name_plural = _("Барааны төлөв")
+
+    def __str__(self):
+        return self.stateName
 
 class Company(models.Model):
     comName = models.CharField(max_length=300, verbose_name=_("Компаний нэр"))
     hayag = models.CharField(max_length=1000, verbose_name=_("Компаний хаяг"))
     phone = models.CharField(max_length=30, verbose_name=_("Компаний утас"))
+    # comState = models.ForeignKey(State, on_delete=CASCADE, verbose_name=_("Төлөв"))
 
     class Meta:
         verbose_name = _("Компани")
@@ -144,17 +154,6 @@ class ProdType(models.Model):
 
     def __str__(self):
         return self.typeName
-
-class State(models.Model):
-    stateName = models.CharField(max_length=300, verbose_name=_("Төлөвийн нэр"))
-
-    class Meta:
-        verbose_name = _("Барааны төлөв")
-        verbose_name_plural = _("Барааны төлөв")
-
-    def __str__(self):
-        return self.stateName
-         
 
 class Paiz(models.Model):
     paizName = models.CharField(max_length=300, verbose_name=_("Пайзын нэр"))

@@ -67,13 +67,36 @@ def company(request):
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         if request.method == 'GET':
-            form = CompanyForm()
-            return render(request,'company.html', {'CompanyForm': CompanyForm,'user': h})
-        elif request.method == 'POST':
-            h = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
-            h.save()
-            return render(request,'home1.html' )
+            if 'edit' in request.GET :
+                p = Company.objects.get(pk=request.GET['edit'])
+                print(p)     
 
+                return render(request,'company.html',{'user': h, "edit": request.GET['edit'],  "data": p} )
+            elif 'del' in request.GET :
+                p = Company.objects.get(pk=request.GET['del'])
+                p.delete()
+                return render(request,'home.html' )
+            else:
+                return render(request,'company.html', {'user': h})
+       
+        elif request.method == 'POST':
+            if 'edit' in request.POST :
+                p = Company.objects.get(pk=request.POST['edit'])
+                p.comName= request.POST['comName']
+                p.hayag= request.POST['hayag']
+                p.phone = request.POST['phone']
+                p.save()
+                return render(request,'home.html' )
+            else:
+                if Company.objects.filter(comName= request.POST['comName']):
+                    errmsg = "Компаний нэр давхардлаа"       
+                    return render(request,'company.html', {'user': h, "errmsg": errmsg})
+                               
+                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
+                p.save()
+                return render(request,'home.html' )
+            
+            
 def companyList(request):
     if 'user_id' in request.session:
         p = Company.objects.all()
@@ -81,15 +104,6 @@ def companyList(request):
         return render(request,'companyList.html', {'user': h, 'companyList': p })
     else: 
         return redirect('/login')  
-
-def companyUpdate(request,company_id):
-    h = Product.objects.get(pk=company_id)
-    # print(h)
-    if request.method == 'POST':
-        form = CompanyForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('company-list')
 
 def product(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
@@ -162,13 +176,13 @@ def product(request):
                 return render(request,'home.html' )
             else:
                 if Product.objects.filter(prodName = request.POST['prodName']):
-                    errmsg = "Барааны монгол нэр давхацлаа"         #Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
+                    errmsg = "Барааны монгол нэр давхардлаа"         #Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company') , "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
                 if Product.objects.filter(prodName_en = request.POST['prodName_en']):
-                    errmsg = "Барааны англи нэр давхацлаа"
+                    errmsg = "Барааны англи нэр давхардлаа"
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company'), "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
                 if Product.objects.filter(zCode = request.POST['zCode']):
-                    errmsg = "Зураасан код давхацлаа"
+                    errmsg = "Зураасан код давхардлаа"
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company'), "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
 
                 borb = False

@@ -1,14 +1,19 @@
-{{errmsg}}
 <main>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
         <ol class="breadcrumb mb-4">
         </ol>
+       
         <div class="card mb-4">
             
             <div class="card-body">
                 <div class="dataTable-top">
                     <div class="dataTable-dropdown">
+                      {% if errmsg %}
+                      <div id ="errmsg" class="alert alert-danger" role="alert">
+                      {{errmsg}}
+                      </div>
+                      {% endif %} 
                         <form method='POST' id="reg_prod_form" >
                             {% csrf_token %}
                             <div class="mb-3">
@@ -283,6 +288,7 @@
                             {% if edit %} <input type='hidden' name='edit' value='{{edit}}'/> {% endif %}
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" />
                             <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
+
                             <script>
                                 var toggler = document.getElementsByClassName("caret");
                                 var i;
