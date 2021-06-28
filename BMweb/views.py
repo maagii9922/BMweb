@@ -7,8 +7,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 
-# class CompanyListView(ListView):
-
 def home(request):    
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
@@ -20,8 +18,6 @@ def home(request):
         return redirect('/login')        
         
     return render(request,'home.html') 
-
-
       
     # if 'user_id' in request.session:
     #     h = Hereglegch.objects.get(pk=request.session['user_id'])
@@ -31,8 +27,6 @@ def home(request):
 
 
 def hereglegch(request):
-    # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
-    # r.save()
     if request.method == 'GET':
         form = HereglegchForm()
         return render(request,'hereglegch.html', {'HereglegchForm': HereglegchForm})
@@ -62,15 +56,12 @@ def changeState(request, hereglegch_id, state_id):
     return redirect('/reg-list')
 
 def company(request):
-    # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
-    # r.save()
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         if request.method == 'GET':
             if 'edit' in request.GET :
                 p = Company.objects.get(pk=request.GET['edit'])
-                print(p)     
-
+                # print(p)  
                 return render(request,'company.html',{'user': h, "edit": request.GET['edit'],  "data": p} )
             elif 'del' in request.GET :
                 p = Company.objects.get(pk=request.GET['del'])
@@ -90,8 +81,7 @@ def company(request):
             else:
                 if Company.objects.filter(comName= request.POST['comName']):
                     errmsg = "Компаний нэр давхардлаа"       
-                    return render(request,'company.html', {'user': h, "errmsg": errmsg})
-                               
+                    return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
                 p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
                 p.save()
                 return render(request,'home.html' )
@@ -127,9 +117,8 @@ def product(request):
                 kk = []
                 for id in cc:
                     kk.append(str(id))
-                print(p)    
-                print(kk)    
-
+                # print(p)    
+                # print(kk)  
                 return render(request,'product.html',{'user': h, "edit": request.GET['edit'],  "data": p, 'selected_company': kk,'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch} )
             elif 'del' in request.GET :
                 p = Product.objects.get(pk=request.GET['del'])
@@ -137,9 +126,8 @@ def product(request):
                 return render(request,'home.html' )
             else:
                 return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
-        elif request.method == 'POST':
-            
-            print(request.POST)
+        elif request.method == 'POST':            
+            # print(request.POST)
             if 'edit' in request.POST :
                 p = Product.objects.get(pk=request.POST['edit'])
                 print(p)
@@ -171,7 +159,7 @@ def product(request):
                 p.save()
                 p.company.clear()
                 company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
-                print(company)
+                # print(company)
                 p.company.add(*company)
                 return render(request,'home.html' )
             else:
@@ -210,24 +198,20 @@ def product(request):
                         uildwerlegch= Manufacturer.objects.get(pk= int(request.POST['uildwerlegch_id'])),
                         uNiiluulegch= Niiluulegch.objects.get(pk= int(request.POST['uNiiluulegch_id'])),
                         # uNiiluulegch= request.POST['uNiiluulegch'],
-                        # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),
-                        
+                        # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),                        
                         borBoloh= borb,
                         # hudAwch= huda,
                         # zarBoloh= zarb,
                         state=  State.objects.get(pk= 1),
                         )
-
                 h.save()
                 company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
-                print(company)
-                h.company.add(*company)
-                
+                # print(company)
+                h.company.add(*company)                
                 # return render(request,'product.html',{'user': h,  "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch} )
                 return render(request, 'home.html')
        
-def productList(request):
-    
+def productList(request):    
     if 'user_id' in request.session:
         p = Product.objects.all()
         h = Hereglegch.objects.get(pk=request.session['user_id'])

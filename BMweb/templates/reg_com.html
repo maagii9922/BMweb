@@ -30,7 +30,8 @@
                             <!-- {{ProductForm.id}} -->
                             <!-- <input id="had" type='submit'  value='Хадгалах' onclick="hadgalah()"/> -->
                             <!-- <button type="submit" class="btn btn-primary" id="had" disabled>Хадгалах</button> -->
-                            <button type="submit" class="btn btn-primary" id="had" >Хадгалах</button>
+                            {% if edit %} <input type='hidden' name='edit' value='{{edit}}'id="edit"/>{% endif %}
+                            <button type="submit" class="btn btn-primary" id="had" >Хадгалах</button> 
                           
 
                             <script>
@@ -40,6 +41,20 @@
                                 //         document.getElementById('had').disabled = !form.checkValidity()
                                 //     });
                                 // }
+                                
+                                // $(document).ready(function() {    
+                                //         $('#had').prop('disabled', true);
+                                //             if ($('#edit').val())
+                                //             {
+                                //                 $('#had').prop('disabled', false);
+                                //             }
+                                //             else
+                                //             {
+                                //                 $('#had').prop('disabled', true);
+                                //             }
+                                      
+                                //     });
+
                             </script>                              
                    
                         </form>
