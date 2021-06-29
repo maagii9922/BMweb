@@ -19,7 +19,7 @@ class Company(models.Model):
     comName = models.CharField(max_length=300, verbose_name=_("Компаний нэр"))
     hayag = models.CharField(max_length=1000, verbose_name=_("Компаний хаяг"))
     phone = models.CharField(max_length=30, verbose_name=_("Компаний утас"))
-    # comState = models.ForeignKey(State, on_delete=CASCADE, verbose_name=_("Төлөв"))
+    comState = models.ForeignKey(State, on_delete=CASCADE, verbose_name=_("Төлөв"))
 
     class Meta:
         verbose_name = _("Компани")

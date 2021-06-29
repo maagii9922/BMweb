@@ -33,7 +33,7 @@
                                 <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required  value="{{data.prodName_en}}"/>
                               </div>
                               <div class="mb-3">
-                                <label for="brand_id" class="form-label">Брэнд нэр {{data.brand}}:{{data.brand_id}}: </label>
+                                <label for="brand_id" class="form-label">Брэнд нэр {{data.brand}}{{data.brand_id}} </label>
                                 <select name="brand_id" id="brand_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for b in brand %}
@@ -185,7 +185,7 @@
 
 
                               <div class="mb-3">
-                                <label for="borBoloh" class="form-label">ПОС-р борлуулж болох эсэх {{data.borBoloh_id}}</label>
+                                <label for="borBoloh" class="form-label">Борлуулж болох эсэх {{data.borBoloh_id}}</label>
                                 <input type="checkbox" id="borBoloh" class="form-check-input" name="borBoloh" {% if data.borBoloh %} checked {% endif %} onclick='borBolohClick(this);'/>
                               </div>  
                               <div class="mb-3" >                           

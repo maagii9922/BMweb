@@ -2,13 +2,6 @@ from django.contrib import admin
 from .models import Hereglegch,Customer,Company,HemNegj ,Niiluulegch,ProdType,Product,State,Category,Manufacturer,ProdBrand,Paiz, HereglegchRole, HereglegchState,EmHelber
 
 
-# class CompanyAdmin(admin.ModelAdmin):
-#     list_filter = ('comName')
-
-# class CompanyInline(admin.TabularInline):
-#     model = Company
-##ooo
-
 class CompanyAdmin(admin.ModelAdmin):
     list_display= ('comName', 'hayag', 'phone')
     # inlines = [CompanyInline]    
@@ -50,7 +43,7 @@ admin.site.register(Niiluulegch)
 # admin.site.register(Company)
 # admin.site.register(Product)
 # admin.site.register(Manufacturer)
-# admin.site.register(ProdBrand)
+admin.site.register(ProdBrand)
 # admin.site.register(Paiz)
 
 

@@ -7,6 +7,22 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 
+def login(request):
+    if request.method == 'GET':
+        h = HereglegchForm()
+        return render(request,'login.html', {'form': h})
+    elif request.method == 'POST':
+        h_mail = request.POST['mail']
+        p = request.POST['password']
+        h = Hereglegch.objects.filter(mail = h_mail, state_id=2)
+        if ( len(h) == 0 ):
+            return render(request,'login.html', {'errmsg': "Нэвтрэх нэр эсвэл нууц үг тохирохгүй байна..."})        
+        if( h[0].password == p ):
+            request.session['user_id'] = h[0].id
+            return redirect('/')
+        else:
+            return render(request,'login.html', {'errmsg': "Нэвтрэх нэр эсвэл нууц үг тохирохгүй байна"})
+    
 def home(request):    
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
@@ -25,7 +41,6 @@ def home(request):
         
     # return render(request,'home.html')
 
-
 def hereglegch(request):
     if request.method == 'GET':
         form = HereglegchForm()
@@ -34,7 +49,7 @@ def hereglegch(request):
         p1 = request.POST['password']
         p2 = request.POST['password1']
         if(p1 == p2):
-            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'],mail= request.POST['mail'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  ,state=  HereglegchState.objects.get(pk= int(request.POST['state']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'],reg_date= request.POST['reg_date'])
+            h = Hereglegch(ovog= request.POST['ovog'], ner= request.POST['ner'], mail= request.POST['mail'], role=  HereglegchRole.objects.get(pk= int(request.POST['role']))  ,state=  HereglegchState.objects.get(pk= int(request.POST['state']))  , company=  Company.objects.get(pk=int(request.POST['company'])), password= request.POST['password'],reg_date= request.POST['reg_date'])
             h.save()
             return render(request,'home1.html' )
         else:
@@ -76,16 +91,16 @@ def company(request):
                 p.comName= request.POST['comName']
                 p.hayag= request.POST['hayag']
                 p.phone = request.POST['phone']
+                p.comState = request.POST['comState']
                 p.save()
                 return render(request,'home.html' )
             else:
                 if Company.objects.filter(comName= request.POST['comName']):
                     errmsg = "Компаний нэр давхардлаа"       
                     return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
-                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
+                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'], comState= request.POST['comState'])
                 p.save()
-                return render(request,'home.html' , {'user': h})
-            
+                return render(request,'home.html' , {'user': h})            
             
 def companyList(request):
     if 'user_id' in request.session:
@@ -94,6 +109,13 @@ def companyList(request):
         return render(request,'companyList.html', {'user': h, 'companyList': p })
     else: 
         return redirect('/login')  
+
+@csrf_exempt
+def changeStateCom(request, company_id, state_id):
+    h = Company.objects.get(pk=company_id)
+    h.comState = State.objects.get(pk=state_id) 
+    h.save()    
+    return redirect('/company-list')
 
 def product(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
@@ -226,23 +248,6 @@ def changeStateProd(request, product_id, state_id):
     h.save()    
     return redirect('/product-list')
 
-
-def login(request):
-    if request.method == 'GET':
-        h = HereglegchForm()
-        return render(request,'login.html', {'form': h})
-    elif request.method == 'POST':
-        h_mail = request.POST['mail']
-        p = request.POST['password']
-        h = Hereglegch.objects.filter(mail = h_mail, state_id=2)
-        if ( len(h) == 0 ):
-            return render(request,'login.html', {'errmsg': "Нэвтрэх нэр эсвэл нууц үг тохирохгүй байна..."})        
-        if( h[0].password == p ):
-            request.session['user_id'] = h[0].id
-            return redirect('/')
-        else:
-            return render(request,'login.html', {'errmsg': "Нэвтрэх нэр эсвэл нууц үг тохирохгүй байна"})
-    
 def register(request):
     return render(request,'register.html')
 
@@ -253,7 +258,6 @@ def customer(request):
 
 def thanks(request):
     return HttpResponse('thanks')
-
 
 def manufacturer(request):
     m = Manufacturer.objects.all()
@@ -275,13 +279,6 @@ def init(request):
     l2 = HereglegchRole.objects.create(levelName='Харилцагч шинээр бүртгэх хүсэлт илгээх')
     l3 = HereglegchRole.objects.create(levelName='Бараа болон харилцагч шинээр бүртгэх хүсэлт хянаад зөвшөөрөх')
     l4 = HereglegchRole.objects.create(levelName='Дата бүртгэлийн ажилтан')
-    c1 = Company.objects.create(comName='emonos', hayag='hayag1', phone='utas1')
-    c2 = Company.objects.create(comName='Ундрам хан хангай ХХК', hayag='hayag2', phone='utas2')
-    c3 = Company.objects.create(comName='МУБ', hayag='hayag3', phone='utas3')
-    h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
-    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s2, company=c1, password='123')
-    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s1, company=c1, password='123')
-    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s1, company=c1, password='123')
     pt1 = ProdType.objects.create(typeName="Үйлчилгээ")
     pt2 = ProdType.objects.create(typeName="Үлдэгдэл тооцох")
     paiz1 = Paiz.objects.create(paizName="emonos", paizKey='paizKey1', description='description1', ontslohEseh=True)
@@ -298,6 +295,13 @@ def init(request):
     state1 = State.objects.create(stateName="Захиалсан")
     state2 = State.objects.create(stateName="Цуцалсан")
     state3 = State.objects.create(stateName="Батлагдсан")
+    c1 = Company.objects.create(comName='emonos', hayag='hayag1', phone='utas1',comState=state1)
+    c2 = Company.objects.create(comName='Ундрам хан хангай ХХК', hayag='hayag2', phone='utas2',comState=state2)
+    c3 = Company.objects.create(comName='МУБ', hayag='hayag3', phone='utas3',comState=state3)
+    h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
+    h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s2, company=c1, password='123')
+    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s1, company=c1, password='123')
+    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s1, company=c1, password='123')
     em1 = EmHelber.objects.create(emHelberName="Тун")
     em2 = EmHelber.objects.create(emHelberName="Капсул")
     hemNegj1 = HemNegj.objects.create(hemNegjName="гр")

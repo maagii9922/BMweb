@@ -1,7 +1,6 @@
 <main>
     <div class="container-fluid px-4">
-        <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>
-        
+        <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>        
         <ol class="breadcrumb mb-4">
         </ol>
         <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
@@ -25,6 +24,9 @@
                               <a href="#" class="dataTable-sorter">Утас:</a>
                           </th>
                           <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Төлөв:</a>
+                          </th>
+                          <th data-sortable="" class="asc">
                             <a href="#" class="dataTable-sorter">Үйлдлүүд:</a>
                         </th>
                       </tr>
@@ -34,14 +36,17 @@
                           <td>{{ h.comName }}</td>
                           <td>{{ h.hayag }}</td>
                           <td>{{ h.phone }}</td>
+                          <td>{{ h.comState }}</td>
                           <td>
-                          <a href="/change-state/{{h.id}}/2"><i class="fas fa-check-square"></i></a>
-                          <a href="/change-state/{{h.id}}/3"><i class="fas fa-window-close"></i></a>
+                          <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
+                          <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                          <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
                           <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
-                          <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></td>
+                          <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a>
+                          </td>
                       </tr>        
                   {% endfor %}
-                  </table>
+                </table>
             </div>
             {% include "tableBottom.html" %}
         </div>
