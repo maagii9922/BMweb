@@ -28,13 +28,12 @@
                     
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         {% if user.role_id == 1 %}
-                        <a class="nav-link " href="product-list" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Бараа бүртгүүлэх хүсэлтийн жагсаалт 
-                        <div class="sb-sidenav-collapse-arrow"></div>             
+                        <a class="nav-link " href="/product-list" >
+                            Бараа бүртгүүлэх хүсэлтийн жагсаалт            
                         </a>
                         {% endif %}
                         {% if user.role_id == 2 %}
-                        <a class="nav-link " href="{% url 'company-list' %}" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                        <a class="nav-link " href="{% url 'company-list' %}">
                             Харилцагч бүртгүүлэх хүсэлтийн жагсаалт
                             <div class="sb-sidenav-collapse-arrow"></div>
                         </a>
