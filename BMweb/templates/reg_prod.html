@@ -1,4 +1,12 @@
 <main>
+  <style>
+    .form-label{
+      width: 200px;
+    }
+    .form-control{
+      width: 425px;
+    }
+  </style>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Бараа шинээр бүртгүүлэх</h5>
         <ol class="breadcrumb mb-4">
@@ -26,7 +34,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="brand_id" class="form-label">Брэнд нэр {{data.brand}}:{{data.brand_id}}: </label>
-                                <select name="brand_id" id="brand_id">
+                                <select name="brand_id" id="brand_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for b in brand %}
                                     <option value={{b.id}} {% if data.brand_id|add:"0" == b.id|add:"0" %} selected {% endif %}>{{b.brandName}}</option>
@@ -35,7 +43,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="prodType_id" class="form-label">төрөл</label>
-                                <select name="prodType_id" id="prodType_id">
+                                <select name="prodType_id" id="prodType_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for t in type %}
                                     <option value="{{t.id}}" {% if data.prodType_id|add:"0" == t.id|add:"0"  %} selected {% endif %}>{{t.typeName}}</option>
@@ -44,7 +52,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="emHelber_id" class="form-label">эм хэлбэр</label>
-                                <select name="emHelber_id" id="emHelber_id">
+                                <select name="emHelber_id" id="emHelber_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for eh in emHelber %}
                                     <option value="{{eh.id}}" {% if data.emHelber_id|add:"0" == eh.id|add:"0"  %} selected {% endif %}>{{eh.emHelberName}}</option>
@@ -53,7 +61,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="category_id" class="form-label">эм ангилал</label>
-                                <select name="category_id" id="category_id">
+                                <select name="category_id" id="category_id" style="width: 220px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                     <option>-------------</option>
                                     {% for c in cat %}
                                     <option value="{{c.id}}" {% if data.category_id|add:"0" == c.id|add:"0"  %} selected {% endif %}>{{c.catName}}</option>
@@ -180,62 +188,66 @@
                                 <label for="borBoloh" class="form-label">ПОС-р борлуулж болох эсэх {{data.borBoloh_id}}</label>
                                 <input type="checkbox" id="borBoloh" name="borBoloh" {% if data.borBoloh %} checked {% endif %} onclick='borBolohClick(this);'/>
                               </div>  
-                              <div class="mb-3">                                
-                                <label for="company_id" class="form-label">Ашиглах компани</label>      
-                                <select name="company_id" id="company_id">
-                                    <option>-------------</option>
-                                    {% if selected_company  %}
-                                      {% for co in comp %}
-                                            {% if co.id|stringformat:"i" not in selected_company %}
-                                              <option value="{{co.id}}">{{co.comName}}</option>
-                                            {% endif %}  
-                                      {% endfor %} 
-                                    {% else %}
-                                        {% for co in comp %}
-                                        <option value="{{co.id}}" >{{co.comName}}</option>
-                                        {% endfor %} 
-                                    {% endif %}
-                                    
-                                </select>           
-                                <input type="button" value='>>' onclick="company_select()"/>  
-                                <input type="button" value='<<' onclick="company_deselect()"/>  
-                                <select name="selected_company" id="selected_company" multiple>  
-                                    {% for co in comp %}
-                                      {% for sc in selected_company %}
-                                        {% if co.id|add:"0" == sc|add:"0" %}
-                                        <option value="{{co.id}}">{{co.comName}}</option>
-                                        {% endif %}
-                                      {% endfor %} 
-                                    {% endfor %}                                  
-                                </select>
-                                <script>
-                                  function company_select(){//console.log('company_select')
-                                      s = document.getElementById('company_id')                                      
-                                      text = s.options[s.selectedIndex].text
-                                      value = s.value
-                                      s.remove(s.selectedIndex); 
+                              <div class="mb-3" >                           
+                                <label for="company_id" class="form-label" >Ашиглах компани</label> 
+                                <div class="row g-3">
+                                  <div class="col-auto">
+                                        <select name="company_id" id="company_id" style="width: 250px;"  class="form-select" size="3" aria-label="size 3 select example">
+                                            
+                                            {% if selected_company  %}
+                                              {% for co in comp %}
+                                                    {% if co.id|stringformat:"i" not in selected_company %}
+                                                      <option value="{{co.id}}">{{co.comName}}</option>
+                                                    {% endif %}  
+                                              {% endfor %} 
+                                            {% else %}
+                                                {% for co in comp %}
+                                                <option value="{{co.id}}" >{{co.comName}}</option>
+                                                {% endfor %} 
+                                            {% endif %}
+                                            
+                                        </select> </div> 
+                                        <div class="col-auto d-grid gap-2">       
+                                        <input type="button" value='>>' class="btn btn-sm btn-secondary" onclick="company_select()" /> 
+                                        <input type="button" value='<<' class="btn btn-sm btn-secondary" onclick="company_deselect()"/> </div>
+                                        <div class="col-auto">
+                                        <select name="selected_company" id="selected_company" style="width: 250px;"  class="form-select" size="3" aria-label="size 3 select example" multiple>  
+                                            {% for co in comp %}
+                                              {% for sc in selected_company %}
+                                                {% if co.id|add:"0" == sc|add:"0" %}
+                                                <option value="{{co.id}}">{{co.comName}}</option>
+                                                {% endif %}
+                                              {% endfor %} 
+                                            {% endfor %}                                  
+                                          </select></div>
+                                          <script>
+                                          function company_select(){//console.log('company_select')
+                                              s = document.getElementById('company_id')                                      
+                                              text = s.options[s.selectedIndex].text
+                                              value = s.value
+                                              s.remove(s.selectedIndex); 
 
-                                      s1 = document.getElementById('selected_company') 
-                                      s1.options[s1.options.length] = new Option(text, value);
+                                              s1 = document.getElementById('selected_company') 
+                                              s1.options[s1.options.length] = new Option(text, value);
 
-                                  }    
-                                  function company_deselect(){//console.log('company_select')
-                                       s = document.getElementById('selected_company')                                      
-                                       text = s.options[s.selectedIndex].text
-                                       value = s.value
-                                       s.remove(s.selectedIndex); 
- 
-                                       s1 = document.getElementById('company_id') 
-                                       s1.options[s1.options.length] = new Option(text, value);
- 
-                                   }
-                                   </script>
+                                          }    
+                                          function company_deselect(){//console.log('company_select')
+                                              s = document.getElementById('selected_company')                                      
+                                              text = s.options[s.selectedIndex].text
+                                              value = s.value
+                                              s.remove(s.selectedIndex); 
+        
+                                              s1 = document.getElementById('company_id') 
+                                              s1.options[s1.options.length] = new Option(text, value);
+        
+                                          }
+                                          </script>
                                        
-                                
+                                </div>
                               </div>
                               <div class="mb-3">
                                 <label for="hemNegj_id" class="form-label">Хэмжих нэгж</label>
-                                <select name="hemNegj_id" id="hemNegj_id">
+                                <select name="hemNegj_id" id="hemNegj_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for hj in hemNegj %}
                                     <option value="{{hj.id}}" {% if data.hemNegj_id|add:"0"  == hj.id|add:"0"  %} selected {% endif %}>{{hj.hemNegjName  }}</option>
@@ -256,7 +268,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="paiz_id" class="form-label">Пайз</label>
-                                <select name="paiz_id" id="paiz_id">
+                                <select name="paiz_id" id="paiz_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for p in paiz %}
                                     <option value="{{p.id}}" {% if data.paiz_id|add:"0" == p.id|add:"0" %} selected {% endif %}>{{p.paizName}}</option>
@@ -265,7 +277,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="uildwerlegch_id" class="form-label">Үйлдвэрлэгч</label>
-                                <select name="uildwerlegch_id" id="uildwerlegch_id">
+                                <select name="uildwerlegch_id" id="uildwerlegch_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for ui in uildwerlegch %}
                                     <option value="{{ui.id}}" {% if data.uildwerlegch_id|add:"0" == ui.id|add:"0"  %} selected {% endif %}>{{ui.manName}}</option>
@@ -274,7 +286,7 @@
                               </div>
                               <div class="mb-3">
                                 <label for="uNiiluulegch_id" class="form-label">Үндсэн нийлүүлэгч</label>
-                                <select name="uNiiluulegch_id" id="uNiiluulegch_id">
+                                <select name="uNiiluulegch_id" id="uNiiluulegch_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for ui in uNiiluulegch %}
                                     <option value="{{ui.id}}" {% if data.uNiiluulegch_id|add:"0" == ui.id|add:"0"  %} selected {% endif %}>{{ui.niiName}}</option>
