@@ -43,7 +43,14 @@
         <div id="layoutSidenav"> 
             {% include "leftNav.html" %}
             <div id="layoutSidenav_content">
-                {%  include "prodList.html" %}
+                {% if user.role_id == 1 %} 
+                    {%  include "prodList.html" %}
+                {% endif %}
+
+                {% if user.role_id == 2 %}
+                    {%  include "comList.html" %}
+                {% endif %} 
+
             </div>   
         </div>
 

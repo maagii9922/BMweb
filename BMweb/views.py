@@ -84,7 +84,7 @@ def company(request):
                     return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
                 p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'])
                 p.save()
-                return render(request,'home.html' )
+                return render(request,'home.html' , {'user': h})
             
             
 def companyList(request):
