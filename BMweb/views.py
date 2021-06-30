@@ -30,6 +30,8 @@ def home(request):
             return redirect('/product-list')
         elif h.role_id == 2:
             return redirect('/company-list')
+        elif h.role_id == 3:
+            return redirect('/request-list')
     else:
         return redirect('/login')        
         
@@ -91,14 +93,14 @@ def company(request):
                 p.comName= request.POST['comName']
                 p.hayag= request.POST['hayag']
                 p.phone = request.POST['phone']
-                p.comState = request.POST['comState']
+                # p.comState = request.POST['comState']
                 p.save()
                 return render(request,'home.html' )
             else:
                 if Company.objects.filter(comName= request.POST['comName']):
                     errmsg = "Компаний нэр давхардлаа"       
                     return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
-                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'], comState= request.POST['comState'])
+                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'],comState = State.objects.get(pk= 1))
                 p.save()
                 return render(request,'home.html' , {'user': h})            
             
@@ -255,6 +257,15 @@ def customer(request):
     c = Customer.objects.all()
     # print(h)
     return render(request,'login.html',{'customer':c})
+
+def requestList(request):
+    if 'user_id' in request.session:
+        c = Company.objects.all()
+        p = Product.objects.all()
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        return render(request,'requestList.html', {'user': h, 'companyList': c,'productList':p })
+    else: 
+        return redirect('/login')  
 
 def thanks(request):
     return HttpResponse('thanks')

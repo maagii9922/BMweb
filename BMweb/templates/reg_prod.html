@@ -26,14 +26,14 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="prodName" class="form-label">Бүтээгдэхүүний нэр</label>
-                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required  value="{{data.prodName}}"}/>
+                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required onblur="checkValid()" value="{{data.prodName}}"}/>
                               </div>
                               <div class="mb-3">
                                 <label for="prodName_en" class="form-label">Бүтээгдэхүүний нэр англи</label>
-                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required  value="{{data.prodName_en}}"/>
+                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required required onblur="checkValid()"  value="{{data.prodName_en}}"/>
                               </div>
                               <div class="mb-3">
-                                <label for="brand_id" class="form-label">Брэнд нэр {{data.brand}}{{data.brand_id}} </label>
+                                <label for="brand_id" class="form-label">Брэнд нэр </label>
                                 <select name="brand_id" id="brand_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for b in brand %}
@@ -192,8 +192,8 @@
                                 <label for="company_id" class="form-label" >Ашиглах компани</label> 
                                 <div class="row g-3">
                                   <div class="col-auto">
-                                        <select name="company_id" id="company_id" style="width: 250px;"  class="form-select" size="3" aria-label="size 3 select example">
-                                            
+                                        <select name="company_id" id="company_id" style="width: 220px;"  class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          <option>-------------</option>
                                             {% if selected_company  %}
                                               {% for co in comp %}
                                                     {% if co.id|stringformat:"i" not in selected_company %}
@@ -297,9 +297,12 @@
                                 <label for="price" class="form-label">Үнэ</label>
                                 <input type="number" class="form-control" id="price" name="price" placeholder="Үнэ"  value="{{data.price}}"/>
                               </div>
-                            {% if edit %} <input type='hidden' name='edit' value='{{edit}}'/> {% endif %}
+                            {% if edit %} <input type='hidden' name='edit' value='{{edit}}'/> 
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" />
                             <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
+                            {% else %}
+                            <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" disabled/>
+                            {% endif %}
 
                             <script>
                                 var toggler = document.getElementsByClassName("caret");
@@ -312,10 +315,10 @@
                                 });
                                 }
                                 function checkValid(){                                
-                                    // const form = document.getElementById('reg_prod_form');
-                                    // form.addEventListener("change", () => {
-                                    //     document.getElementById('had').disabled = !form.checkValidity()
-                                    // });
+                                    const form = document.getElementById('reg_prod_form');
+                                    form.addEventListener("change", () => {
+                                        document.getElementById('had').disabled = !form.checkValidity()
+                                    });
                                 }
                                 function borBolohClick(cb) {
                                   console.log("Clicked, new value = " + cb.checked);

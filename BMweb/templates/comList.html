@@ -3,7 +3,9 @@
         <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>        
         <ol class="breadcrumb mb-4">
         </ol>
+        {% if user.role_id == 2 %}
         <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
+        {% endif %}
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
@@ -31,21 +33,28 @@
                         </th>
                       </tr>
                   </thead>
-                  {% for h in companyList %}
+                  
+                    {% for h in companyList %}                     
                       <tr>
                           <td>{{ h.comName }}</td>
                           <td>{{ h.hayag }}</td>
                           <td>{{ h.phone }}</td>
                           <td>{{ h.comState }}</td>
-                          <td>
-                          <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
-                          <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
-                          <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
-                          <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
-                          <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a>
+                          <td>                                                       
+                          {% if user.role_id == 2 and h.comState_id == 1 %}   
+                            <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
+                            <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a> 
+                          {% endif  %}
+                          <!-- {% if user.role_id == 3 and h.comState_id == 1 %}  
+                            <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
+                            <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                            <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a> 
+                          {% endif %} -->
+                          
                           </td>
-                      </tr>        
-                  {% endfor %}
+                      </tr>                       
+                    {% endfor %}
+                 
                 </table>
             </div>
             {% include "tableBottom.html" %}

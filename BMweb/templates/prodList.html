@@ -7,8 +7,10 @@
             <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх</h5>
         {% endif %} -->
         <ol class="breadcrumb mb-4">
-        </ol>        
+        </ol>  
+        {% if user.role_id == 1 %}      
         <a href="{% url 'product' %}" class="btn btn-primary" role="button">Бараа шинээр бүртгүүлэх</a>
+        {% endif %}
         <div class="card mb-4">
             <!-- <div class="card-header">
                 <i class="fas fa-table me-1"></i>
@@ -75,11 +77,17 @@
                                 <td>{{ h.zarBoloh }}</td>
                                 <td>{{ h.state }}</td>
                                 <td>
-                                <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
-                                <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
-                                <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
-                                <a href="/product?edit={{h.id}}"><i class="fas fa-edit"></i></a></form>
-                                <a href="/product?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></form>
+
+                                    {% if user.role_id == 1 and h.state_id == 1 %}   
+                                    <a href="/product?edit={{h.id}}"><i class="fas fa-edit"></i></a></form>
+                                    <a href="/product?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></form>
+                                  {% endif  %}
+                                  <!-- {% if user.role_id == 3 and h.state_id == 1 %}  
+                                  <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
+                                  <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                                  <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
+                                  {% endif %} -->
+
                                 </td>
                             </tr>            
                     {% endfor %}    
