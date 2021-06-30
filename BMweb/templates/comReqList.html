@@ -1,0 +1,56 @@
+<main>
+    <div class="container-fluid px-4">
+        <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>        
+        <ol class="breadcrumb mb-4">
+        </ol>
+        <!-- <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a> -->
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Жагсаалт
+            </div>
+            <div class="card-body">
+                {% include "tableTop.html" %}
+                
+                <table id="datatablesSimple" class="dataTable-table">
+                  <thead>
+                      <tr>
+                          <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Нэр:</a>
+                          </th>
+                          <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Хаяг:</a>
+                          </th>
+                          <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Утас:</a>
+                          </th>
+                          <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Төлөв:</a>
+                          </th>
+                          <th data-sortable="" class="asc">
+                            <a href="#" class="dataTable-sorter">Үйлдлүүд:</a>
+                        </th>
+                      </tr>
+                  </thead>                  
+                    {% for h in companyList %}    
+                        {% if  h.comState_id == 1 %}            
+                            <tr>
+                                <td>{{ h.comName }}</td>
+                                <td>{{ h.hayag }}</td>
+                                <td>{{ h.phone }}</td>
+                                <td>{{ h.comState }}</td>
+                                <td> 
+                                    <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
+                                    <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                                    <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a>                         
+                                </td>
+                            </tr> 
+                        {% endif %}                    
+                    {% endfor %}                 
+                </table>
+            </div>
+            {% include "tableBottom.html" %}
+        </div>
+    </div>
+</main>

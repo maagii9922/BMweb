@@ -20,7 +20,7 @@ urlpatterns = [
     path('product-list',views.productList,name='product-list'),
     path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
 
-    path('request-list', views.requestList),
+    path('reqCom-list', views.reqComList),
 
     path('customer/', views.customer),
     path('manufacturer/', views.manufacturer),

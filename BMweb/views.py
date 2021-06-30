@@ -258,12 +258,11 @@ def customer(request):
     # print(h)
     return render(request,'login.html',{'customer':c})
 
-def requestList(request):
+def reqComList(request):
     if 'user_id' in request.session:
         c = Company.objects.all()
-        p = Product.objects.all()
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'requestList.html', {'user': h, 'companyList': c,'productList':p })
+        return render(request,'requestList.html', {'user': h, 'companyList': c})
     else: 
         return redirect('/login')  
 

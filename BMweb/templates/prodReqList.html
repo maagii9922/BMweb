@@ -1,0 +1,89 @@
+<main>
+    <div class="container-fluid px-4">
+        <h5 class="mt-4">Бараа шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>        
+        <ol class="breadcrumb mb-4">
+        </ol>
+        <!-- <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a> -->
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Жагсаалт
+            </div>
+            <div class="card-body">
+                {% include "tableTop.html" %}  
+                <table id="datatablesSimple" class="dataTable-table">
+                    <thead>
+                        <tr>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">Нэр</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">төрөл</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">Е.нэршил</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">э.хэлбэр</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">Нийлүүлэгч</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">ангилал</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">зарж болох</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">төлөв</a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
+                            </th>
+                            <!-- <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter"></a>
+                            </th>
+                            <th data-sortable="" class="asc">
+                                <a href="#" class="dataTable-sorter"></a>
+                            </th> -->
+                        </tr>
+                    </thead>
+                    {% for h in productList %}
+                        {% if  h.state_id == 1 %}  
+                            <tr>
+                                <td>{{ h.prodName }}</td>
+                                <!-- <td>{{ h.zCode }}</td> -->
+                                <td>{{ h.prodType }}</td>
+                                <!-- <td>{{ h.zzCode }}</td> -->
+                                <!-- <td>{{ h.price }}</td> -->
+                                <!-- <td>{{ h.hemNegj }}</td> -->
+                                <!-- <td>{{ h.hudNegj }}</td> -->
+                                <!-- <td>{{ h.company }}</td> -->
+                                <td>{{ h.erNershil }}</td>
+                                <td>{{ h.emHelber }}</td>
+                                <!-- <td>{{ h.paiz }}</td> -->
+                                <!-- <td>{{ h.uildwerlegch }}</td> -->
+                                <td>{{ h.uNiiluulegch }}</td>
+                                <td>{{ h.category }}</td>
+                                <!-- <td>{{ h.borBoloh }}</td> -->
+                                <!-- <td>{{ h.hudAwch }}</td> -->
+                                <td>{{ h.zarBoloh }}</td>
+                                <td>{{ h.state }}</td>
+                                <td>
+                                {% if h.state_id == 1 %}  
+                                <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
+                                <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                                <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
+                                {% endif %}
+                                </td>
+                            </tr>   
+                        {% endif %}         
+                {% endfor %}    
+                </table>
+            </div>
+            {% include "tableBottom.html" %}
+        </div>
+    </div>
+</main>
