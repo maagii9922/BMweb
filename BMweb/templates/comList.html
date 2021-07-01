@@ -28,9 +28,11 @@
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Төлөв:</a>
                           </th>
+                          {% if user.role < 4 %}
                           <th data-sortable="" class="asc">
-                            <a href="#" class="dataTable-sorter">Үйлдлүүд:</a>
-                        </th>
+                              <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
+                          </th>
+                          {% endif  %}
                       </tr>
                   </thead>
                   

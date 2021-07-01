@@ -3,18 +3,16 @@
         <div class="sb-sidenav-menu">
             {% if user.role_id == 4 %}
             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div>
-               Шинэ хүсэлүүд
-                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                <!-- <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div> -->
+              <a class="nav-link" href="sum-request"><i class="far fa-file-alt"></i> Шинэ хүсэлтүүд</a>
             </a>
-            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                <nav class="sb-sidenav-menu-nested nav">
-                    {% if user.role_id == 4 %} <a class="nav-link" href="product">Бараа бүртгүүлэх хүсэлт илгээх</a> {% endif %}
-                    {% if user.role_id == 2 %} <a class="nav-link" href="company">Харилцагч бүртгүүлэх хүсэлт илгээх</a> {% endif %}
-                </nav>
-            </div>
             {% endif %}
-            
+            {% if user.role_id == 3 %}
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                <!-- <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div> -->
+              <a class="nav-link" href="reqCom-list"><i class="far fa-file-alt"></i> Шинэ хүсэлтүүд</a>
+            </a>
+            {% endif %}
             {% if user.role_id <= 4 %}
             <div class="nav">
                 <!-- <div class="sb-sidenav-menu-heading">Core</div>

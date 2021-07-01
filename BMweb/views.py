@@ -108,7 +108,7 @@ def company(request):
             
 def companyList(request):
     if 'user_id' in request.session:
-        p = Company.objects.all()
+        p = Company.objects.all().order_by('comState')
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         return render(request,'companyList.html', {'user': h, 'companyList': p })
     else: 
@@ -239,7 +239,7 @@ def product(request):
        
 def productList(request):    
     if 'user_id' in request.session:
-        p = Product.objects.all()
+        p = Product.objects.all().order_by('state')
         h = Hereglegch.objects.get(pk=request.session['user_id'])
         return render(request,'productList.html', {'user': h, 'productList': p })
     else: 
@@ -263,8 +263,9 @@ def customer(request):
 def reqComList(request):
     if 'user_id' in request.session:
         c = Company.objects.all()
+        p = Product.objects.all()
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'requestList.html', {'user': h, 'companyList': c})
+        return render(request,'requestList.html', {'user': h, 'companyList': c, 'productList': p})
     else: 
         return redirect('/login')  
 
