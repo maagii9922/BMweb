@@ -41,7 +41,7 @@
                           <td>{{ h.phone }}</td>
                           <td>{{ h.comState }}</td>
                           <td>                                                       
-                          {% if user.role_id == 2 and h.comState_id == 1 %}   
+                          {% if h.comState_id < 3 %}   
                             <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
                             <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a> 
                           {% endif  %}

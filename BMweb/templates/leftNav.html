@@ -1,6 +1,20 @@
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
+            {% if user.role_id == 4 %}
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div>
+               Шинэ хүсэлүүд
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                    {% if user.role_id == 4 %} <a class="nav-link" href="product">Бараа бүртгүүлэх хүсэлт илгээх</a> {% endif %}
+                    {% if user.role_id == 2 %} <a class="nav-link" href="company">Харилцагч бүртгүүлэх хүсэлт илгээх</a> {% endif %}
+                </nav>
+            </div>
+            {% endif %}
+            {% if user.role_id <= 4 %}
             <div class="nav">
                 <!-- <div class="sb-sidenav-menu-heading">Core</div>
                 <a class="nav-link" href="index.html">
@@ -8,9 +22,7 @@
                     Dashboard
                 </a> -->
                 <!-- <div class="sb-sidenav-menu-heading">Цэс</div> -->
-                {% if user.role_id == 3 %}
-                <p></p>
-                {% else %}
+                {% if user.role_id < 3 %}
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-share-square"></i></div>
                     Хүсэлт илгээх 
@@ -43,7 +55,7 @@
                             <div class="sb-sidenav-collapse-arrow"></div>
                         </a>
                         {% endif %}
-                        {% if user.role_id == 3 %}
+                        {% if user.role_id >= 3 %}
                         <a class="nav-link " href="{% url 'company-list' %}">
                             Харилцагч бүртгүүлэх хүсэлтийн жагсаалт
                             <div class="sb-sidenav-collapse-arrow"></div>
@@ -53,12 +65,12 @@
                             <div class="sb-sidenav-collapse-arrow"></div>          
                         </a>
                         {% endif %}
-                    </nav>
-                     
+                    </nav>           
                                        
                 </div>
                 
             </div>
+            {% endif %}
         </div>
 
     </nav>

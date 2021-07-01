@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect, request
 from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 
@@ -31,7 +31,9 @@ def home(request):
         elif h.role_id == 2:
             return redirect('/company-list')
         elif h.role_id == 3:
-            return redirect('/request-list')
+            return redirect('/reqCom-list')
+        elif h.role_id == 4:
+            return redirect('/sum-request')
     else:
         return redirect('/login')        
         
@@ -265,6 +267,15 @@ def reqComList(request):
         return render(request,'requestList.html', {'user': h, 'companyList': c})
     else: 
         return redirect('/login')  
+
+def sumRequest(request):
+    if 'user_id' in request.session:
+        c = Company.objects.all()
+        p = Product.objects.all()
+        h = Hereglegch.objects.get(pk=request.session['user_id'])
+        return render(request,'sumRequest.html', {'user': h, 'companyList': c, 'productList': p})
+    else: 
+        return redirect('/login') 
 
 def thanks(request):
     return HttpResponse('thanks')

@@ -22,6 +22,8 @@ urlpatterns = [
 
     path('reqCom-list', views.reqComList),
 
+    path('sum-request',views.sumRequest),
+
     path('customer/', views.customer),
     path('manufacturer/', views.manufacturer),
     path('prodBrand/', views.prodBrand),
