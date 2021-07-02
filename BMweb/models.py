@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.auth.models import User
 from datetime import datetime 
 
 class State(models.Model):
@@ -61,7 +61,7 @@ class Hereglegch(models.Model):
     company = models.ForeignKey(Company, on_delete=CASCADE , verbose_name=_("Компани"))
     password  = models.CharField(max_length=150, verbose_name=_("Хэрэглэгчийн нууц үг"))
     reg_date = models.DateTimeField(default=datetime.now, verbose_name=_("Нэвтэрсэн огноо"))
-
+    # users = models.OneToOneField(User)
     class Meta:
         verbose_name = _("Хэрэглэгч")
         verbose_name_plural = _("Хэрэглэгч")
@@ -211,6 +211,7 @@ class Product(models.Model):
     zzCode = models.IntegerField(null=True, blank=True, verbose_name=_("Нэмэлт зураасан код"))
     price = models.DecimalField(max_digits=16, decimal_places=2, verbose_name=_("Үнэ"))
     hemNegj = models.ForeignKey(HemNegj, on_delete=models.CASCADE,verbose_name=_("Хэмжих нэгж"))
+    # hudNegj = models.ForeignKey(HemNegj, on_delete=models.CASCADE, verbose_name=_("Худалдан авалтын нэгж"))
     hudNegj = models.IntegerField(null=True, blank=True, verbose_name=_("Худалдан авалтын нэгж"))
     company = models.ManyToManyField(Company,related_name='products',verbose_name=_("Компани"))
     erNershil = models.CharField(max_length=300, verbose_name=_("Ерөнхий нэршил"))

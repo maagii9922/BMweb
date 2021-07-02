@@ -181,6 +181,18 @@ def product(request):
                 if 'borBoloh' in request.POST:
                     borb = True
                 p.borBoloh= borb
+                huda = False
+                if 'hudAwch' in request.POST:
+                    huda = True
+                p.hudAwch= huda
+                zarb = False
+                if 'zarBoloh' in request.POST:
+                    zarb = True
+                p.zarBoloh= zarb
+                huda = False
+                if 'pos' in request.POST:
+                    huda = True
+                p.pos= huda
                         # hudAwch= huda,
                         # zarBoloh= zarb,
                 # p.state=  State.objects.get(pk= 1),

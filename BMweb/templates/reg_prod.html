@@ -267,8 +267,14 @@
                                 </select>
                               </div>
                               <div class="mb-3">
-                                <label for="hudNegj" class="form-label">Худалдах нэгж</label>
-                                <input type="number" class="form-control" id="hudNegj" name="hudNegj" placeholder="Худалдах нэгж" value="{{data.hudNegj}}"/>
+                                <label for="hemNegj_id" class="form-label">Худалдах нэгж</label>
+                                <!-- <input type="number" class="form-control" id="hudNegj" name="hudNegj" placeholder="Худалдах нэгж" value="{{data.hudNegj}}"/> -->
+                                <select name="hemNegj_id" id="hemNegj_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <option>-------------</option>
+                                  {% for hj in hemNegj %}
+                                  <option value="{{hj.id}}" {% if data.hemNegj_id|add:"0"  == hj.id|add:"0"  %} selected {% endif %}>{{hj.hemNegjName  }}</option>
+                                  {% endfor %} 
+                              </select>
                               </div>
                               <div class="mb-3">
                                 <label for="erNershil" class="form-label">Ерөнхий нэршил</label>
