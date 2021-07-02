@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect, request
-from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
+from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz, PosCategory,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 
 def login(request):
@@ -95,6 +95,7 @@ def company(request):
                 p.comName= request.POST['comName']
                 p.hayag= request.POST['hayag']
                 p.phone = request.POST['phone']
+                p.thumbimage = request.POST['thumbimage']
                 # p.comState = request.POST['comState']
                 p.save()
                 return render(request,'home.html' )
@@ -102,7 +103,7 @@ def company(request):
                 if Company.objects.filter(comName= request.POST['comName']):
                     errmsg = "Компаний нэр давхардлаа"       
                     return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
-                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'],comState = State.objects.get(pk= 1))
+                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'],thumbimage = request.POST['thumbimage'],comState = State.objects.get(pk= 1))
                 p.save()
                 return render(request,'home.html' , {'user': h})            
             
@@ -136,6 +137,7 @@ def product(request):
         uildwerlegch = Manufacturer.objects.all()
         uNiiluulegch = Niiluulegch.objects.all()
         paiz = Paiz.objects.all()
+        # posCat = PosCategory.objects.all()
         if request.method == 'GET':
             if 'edit' in request.GET :
                 p = Product.objects.get(pk=request.GET['edit'])
@@ -182,6 +184,8 @@ def product(request):
                         # hudAwch= huda,
                         # zarBoloh= zarb,
                 # p.state=  State.objects.get(pk= 1),
+                # p.posCat=  PosCategory.objects.get(pk= int(request.POST['posCat_id']))
+                p.thumbimage = request.POST['thumbimage']
                 p.save()
                 p.company.clear()
                 company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
@@ -202,11 +206,15 @@ def product(request):
                 borb = False
                 if 'borBoloh' in request.POST:
                     borb = True
-                # huda = False
-                # if 'hudAwch' in request.POST:
-                #     huda = True
-                # if 'zarBoloh' in request.POST:
-                #     zarb = True
+                huda = False
+                if 'hudAwch' in request.POST:
+                    huda = True
+                zarb = False
+                if 'zarBoloh' in request.POST:
+                    zarb = True
+                pos = False
+                if 'pos' in request.POST:
+                    pos = True
                 h = Product(
                         prodName= request.POST['prodName'],
                         prodName_en= request.POST['prodName_en'],
@@ -226,8 +234,11 @@ def product(request):
                         # uNiiluulegch= request.POST['uNiiluulegch'],
                         # prodBrand=  ProdBrand.objects.get(pk= int(request.POST['prodBrand'])),                        
                         borBoloh= borb,
-                        # hudAwch= huda,
-                        # zarBoloh= zarb,
+                        hudAwch= huda,
+                        zarBoloh= zarb,
+                        pos= pos,
+                        # posCat = PosCategory.objects.get(pk= int(request.POST['posCat_id'])),
+                        thumbimage = request.POST['thumbimage'],
                         state=  State.objects.get(pk= 1),
                         )
                 h.save()
@@ -317,6 +328,8 @@ def init(request):
     state1 = State.objects.create(stateName="Захиалсан")
     state2 = State.objects.create(stateName="Цуцалсан")
     state3 = State.objects.create(stateName="Батлагдсан")
+    posCat1 = PosCategory.objects.create(posCatName="posCatName1")
+    posCat2 = PosCategory.objects.create(posCatName="posCatName2")
     c1 = Company.objects.create(comName='emonos', hayag='hayag1', phone='utas1',comState=state1)
     c2 = Company.objects.create(comName='Ундрам хан хангай ХХК', hayag='hayag2', phone='utas2',comState=state2)
     c3 = Company.objects.create(comName='МУБ', hayag='hayag3', phone='utas3',comState=state3)
@@ -338,11 +351,11 @@ def init(request):
     niil4 = Niiluulegch.objects.create(niiName="emonos")
     brand1 = ProdBrand.objects.create(brandName="Pigeon", brandCode="brandCode1", description="description1", ontslohEseh=False, idewhiteiEseh=True)
     brand2 = ProdBrand.objects.create(brandName="Friso", brandCode="brandCode2", description="description2", ontslohEseh=False, idewhiteiEseh=True)
-    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1)
     prod1.company.add(c1)
     prod1.company.add(c2)
     prod1.company.add(c3)
-    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True, state=state1)
+    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1)
     prod2.company.add(c3)
     prod2.company.add(c2)
     prod2.company.add(c1)

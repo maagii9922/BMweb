@@ -19,6 +19,9 @@ class Company(models.Model):
     comName = models.CharField(max_length=300, verbose_name=_("Компаний нэр"))
     hayag = models.CharField(max_length=1000, verbose_name=_("Компаний хаяг"))
     phone = models.CharField(max_length=30, verbose_name=_("Компаний утас"))
+    thumbimage = models.ImageField(
+        upload_to="media/productthumb/", blank = True, null=True,  verbose_name=_("Зураг")
+    )
     comState = models.ForeignKey(State, on_delete=CASCADE, verbose_name=_("Төлөв"))
 
     class Meta:
@@ -27,7 +30,7 @@ class Company(models.Model):
     
     def __str__(self):
         #  return self.comName
-        return '%s %s %s' % (self.comName, self.hayag, self.phone)
+        return '%s %s %s %s %s' % (self.comName, self.hayag, self.phone, self.thumbimage, self.comState)
 
 class HereglegchRole(models.Model):
     levelName = models.CharField(max_length=300, verbose_name=_("Эрхийн түвшин"))
@@ -189,6 +192,16 @@ class HemNegj(models.Model):
     def __str__(self):
         return self.hemNegjName
 
+class PosCategory(models.Model):
+    posCatName = models.CharField(max_length=300,verbose_name=_("Посын ангилал нэр"))
+
+    class Meta:
+        verbose_name = _("Посын ангилал")
+        verbose_name_plural = _("Посын ангилал")
+
+    def __str__(self):
+        return self.posCatName
+
 class Product(models.Model):
     prodName = models.CharField(max_length=300, verbose_name=_("Барааны нэр"))
     prodName_en = models.CharField(max_length=300, verbose_name=_("Барааны нэр англи"))
@@ -210,6 +223,11 @@ class Product(models.Model):
     borBoloh = models.BooleanField(verbose_name=_("Борлуулж болох эсэх"),default=False)
     hudAwch = models.BooleanField(verbose_name=_("Худалдан авч болох эсэх"),default=False)
     zarBoloh = models.BooleanField(verbose_name=_("Зарлагдаж болох эсэх"),default=False)
+    pos = models.BooleanField(verbose_name=_("Посоор зарж болох эсэх"),default=False)
+    # posCat = models.ForeignKey(PosCategory,related_name='categories', on_delete=models.CASCADE, verbose_name=_("Посын ангилал"))
+    thumbimage = models.ImageField(
+        upload_to="media/productthumb/", blank = True, null=True,  verbose_name=_("Зураг")
+    )
     state = models.ForeignKey(State,related_name='products', on_delete=models.CASCADE, verbose_name=_("Төлөв"))
 
     class Meta:

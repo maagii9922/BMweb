@@ -26,6 +26,9 @@
                               <a href="#" class="dataTable-sorter">Утас:</a>
                           </th>
                           <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Зураг:</a>
+                          </th>
+                          <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Төлөв:</a>
                           </th>
                           {% if user.role < 4 %}
@@ -40,6 +43,7 @@
                           <td>{{ h.comName }}</td>
                           <td>{{ h.hayag }}</td>
                           <td>{{ h.phone }}</td>
+                          <td>{{ h.thumbimage }}</td>
                           <td>{{ h.comState }}</td>
                           <td>                                                       
                           {% if h.comState_id < 3 %}   

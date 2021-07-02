@@ -20,25 +20,40 @@
                                     <a href="#" class="dataTable-sorter">Нэр</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">төрөл</a>
+                                    <a href="#" class="dataTable-sorter">Төрөл</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">Е.нэршил</a>
+                                    <a href="#" class="dataTable-sorter">Ер.нэршил</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">э.хэлбэр</a>
+                                    <a href="#" class="dataTable-sorter">Эм.хэлбэр</a>
                                 </th>
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">Нийлүүлэгч</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">ангилал</a>
+                                    <a href="#" class="dataTable-sorter">Барааны ангилал</a>
+                                </th>
+                                <!-- <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">Борлуулж болох эсэх</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">зарж болох</a>
+                                    <a href="#" class="dataTable-sorter">Худалдаж болох эсэх</a>
+                                </th> -->
+                                <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">Зарлагдаж болох эсэх</a>
                                 </th>
                                 <th data-sortable="" class="asc">
-                                    <a href="#" class="dataTable-sorter">төлөв</a>
+                                    <a href="#" class="dataTable-sorter">Посоор зарж болох эсэх</a>
+                                </th>
+                                <!-- <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">Посын ангилал</a>
+                                </th> -->
+                                <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">Зураг:</a>
+                                </th>
+                                <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">Төлөв</a>
                                 </th>
                                 {% if user.role < 4 %}
                                 <th data-sortable="" class="asc">
@@ -72,6 +87,9 @@
                                 <!-- <td>{{ h.borBoloh }}</td> -->
                                 <!-- <td>{{ h.hudAwch }}</td> -->
                                 <td>{{ h.zarBoloh }}</td>
+                                <td>{{ h.pos }}</td>
+                                <!-- <td>{{ h.posCat }}</td> -->
+                                <td>{{ h.thumbimage }}</td>
                                 <td>{{ h.state }}</td>
                                 <td>
                                 {% if user.role < 4 and h.state_id < 3 %}    

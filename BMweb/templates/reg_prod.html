@@ -42,7 +42,7 @@
                                 </select>
                               </div>
                               <div class="mb-3">
-                                <label for="prodType_id" class="form-label">төрөл</label>
+                                <label for="prodType_id" class="form-label">Бүтээгдэхүүний төрөл</label>
                                 <select name="prodType_id" id="prodType_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for t in type %}
@@ -51,7 +51,7 @@
                                 </select>
                               </div>
                               <div class="mb-3">
-                                <label for="emHelber_id" class="form-label">эм хэлбэр</label>
+                                <label for="emHelber_id" class="form-label">Эмийн хэлбэр</label>
                                 <select name="emHelber_id" id="emHelber_id" style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
                                     {% for eh in emHelber %}
@@ -60,7 +60,7 @@
                                 </select>
                               </div>
                               <div class="mb-3">
-                                <label for="category_id" class="form-label">эм ангилал</label>
+                                <label for="category_id" class="form-label">Бүтээгдэхүүний ангилал</label>
                                 <select name="category_id" id="category_id" style="width: 220px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                     <option>-------------</option>
                                     {% for c in cat %}
@@ -187,6 +187,18 @@
                               <div class="mb-3">
                                 <label for="borBoloh" class="form-label">Борлуулж болох эсэх {{data.borBoloh_id}}</label>
                                 <input type="checkbox" id="borBoloh" class="form-check-input" name="borBoloh" {% if data.borBoloh %} checked {% endif %} onclick='borBolohClick(this);'/>
+                              </div> 
+                              <div class="mb-3">
+                                <label for="hudAwch" class="form-label">Худалдан авч болох эсэх {{data.hudAwch_id}}</label>
+                                <input type="checkbox" id="hudAwch" class="form-check-input" name="hudAwch" {% if data.hudAwch %} checked {% endif %} onclick='borBolohClick(this);'/>
+                              </div> 
+                              <div class="mb-3">
+                                <label for="zarBoloh" class="form-label">Зарлагдаж болох эсэх {{data.zarBoloh_id}}</label>
+                                <input type="checkbox" id="zarBoloh" class="form-check-input" name="zarBoloh" {% if data.zarBoloh %} checked {% endif %} onclick='borBolohClick(this);'/>
+                              </div> 
+                              <div class="mb-3">
+                                <label for="pos" class="form-label">Посоор зарж болох эсэх {{data.pos_id}}</label>
+                                <input type="checkbox" id="pos" class="form-check-input" name="pos" {% if data.pos %} checked {% endif %} onclick='borBolohClick(this);'/>
                               </div>  
                               <div class="mb-3" >                           
                                 <label for="company_id" class="form-label" >Ашиглах компани</label> 
@@ -296,6 +308,21 @@
                               <div class="mb-3">
                                 <label for="price" class="form-label">Үнэ</label>
                                 <input type="number" class="form-control" id="price" name="price" placeholder="Үнэ"  value="{{data.price}}"/>
+                              </div>
+                              
+                              <!-- <div class="mb-3">
+                                <label for="posCat_id" class="form-label">Посын ангилал</label>
+                                <select name="posCat_id" id="posCat_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <option>-------------</option>
+                                    {% for pc in posCat %}
+                                    <option value="{{pc.id}}" {% if data.posCat_id|add:"0" == pc.id|add:"0" %} selected {% endif %}>{{pc.posCatName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div> -->
+                                                            
+                              <div class="mb-3">
+                                <label for="thumbimage" class="form-label">Зураг:</label>
+                                <input type="file" class="form-control form-control-sm" id="thumbimage" name="thumbimage" placeholder="Зураг" required onblur="checkValid()" value="{{data.thumbimage}}" multiple/>
                               </div>
                             {% if edit %} <input type='hidden' name='edit' value='{{edit}}'/> 
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" />

@@ -26,6 +26,10 @@
                               <div class="mb-3">
                                 <label for="phone" class="form-label">Харилцагчийн утас:</label>
                                 <input type="text" class="form-control" id="phone" name="phone" placeholder="Харилцагчийн утас" required onblur="checkValid()" value="{{data.phone}}"/>
+                              </div>                              
+                              <div class="mb-3">
+                                <label for="thumbimage" class="form-label">Зураг:</label>
+                                <input type="file" class="form-control form-control-sm" id="thumbimage" name="thumbimage" placeholder="Зураг" required onblur="checkValid()" value="{{data.thumbimage}}" multiple/>
                               </div>
                             <!-- {{ProductForm.id}} -->
                             <!-- <input id="had" type='submit'  value='Хадгалах' onclick="hadgalah()"/> -->
