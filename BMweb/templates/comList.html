@@ -15,10 +15,13 @@
                 {% include "tableTop.html" %}
                 <table id="datatablesSimple" class="dataTable-table">
                   <thead>
-                      <tr>
+                      <tr> 
+                          <th data-sortable="" class="asc">
+                            <a href="#" class="dataTable-sorter">№</a>
+                        </th>
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Нэр:</a>
-                          </th>
+                          </th> 
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Хаяг:</a>
                           </th>
@@ -31,33 +34,37 @@
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Төлөв:</a>
                           </th>
-                          {% if user.role < 4 %}
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
                           </th>
-                          {% endif  %}
                       </tr>
                   </thead>                  
-                    {% for h in companyList %}                     
+                    {% for h in companyList %}
                       <tr>
+                          <td>{{ forloop.counter0|add:start_index }}</td>
                           <td>{{ h.comName }}</td>
                           <td>{{ h.hayag }}</td>
                           <td>{{ h.phone }}</td>
                           <td>{{ h.thumbimage }}</td>
                           <td>{{ h.comState }}</td>
-                          <td>                                                       
-                          {% if h.comState_id < 3 %}   
+                          <td>   
+                              <!-- {{user.role_id}}::{{h.comState_id}} -->
+                          {% if user.role_id|add:0 < 3 and h.comState_id|add:0 < 3 %}   
                             <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
                             <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a> 
-                          {% endif  %}
-                          <!-- {% if user.role_id == 3 and h.comState_id == 1 %}  
-                            <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
-                            <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                          {% endif %}
+                          {% if user.role_id|add:0 == 3 and h.comState_id|add:0 == 1 %}  
+                            <!-- <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
                             <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a> 
-                          {% endif %} -->
-                          
+                            <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                          {% endif %}
+                          {% if user.role_id|add:0 == 4 and h.comState_id|add:0 > 2 %}  
+                            <!-- <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
+                            <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a> 
+                            <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                          {% endif %}
                           </td>
-                      </tr>                       
+                      </tr> 
                     {% endfor %}                 
                 </table>
             </div>
@@ -65,3 +72,46 @@
         </div>
     </div>
 </main>
+<script>
+    window.addEventListener("load", function(){
+        let size = "{{size}}"
+        if (size){
+            sizeCombo = document.getElementById('sizeCombo');
+            sizeCombo.value = size
+        }
+    });
+    function rowCount(t){console.log('rowCount', t.value)
+        let size = t.value
+        window.location.href = '?size='+t.value
+        // let p_json = JSON.parse("{{p_json|escapejs}}")
+        // let p_json = JSON.parse("{{p_list|escapejs}}")
+        // console.log('p_json',p_json)
+
+        // var new_tbody = document.createElement('tbody');
+        
+        // for (var i = 0; i<p_json.length; i++) { 
+        //     let r = p_json[0].fields
+        //     var tr = document.createElement('tr'); 
+        //     new_tbody.appendChild(tr); 
+
+        //     var tdElement = document.createElement('td');
+        //     tdElement.innerHTML = r['prodName'];
+        //     tr.appendChild(tdElement);
+
+        //     var tdElement = document.createElement('td');
+        //     tdElement.innerHTML = r['prodType'];
+        //     tr.appendChild(tdElement);
+
+        // }        
+        // let old_tbody = document.getElementById('datatablesSimple').getElementsByTagName('tbody')[0]
+        // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
+
+        
+        
+        
+
+        
+
+     
+    }
+</script>

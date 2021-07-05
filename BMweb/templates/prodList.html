@@ -58,11 +58,9 @@
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">Төлөв</a>
                                 </th>
-                                {% if user.role_id|add:0 < 4 %}
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
                                 </th>
-                                {% endif  %}
                                 <!-- <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter"></a>
                                 </th>
@@ -72,7 +70,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{start_index}}
+                            <!-- {{start_index}} -->
                         {% for h in productList %}
                             <tr>
                                 <td>{{ forloop.counter0|add:start_index }}</td>
@@ -98,15 +96,15 @@
                                 <td>{{ h.thumbimage }}</td>
                                 <td>{{ h.state }}</td>
                                 <td>
-                                    {{user.role_id}}::{{h.state_id}}
-                                {% if user.role_id|add:0 < 4 and h.state_id|add:0 < 3 %}    
+                                    <!-- {{user.role_id}}::{{h.state_id}} -->
+                                {% if user.role_id|add:0 < 3 and h.state_id|add:0 < 3 %}    
                                     <a href="/product?edit={{h.id}}"><i class="fas fa-edit"></i></a></form>
                                     <a href="/product?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></form>
                                 {% endif  %}
-                                  {% if user.role_id|add:0 == 3 and h.state_id|add:0 == 1 %}  
-                                  <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
-                                  <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
+                                  {% if user.role_id|add:0 >= 3 and h.state_id|add:0 == 1 %}  
+                                  <!-- <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
                                   <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
+                                  <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
                                   {% endif %}
 
                                 </td>

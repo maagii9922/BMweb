@@ -85,7 +85,7 @@
                             </tr>
                         </thead>
                         {% for h in productList %}
-                        {% if  h.state_id == 3 %} 
+                        {% if user.role_id|add:0 == 4 and h.state_id|add:0 == 3 %} 
                             <tr>
                                 <td>{{ user.ner}}</td>
                                 <td>{{ h.prodName }}</td>
@@ -139,7 +139,7 @@
                             </tr>
                         </thead>                  
                           {% for h in companyList %}    
-                              {% if  h.comState_id == 3 %}            
+                              {% if user.role_id|add:0 == 4 and h.comState_id|add:0 == 3 %}            
                                   <tr>
                                       <td>{{ user.ner}}</td>
                                       <td>{{ user.company}}</td>

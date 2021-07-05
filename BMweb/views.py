@@ -117,8 +117,19 @@ def company(request):
 def companyList(request):
     if 'user_id' in request.session:
         p = Company.objects.all().order_by('comState')
+        size = 25
+        if 'size' in request.GET:
+            size = request.GET['size']
+        pc = Paginator(p, size)
+        page_num = 1
+        
+        if 'page' in request.GET:
+            page_num = int(request.GET['page'])
+            print('page')
+            print(page_num)
+        page=pc.page(page_num)
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'companyList.html', {'user': h, 'companyList': p })
+        return render(request,'companyList.html', {'user': h, 'companyList': page.object_list, 'size':size, 'count':pc.count, 'page_count': pc.num_pages, 'page_range':pc.page_range, 'page_num':page_num, 'has_next':page.has_next(), 'has_previous': page.has_previous(), 'start_index':page.start_index() })
     else: 
         return redirect('/login')  
 
