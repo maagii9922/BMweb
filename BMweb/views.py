@@ -6,6 +6,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect, request
 from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz, PosCategory,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
+import base64
+from django.core.files.storage import FileSystemStorage
+from django.core import serializers
+from django.core.paginator import Paginator
+
+
 
 def login(request):
     if request.method == 'GET':
@@ -26,6 +32,7 @@ def login(request):
 def home(request):    
     if 'user_id' in request.session:
         h = Hereglegch.objects.get(pk=request.session['user_id'])
+        print(h.role_id)
         if h.role_id == 1:
             return redirect('/product-list')
         elif h.role_id == 2:
@@ -37,7 +44,7 @@ def home(request):
     else:
         return redirect('/login')        
         
-    return render(request,'home.html') 
+    
       
     # if 'user_id' in request.session:
     #     h = Hereglegch.objects.get(pk=request.session['user_id'])
@@ -85,7 +92,7 @@ def company(request):
             elif 'del' in request.GET :
                 p = Company.objects.get(pk=request.GET['del'])
                 p.delete()
-                return render(request,'home.html' )
+                return redirect('/')
             else:
                 return render(request,'company.html', {'user': h})
        
@@ -98,14 +105,14 @@ def company(request):
                 p.thumbimage = request.POST['thumbimage']
                 # p.comState = request.POST['comState']
                 p.save()
-                return render(request,'home.html' )
+                return redirect('/')
             else:
                 if Company.objects.filter(comName= request.POST['comName']):
                     errmsg = "Компаний нэр давхардлаа"       
                     return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
                 p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'],thumbimage = request.POST['thumbimage'],comState = State.objects.get(pk= 1))
                 p.save()
-                return render(request,'home.html' , {'user': h})            
+                return redirect('/', {'user': h})            
             
 def companyList(request):
     if 'user_id' in request.session:
@@ -137,7 +144,8 @@ def product(request):
         uildwerlegch = Manufacturer.objects.all()
         uNiiluulegch = Niiluulegch.objects.all()
         paiz = Paiz.objects.all()
-        # posCat = PosCategory.objects.all()
+        posCat = PosCategory.objects.all()
+        print(posCat)
         if request.method == 'GET':
             if 'edit' in request.GET :
                 p = Product.objects.get(pk=request.GET['edit'])
@@ -151,11 +159,11 @@ def product(request):
             elif 'del' in request.GET :
                 p = Product.objects.get(pk=request.GET['del'])
                 p.delete()
-                return render(request,'home.html' )
+                return redirect('/')
             else:
-                return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
+                return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch, 'posCat':posCat})
         elif request.method == 'POST':            
-            # print(request.POST)
+            print(request.POST)
             if 'edit' in request.POST :
                 p = Product.objects.get(pk=request.POST['edit'])
                 print(p)
@@ -168,7 +176,8 @@ def product(request):
                         # zzCode= request.POST['zzCode'],
                 p.price= request.POST['price']
                 p.hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj_id']))
-                p.hudNegj= request.POST['hudNegj']
+                p.hudNegj= HemNegj.objects.get(pk= int(request.POST['hudNegj_id']))
+                # p.hudNegj= request.POST['hudNegj']
                 p.category=  Category.objects.get(pk= int(request.POST['category_id']))
                 p.erNershil= request.POST['erNershil']
                 p.emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber_id']))
@@ -203,8 +212,23 @@ def product(request):
                 company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
                 # print(company)
                 p.company.add(*company)
-                return render(request,'home.html' )
+                return redirect('/')
             else:
+                # print(request.FILES)
+                # upFile = request.FILES['thumbimage']
+                # data = upFile.read()
+                # encoded = base64.b64encode(data)
+                # mime = "image/jpeg"
+                # mime = mime + ";" if mime else ";"
+                # f = {"upFile": "data:%sbase64,%s" % (mime, encoded)}
+
+                # myfile = request.FILES['thumbimage']
+                # fs = FileSystemStorage()
+                # filename = fs.save(myfile.name, myfile)
+                # uploaded_file_url = fs.url(filename)
+                # return render(request, 'index.html', {'uploaded_file_url': uploaded_file_url })
+
+
                 if Product.objects.filter(prodName = request.POST['prodName']):
                     errmsg = "Барааны монгол нэр давхардлаа"         #Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company') , "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
@@ -214,7 +238,6 @@ def product(request):
                 if Product.objects.filter(zCode = request.POST['zCode']):
                     errmsg = "Зураасан код давхардлаа"
                     return render(request,'product.html', {'user': h, "errmsg": errmsg, "data": request.POST, "selected_company": request.POST.getlist('selected_company'), "company_id": request.POST['company_id'], 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch})
-
                 borb = False
                 if 'borBoloh' in request.POST:
                     borb = True
@@ -227,6 +250,7 @@ def product(request):
                 pos = False
                 if 'pos' in request.POST:
                     pos = True
+                # h = ProductForm(request.POST, request.FILES)
                 h = Product(
                         prodName= request.POST['prodName'],
                         prodName_en= request.POST['prodName_en'],
@@ -236,7 +260,7 @@ def product(request):
                         # zzCode= request.POST['zzCode'],
                         price= request.POST['price'],
                         hemNegj= HemNegj.objects.get(pk= int(request.POST['hemNegj_id'])),
-                        hudNegj= request.POST['hudNegj'],
+                        hudNegj= HemNegj.objects.get(pk= int(request.POST['hudNegj_id'])),  
                         category=  Category.objects.get(pk= int(request.POST['category_id'])),
                         erNershil= request.POST['erNershil'],
                         emHelber= EmHelber.objects.get(pk= int(request.POST['emHelber_id'])),
@@ -249,7 +273,7 @@ def product(request):
                         hudAwch= huda,
                         zarBoloh= zarb,
                         pos= pos,
-                        # posCat = PosCategory.objects.get(pk= int(request.POST['posCat_id'])),
+                        posCat = PosCategory.objects.get(pk= int(request.POST['posCat_id'])),
                         thumbimage = request.POST['thumbimage'],
                         state=  State.objects.get(pk= 1),
                         )
@@ -258,13 +282,25 @@ def product(request):
                 # print(company)
                 h.company.add(*company)                
                 # return render(request,'product.html',{'user': h,  "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch} )
-                return render(request, 'home.html')
+                return redirect('/')
        
 def productList(request):    
     if 'user_id' in request.session:
         p = Product.objects.all().order_by('state')
+        size = 25
+        if 'size' in request.GET:
+            size = request.GET['size']
+        pc = Paginator(p, size)
+        page_num = 1
+        
+        if 'page' in request.GET:
+            page_num = int(request.GET['page'])
+            print('page')
+            print(page_num)
+        page=pc.page(page_num)
         h = Hereglegch.objects.get(pk=request.session['user_id'])
-        return render(request,'productList.html', {'user': h, 'productList': p })
+        
+        return render(request,'productList.html', {'user': h, 'productList': page.object_list, 'size':size, 'count':pc.count, 'page_count': pc.num_pages, 'page_range':pc.page_range, 'page_num':page_num, 'has_next':page.has_next(), 'has_previous': page.has_previous(), 'start_index':page.start_index() })
     else: 
         return redirect('/login')  
 
@@ -363,11 +399,11 @@ def init(request):
     niil4 = Niiluulegch.objects.create(niiName="emonos")
     brand1 = ProdBrand.objects.create(brandName="Pigeon", brandCode="brandCode1", description="description1", ontslohEseh=False, idewhiteiEseh=True)
     brand2 = ProdBrand.objects.create(brandName="Friso", brandCode="brandCode2", description="description2", ontslohEseh=False, idewhiteiEseh=True)
-    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1)
+    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat1)
     prod1.company.add(c1)
     prod1.company.add(c2)
     prod1.company.add(c3)
-    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=123, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1)
+    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat2)
     prod2.company.add(c3)
     prod2.company.add(c2)
     prod2.company.add(c1)

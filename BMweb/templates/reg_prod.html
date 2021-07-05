@@ -22,15 +22,15 @@
                       {{errmsg}}
                       </div>
                       {% endif %} 
-                        <form method='POST' id="reg_prod_form" >
+                        <form method='POST' id="reg_prod_form">
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="prodName" class="form-label">Бүтээгдэхүүний нэр</label>
-                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required onblur="checkValid()" value="{{data.prodName}}"}/>
+                                <input type="text" class="form-control" id="prodName" name="prodName" placeholder="Бүтээгдэхүүний нэр" required  value="{{data.prodName}}"}/>
                               </div>
                               <div class="mb-3">
                                 <label for="prodName_en" class="form-label">Бүтээгдэхүүний нэр англи</label>
-                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required required onblur="checkValid()"  value="{{data.prodName_en}}"/>
+                                <input type="text" class="form-control" id="prodName_en" name="prodName_en" placeholder="Бүтээгдэхүүний нэр англи" required  value="{{data.prodName_en}}"/>
                               </div>
                               <div class="mb-3">
                                 <label for="brand_id" class="form-label">Брэнд нэр </label>
@@ -59,31 +59,14 @@
                                     {% endfor %} 
                                 </select>
                               </div>
+                            
+
+
+
+
+
+
                               <div class="mb-3">
-                                <label for="category_id" class="form-label">Бүтээгдэхүүний ангилал</label>
-                                <select name="category_id" id="category_id" style="width: 220px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                    <option>-------------</option>
-                                    {% for c in cat %}
-                                    <option value="{{c.id}}" {% if data.category_id|add:"0" == c.id|add:"0"  %} selected {% endif %}>{{c.catName}}</option>
-                                    {% endfor %} 
-                                </select>
-                              </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                              <!-- <div class="mb-3">
                                 <style>
                                     ul, #myUL {
                                       list-style-type: none;
@@ -122,31 +105,34 @@
                                     .active {
                                       display: block;
                                     }
+                                    span.option {
+                                      background-color: #B8B8B8;
+                                    }
                                     </style>
-                                <ul id="myUL">
+                                <ul id="anglialTree">
                                     {% for c in cat %}
                                     {% if c.parent == None %}
-                                    <li value="{{c.id}}"><span class="caret">{{c.catName}} {{c.parent}}</span>
+                                    <li value="{{c.id}}" ><span class="caret" class="option">{{c.catName}}</span>
                                       <ul class="nested">
                                         {% for c1 in cat %}
                                         {% if c1.parent == c.id %}
-                                        <li value="{{c1.id}}"><span class="caret">{{c1.catName}} {{c1.parent}}</span>
+                                        <li value="{{c1.id}}"><span class="caret">{{c1.catName}}</span>
                                             <ul class="nested">
                                                 {% for c2 in cat %}
                                                 {% if c2.parent == c1.id %}
-                                                <li value="{{c2.id}}"><span class="caret">{{c2.catName}} {{c2.parent}}</span>
+                                                <li value="{{c2.id}}"><span class="caret">{{c2.catName}}</span>
                                                     <ul class="nested">
                                                         {% for c3 in cat %}
                                                         {% if c3.parent == c2.id %}
-                                                        <li value="{{c3.id}}"><span class="caret">{{c3.catName}} {{c3.parent}}</span>
+                                                        <li value="{{c3.id}}"><span class="caret">{{c3.catName}}</span>
                                                             <ul class="nested">
                                                                 {% for c4 in cat %}
                                                                 {% if c4.parent == c3.id %}
-                                                                <li value="{{c4.id}}"><span class="caret">{{c4.catName}} {{c4.parent}}</span>
+                                                                <li value="{{c4.id}}"><span class="caret">{{c4.catName}}</span>
                                                                     <ul class="nested">
                                                                         {% for c5 in cat %}
                                                                         {% if c5.parent == c4.id %}
-                                                                        <li value="{{c3.id}}"><span class="caret">{{c5.catName}} {{c5.parent}}</span>
+                                                                        <li value="{{c3.id}}"><span class="caret">{{c5.catName}}</span>
                                                                          
                                                                         </li>  
                                                                         {% endif %}
@@ -172,7 +158,17 @@
                                     {% endif %}
                                     {% endfor %}
                                   </ul>
-                              </div> -->
+                              </div>
+                              <!-- <div class="mb-3" style="visibility: hidden;"> -->
+                              <div class="mb-3">
+                                <label for="category_id" class="form-label">Бүтээгдэхүүний ангилал</label>
+                                <select name="category_id" id="category_id" style="width: 220px;" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                    <option>-------------</option>
+                                    {% for c in cat %}
+                                    <option value="{{c.id}}" {% if data.category_id|add:"0" == c.id|add:"0"  %} selected {% endif %}>{{c.catName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
 
 
 
@@ -267,12 +263,12 @@
                                 </select>
                               </div>
                               <div class="mb-3">
-                                <label for="hemNegj_id" class="form-label">Худалдах нэгж</label>
+                                <label for="hudNegj_id" class="form-label">Худалдах нэгж</label>
                                 <!-- <input type="number" class="form-control" id="hudNegj" name="hudNegj" placeholder="Худалдах нэгж" value="{{data.hudNegj}}"/> -->
-                                <select name="hemNegj_id" id="hemNegj_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <select name="hudNegj_id" id="hudNegj_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                   <option>-------------</option>
                                   {% for hj in hemNegj %}
-                                  <option value="{{hj.id}}" {% if data.hemNegj_id|add:"0"  == hj.id|add:"0"  %} selected {% endif %}>{{hj.hemNegjName  }}</option>
+                                  <option value="{{hj.id}}" {% if data.hudNegj_id|add:"0"  == hj.id|add:"0"  %} selected {% endif %}>{{hj.hemNegjName  }}</option>
                                   {% endfor %} 
                               </select>
                               </div>
@@ -316,7 +312,7 @@
                                 <input type="number" class="form-control" id="price" name="price" placeholder="Үнэ"  value="{{data.price}}"/>
                               </div>
                               
-                              <!-- <div class="mb-3">
+                              <div class="mb-3">
                                 <label for="posCat_id" class="form-label">Посын ангилал</label>
                                 <select name="posCat_id" id="posCat_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <option>-------------</option>
@@ -324,35 +320,85 @@
                                     <option value="{{pc.id}}" {% if data.posCat_id|add:"0" == pc.id|add:"0" %} selected {% endif %}>{{pc.posCatName}}</option>
                                     {% endfor %} 
                                 </select>
-                              </div> -->
-                                                            
-                              <div class="mb-3">
-                                <label for="thumbimage" class="form-label">Зураг:</label>
-                                <input type="file" class="form-control form-control-sm" id="thumbimage" name="thumbimage" placeholder="Зураг" required onblur="checkValid()" value="{{data.thumbimage}}" multiple/>
                               </div>
+                                                            
+                              <div class="mb-3" id="imgCont">{{upFile}}::
+                                <label for="thumbimage" class="form-label">Зураг:</label>                                
+                                <input type="button" class="form-control form-control-sm" value="Зураг оруулах" onclick="bt1_click()" >       
+                                <input type="file"  id="thumbimage" name="thumbimage" placeholder="Зураг" required value="" multiple />                          
+                              </div>
+                              
+                              <!-- <img src="{{upFile}}"/> -->
+                             
+                            {{edit}}
                             {% if edit %} <input type='hidden' name='edit' value='{{edit}}'/> 
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" />
                             <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
                             {% else %}
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" disabled/>
+                            <!-- <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" /> -->
                             {% endif %}
 
-                            <script>
-                                var toggler = document.getElementsByClassName("caret");
-                                var i;
 
-                                for (i = 0; i < toggler.length; i++) {
-                                toggler[i].addEventListener("click", function() {
+                            <script>
+                              window.addEventListener('load', (event) => {console.log('page is fully loaded');
+
+                                const form = document.getElementById('reg_prod_form');
+                                form.addEventListener("change", () => {console.log('onchange')
+                                    document.getElementById('had').disabled = !form.checkValidity()
+                                });
+
+                                
+
+
+                                document.getElementById("thumbimage").onchange = function () { console.log('thumbimage-onchange',this.files.length)
+                                parent=this.parentElement;console.log( parent.childNodes)
+                                for( let i =0; parent.childNodes[6]; i++){ 
+                                  parent.removeChild(parent.childNodes[6])      
+                                }
+                                
+                                for( let i =0; i<this.files.length; i++){ 
+                                    const img = document.createElement("img");
+                                    img.src = URL.createObjectURL(this.files[i]);
+                                    img.style.height=150+"px"
+                                    parent.appendChild(img)     
+
+                                }
+                              };
+
+                              });
+
+
+
+                              function bt1_click(){
+                                  console.log('btn1')
+                                  b = document.getElementById('thumbimage').click();
+                              }
+
+                              
+
+                                
+                                let anglialTree = document.getElementById("anglialTree")
+                                let spans = anglialTree.getElementsByTagName("span"); console.log('spans',spans)
+                                var toggler = document.getElementsByClassName("caret");
+                                for (let ti = 0; ti < toggler.length; ti++) {
+                                  toggler[ti].addEventListener("click", function() {console.log('this', this.parentElement.value)
                                     this.parentElement.querySelector(".nested").classList.toggle("active");
+                                    for (var i = 0; i < spans.length; i++) {
+                                      spans[i].classList.remove('option')
+                                    }
+                                    this.classList.add("option");
                                     this.classList.toggle("caret-down");
+
+                                    let anglial = document.getElementById("category_id");
+                                    anglial.value = this.parentElement.value
                                 });
                                 }
-                                function checkValid(){                                
-                                    const form = document.getElementById('reg_prod_form');
-                                    form.addEventListener("change", () => {
-                                        document.getElementById('had').disabled = !form.checkValidity()
-                                    });
-                                }
+
+
+                                                                
+                                    
+                                
                                 function borBolohClick(cb) {
                                   console.log("Clicked, new value = " + cb.checked);
                                 }

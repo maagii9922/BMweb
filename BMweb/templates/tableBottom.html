@@ -1,15 +1,18 @@
+<style>
+    .disabled {
+    pointer-events:none; 
+    opacity:0.6;        
+    }
+</style>
 <div class="dataTable-bottom">
-    <div class="dataTable-info">Showing 51 to 57 of 57 entries</div>
+    <div class="dataTable-info">нийт бичлэг : {{count}} хуудсын тоо : {{page_count}}     эхлэх дугаар:   дуусах дугаар :</div>
     <nav class="dataTable-pagination">
         <ul class="dataTable-pagination-list">
-            <li class="pager"><a href="#" data-page="5">‹</a></li>
-            <li class=""><a href="#" data-page="1">1</a></li>
-            <li class=""><a href="#" data-page="2">2</a></li>
-            <li class=""><a href="#" data-page="3">3</a></li>
-            <li class=""><a href="#" data-page="4">4</a></li>
-            <li class=""><a href="#" data-page="5">5</a></li>
-            <li class="active"><a href="#" data-page="6">6</a></li>
-            <li class="pager"><a href="#" data-page="6">›</a></li>
+            <li {% if has_previous == False %}  class="pager disabled" {% else %} class="pager" {% endif %}  ><a href="?size={{size}}&page={{ page_num|add:-1 }}" data-page="5" >‹</a></li>
+            {% for _ in page_range %}
+                <li {% if page_num == forloop.counter %}  class="active" {% endif %}><a href="?size={{size}}&page={{ forloop.counter }}" data-page="{{ forloop.counter }}">{{ forloop.counter }}</a></li>
+            {% endfor %}
+            <li {% if has_next == False %}  class="pager disabled" {% else %} class="pager" {% endif %}><a href="?size={{size}}&page={{ page_num|add:1 }}" data-page="6">›</a></li>
         </ul>
     </nav>
 </div>

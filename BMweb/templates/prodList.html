@@ -17,6 +17,9 @@
                         <thead>
                             <tr>
                                 <th data-sortable="" class="asc">
+                                    <a href="#" class="dataTable-sorter">№</a>
+                                </th>
+                                <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">Нэр</a>
                                 </th>
                                 <th data-sortable="" class="asc">
@@ -55,7 +58,7 @@
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">Төлөв</a>
                                 </th>
-                                {% if user.role < 4 %}
+                                {% if user.role_id|add:0 < 4 %}
                                 <th data-sortable="" class="asc">
                                     <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
                                 </th>
@@ -68,8 +71,11 @@
                                 </th> -->
                             </tr>
                         </thead>
+                        <tbody>
+                            {{start_index}}
                         {% for h in productList %}
                             <tr>
+                                <td>{{ forloop.counter0|add:start_index }}</td>
                                 <td>{{ h.prodName }}</td>
                                 <!-- <td>{{ h.zCode }}</td> -->
                                 <td>{{ h.prodType }}</td>
@@ -92,19 +98,21 @@
                                 <td>{{ h.thumbimage }}</td>
                                 <td>{{ h.state }}</td>
                                 <td>
-                                {% if user.role < 4 and h.state_id < 3 %}    
+                                    {{user.role_id}}::{{h.state_id}}
+                                {% if user.role_id|add:0 < 4 and h.state_id|add:0 < 3 %}    
                                     <a href="/product?edit={{h.id}}"><i class="fas fa-edit"></i></a></form>
                                     <a href="/product?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></form>
                                 {% endif  %}
-                                  <!-- {% if user.role_id == 3 and h.state_id == 1 %}  
+                                  {% if user.role_id|add:0 == 3 and h.state_id|add:0 == 1 %}  
                                   <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a>
                                   <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a>
                                   <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
-                                  {% endif %} -->
+                                  {% endif %}
 
                                 </td>
                             </tr>            
                     {% endfor %}    
+                </tbody>
                     </table>
                 <!-- <div>
                     {% if user.role_id == 1 %}
@@ -120,3 +128,46 @@
         </div>
     </div>
 </main>
+<script>
+    window.addEventListener("load", function(){
+        let size = "{{size}}"
+        if (size){
+            sizeCombo = document.getElementById('sizeCombo');
+            sizeCombo.value = size
+        }
+    });
+    function rowCount(t){console.log('rowCount', t.value)
+        let size = t.value
+        window.location.href = '?size='+t.value
+        // let p_json = JSON.parse("{{p_json|escapejs}}")
+        // let p_json = JSON.parse("{{p_list|escapejs}}")
+        // console.log('p_json',p_json)
+
+        // var new_tbody = document.createElement('tbody');
+        
+        // for (var i = 0; i<p_json.length; i++) { 
+        //     let r = p_json[0].fields
+        //     var tr = document.createElement('tr'); 
+        //     new_tbody.appendChild(tr); 
+
+        //     var tdElement = document.createElement('td');
+        //     tdElement.innerHTML = r['prodName'];
+        //     tr.appendChild(tdElement);
+
+        //     var tdElement = document.createElement('td');
+        //     tdElement.innerHTML = r['prodType'];
+        //     tr.appendChild(tdElement);
+
+        // }        
+        // let old_tbody = document.getElementById('datatablesSimple').getElementsByTagName('tbody')[0]
+        // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
+
+        
+        
+        
+
+        
+
+     
+    }
+</script>
