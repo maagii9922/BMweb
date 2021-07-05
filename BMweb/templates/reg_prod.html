@@ -94,7 +94,7 @@
                                     
                                     .caret-down::before {
                                       -ms-transform: rotate(90deg); /* IE 9 */
-                                      -webkit-transform: rotate(90deg); /* Safari */'
+                                      -webkit-transform: rotate(90deg); /* Safari */
                                       transform: rotate(90deg);  
                                     }
                                     
@@ -109,7 +109,7 @@
                                       background-color: #B8B8B8;
                                     }
                                     </style>
-                                <ul id="anglialTree">
+                                <ul id="angilalTree">
                                     {% for c in cat %}
                                     {% if c.parent == None %}
                                     <li value="{{c.id}}" ><span class="caret" class="option">{{c.catName}}</span>
@@ -330,7 +330,7 @@
                               
                               <!-- <img src="{{upFile}}"/> -->
                              
-                            {{edit}}
+                            <!-- {{edit}} -->
                             {% if edit %} <input type='hidden' name='edit' value='{{edit}}'/> 
                             <input id="had" type='submit' class="btn btn-primary"  value='Хадгалах' onclick="selectAll();" />
                             <!-- <button type="button" class="btn btn-primary" id="had" >Хадгалах</button> -->
@@ -378,8 +378,8 @@
                               
 
                                 
-                                let anglialTree = document.getElementById("anglialTree")
-                                let spans = anglialTree.getElementsByTagName("span"); console.log('spans',spans)
+                                let angilalTree = document.getElementById("angilalTree")
+                                let spans = angilalTree.getElementsByTagName("span"); console.log('spans',spans)
                                 var toggler = document.getElementsByClassName("caret");
                                 for (let ti = 0; ti < toggler.length; ti++) {
                                   toggler[ti].addEventListener("click", function() {console.log('this', this.parentElement.value)

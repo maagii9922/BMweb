@@ -120,4 +120,46 @@
             {% include "tableBottom.html" %}
         </div>
     </div>
-</main>
+</main><script>
+    window.addEventListener("load", function(){
+        let size = "{{size}}"
+        if (size){
+            sizeCombo = document.getElementById('sizeCombo');
+            sizeCombo.value = size
+        }
+    });
+    function rowCount(t){console.log('rowCount', t.value)
+        let size = t.value
+        window.location.href = '?size='+t.value
+        // let p_json = JSON.parse("{{p_json|escapejs}}")
+        // let p_json = JSON.parse("{{p_list|escapejs}}")
+        // console.log('p_json',p_json)
+
+        // var new_tbody = document.createElement('tbody');
+        
+        // for (var i = 0; i<p_json.length; i++) { 
+        //     let r = p_json[0].fields
+        //     var tr = document.createElement('tr'); 
+        //     new_tbody.appendChild(tr); 
+
+        //     var tdElement = document.createElement('td');
+        //     tdElement.innerHTML = r['prodName'];
+        //     tr.appendChild(tdElement);
+
+        //     var tdElement = document.createElement('td');
+        //     tdElement.innerHTML = r['prodType'];
+        //     tr.appendChild(tdElement);
+
+        // }        
+        // let old_tbody = document.getElementById('datatablesSimple').getElementsByTagName('tbody')[0]
+        // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
+
+        
+        
+        
+
+        
+
+     
+    }
+</script>

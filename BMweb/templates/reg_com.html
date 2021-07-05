@@ -27,8 +27,9 @@
                                 <label for="phone" class="form-label">Харилцагчийн утас:</label>
                                 <input type="text" class="form-control" id="phone" name="phone" placeholder="Харилцагчийн утас" required onblur="checkValid()" value="{{data.phone}}"/>
                               </div>                              
-                              <div class="mb-3">
+                              <div class="mb-3">{{upFile}}::
                                 <label for="thumbimage" class="form-label">Зураг:</label>
+                                <input type="button" class="form-control form-control-sm" value="Зураг оруулах" onclick="bt1_click()" > 
                                 <input type="file" class="form-control form-control-sm" id="thumbimage" name="thumbimage" placeholder="Зураг" required onblur="checkValid()" value="{{data.thumbimage}}" multiple/>
                               </div>
                             <!-- {{ProductForm.id}} -->
@@ -41,14 +42,50 @@
                           
 
                             <script>
-                                function checkValid(){                                
-                                    const form = document.getElementById('reg_com_form');
-                                    form.addEventListener("change", () => {
-                                        document.getElementById('had').disabled = !form.checkValidity()
-                                    });
-                                }
+                                // function checkValid(){                                
+                                //     const form = document.getElementById('reg_com_form');
+                                //     form.addEventListener("change", () => {
+                                //         document.getElementById('had').disabled = !form.checkValidity()
+                                //     });
+                                // }
                                 
-                                // $(document).ready(function() {    
+
+                             window.addEventListener('load', (event) => {console.log('page is fully loaded');
+
+                                const form = document.getElementById('reg_com_form');
+                                form.addEventListener("change", () => {console.log('onchange')
+                                    document.getElementById('had').disabled = !form.checkValidity()
+                                });
+
+
+
+
+                                document.getElementById("thumbimage").onchange = function () { console.log('thumbimage-onchange',this.files.length)
+                                parent=this.parentElement;console.log( parent.childNodes)
+                                for( let i =0; parent.childNodes[6]; i++){ 
+                                parent.removeChild(parent.childNodes[6])      
+                                }
+
+                                for( let i =0; i<this.files.length; i++){ 
+                                    const img = document.createElement("img");
+                                    img.src = URL.createObjectURL(this.files[i]);
+                                    img.style.height=150+"px"
+                                    parent.appendChild(img)     
+
+                                }
+                                };
+
+                                });
+
+
+
+                                function bt1_click(){
+                                console.log('btn1')
+                                b = document.getElementById('thumbimage').click();
+                                }
+
+
+                                                    // $(document).ready(function() {    
                                 //         $('#had').prop('disabled', true);
                                 //             if ($('#edit').val())
                                 //             {
