@@ -35,6 +35,9 @@
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Төлөв:</a>
                           </th>
+                          <!-- <th data-sortable="" class="asc">
+                              <a href="#" class="dataTable-sorter">Тайлбар:</a>
+                          </th> -->
                           <th data-sortable="" class="asc">
                               <a href="#" class="dataTable-sorter">Үйлдлүүд</a>
                           </th>
@@ -48,6 +51,7 @@
                           <td>{{ h.phone }}</td>
                           <td>{{ h.thumbimage }}</td>
                           <td>{{ h.comState }}</td>
+                          <!-- <td>{{ h.description }}</td> -->
                           <td>   
                               <!-- {{user.role_id}}::{{h.comState_id}} -->
                           {% if user.role_id|add:0 < 3 and h.comState_id|add:0 < 3 %}   

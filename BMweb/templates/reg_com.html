@@ -32,6 +32,10 @@
                                 <input type="button" class="form-control form-control-sm" value="Зураг оруулах" onclick="bt1_click()" > 
                                 <input type="file" class="form-control form-control-sm" id="thumbimage" name="thumbimage" placeholder="Зураг" required onblur="checkValid()" value="{{data.thumbimage}}" multiple/>
                               </div>
+                              <!-- <div class="mb-3">
+                                <label for="description" class="form-label">Тайлбар:</label>
+                                <input type="text" class="form-control" id="description" name="description" placeholder="Тайлбар" required onblur="checkValid()" value="{{data.description}}"/>
+                              </div> -->
                             <!-- {{ProductForm.id}} -->
                             <!-- <input id="had" type='submit'  value='Хадгалах' onclick="hadgalah()"/> -->
                             {% if edit %} <input type='hidden' name='edit' value='{{edit}}'id="edit"/>

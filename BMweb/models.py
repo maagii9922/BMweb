@@ -23,6 +23,7 @@ class Company(models.Model):
         upload_to="media/productthumb/", blank = True, null=True,  verbose_name=_("Зураг")
     )
     comState = models.ForeignKey(State, on_delete=CASCADE, verbose_name=_("Төлөв"))
+    # description = models.TextField(blank = True, null=True,verbose_name=_("Тайлбар"))
 
     class Meta:
         verbose_name = _("Компани")

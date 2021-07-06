@@ -103,6 +103,7 @@ def company(request):
                 p.hayag= request.POST['hayag']
                 p.phone = request.POST['phone']
                 p.thumbimage = request.POST['thumbimage']
+                # p.description = request.POST['description']
                 # p.comState = request.POST['comState']
                 p.save()
                 return redirect('/')
