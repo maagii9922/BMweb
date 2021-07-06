@@ -1,3 +1,4 @@
+{% include "tabs.html" %}
 <main>
     <div class="container-fluid px-4">
         <h5 class="mt-4">Харилцагч шинээр бүртгүүлэх хүсэлтийн жагсаалт</h5>        
@@ -7,10 +8,10 @@
         <a href="{% url 'company' %}" class="btn btn-primary" role="button">Харилцагч шинээр бүртгүүлэх</a>
         {% endif %}
         <div class="card mb-4">
-            <div class="card-header">
+            <!-- <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 Жагсаалт
-            </div>
+            </div> -->
             <div class="card-body">
                 {% include "tableTop.html" %}
                 <table id="datatablesSimple" class="dataTable-table">

@@ -1,0 +1,15 @@
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/product-list">Active</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/company-list">Link</a>
+                    </li>
+                </ul>
+                <script>
+                    $(document).ready(function(){
+                      $(".nav-tabs a").click(function(){
+                        $(this).tab('show');
+                      });
+                    });
+                </script>
