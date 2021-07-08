@@ -4,7 +4,7 @@ from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse,HttpResponseRedirect, request
-from .models import Customer, EmHelber, HemNegj, Hereglegch,Paiz, PosCategory,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
+from .models import Customer, EmHelber, HemNegj, Hereglegch, Hutlult,Paiz, PosCategory,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 import base64
 from django.core.files.storage import FileSystemStorage
@@ -157,6 +157,7 @@ def product(request):
         uNiiluulegch = Niiluulegch.objects.all()
         paiz = Paiz.objects.all()
         posCat = PosCategory.objects.all()
+        hutlult = Hutlult.objects.all()
         print(posCat)
         if request.method == 'GET':
             if 'edit' in request.GET :
@@ -167,13 +168,13 @@ def product(request):
                     kk.append(str(id))
                 # print(p)    
                 # print(kk)  
-                return render(request,'product.html',{'user': h, "edit": request.GET['edit'],  "data": p, 'selected_company': kk,'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch} )
+                return render(request,'product.html',{'user': h, "edit": request.GET['edit'],  "data": p, 'selected_company': kk,'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch,'posCat':posCat,'hutlult':hutlult} )
             elif 'del' in request.GET :
                 p = Product.objects.get(pk=request.GET['del'])
                 p.delete()
                 return redirect('/')
             else:
-                return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch, 'posCat':posCat})
+                return render(request,'product.html', {'user': h, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch, 'paiz': paiz, 'uNiiluulegch': uNiiluulegch, 'posCat':posCat,'hutlult':hutlult})
         elif request.method == 'POST':            
             print(request.POST)
             if 'edit' in request.POST :
@@ -217,7 +218,8 @@ def product(request):
                         # hudAwch= huda,
                         # zarBoloh= zarb,
                 # p.state=  State.objects.get(pk= 1),
-                # p.posCat=  PosCategory.objects.get(pk= int(request.POST['posCat_id']))
+                p.posCat=  PosCategory.objects.get(pk= int(request.POST['posCat_id']))
+                p.hutlult=  Hutlult.objects.get(pk= int(request.POST['hutlult_id']))
                 p.thumbimage = request.POST['thumbimage']
                 p.save()
                 p.company.clear()
@@ -287,6 +289,7 @@ def product(request):
                         pos= pos,
                         posCat = PosCategory.objects.get(pk= int(request.POST['posCat_id'])),
                         thumbimage = request.POST['thumbimage'],
+                        hutlult = Hutlult.objects.get(pk= int(request.POST['hutlult_id'])),
                         state=  State.objects.get(pk= 1),
                         )
                 h.save()
@@ -399,6 +402,9 @@ def init(request):
     h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s1, company=c1, password='123')
     em1 = EmHelber.objects.create(emHelberName="Тун")
     em2 = EmHelber.objects.create(emHelberName="Капсул")
+    hut1 = Hutlult.objects.create(hutlultName="Цувралаар")
+    hut2 = Hutlult.objects.create(hutlultName="Үл давтагдах")
+    hut3 = Hutlult.objects.create(hutlultName="Мөшгөхгүй")
     hemNegj1 = HemNegj.objects.create(hemNegjName="гр")
     hemNegj2 = HemNegj.objects.create(hemNegjName="мл")
     uildver1 = Manufacturer.objects.create(manName="Япон")
@@ -411,11 +417,11 @@ def init(request):
     niil4 = Niiluulegch.objects.create(niiName="emonos")
     brand1 = ProdBrand.objects.create(brandName="Pigeon", brandCode="brandCode1", description="description1", ontslohEseh=False, idewhiteiEseh=True)
     brand2 = ProdBrand.objects.create(brandName="Friso", brandCode="brandCode2", description="description2", ontslohEseh=False, idewhiteiEseh=True)
-    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat1)
+    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, hutlult=hut1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat1)
     prod1.company.add(c1)
     prod1.company.add(c2)
     prod1.company.add(c3)
-    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat2)
+    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, hutlult=hut2,  zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat2)
     prod2.company.add(c3)
     prod2.company.add(c2)
     prod2.company.add(c1)

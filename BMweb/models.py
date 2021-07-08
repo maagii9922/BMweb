@@ -203,6 +203,14 @@ class PosCategory(models.Model):
     def __str__(self):
         return self.posCatName
 
+class Hutlult(models.Model):
+    hutlultName = models.CharField(max_length=300,verbose_name=_("Хөтлөлтийн нэр"))
+
+    class Meta:
+        verbose_name = _("Хөтлөлт")
+        verbose_name_plural = _("Хөтлөлт")
+
+
 class Product(models.Model):
     prodName = models.CharField(max_length=300, verbose_name=_("Барааны нэр"))
     prodName_en = models.CharField(max_length=300, verbose_name=_("Барааны нэр англи"))
@@ -230,6 +238,7 @@ class Product(models.Model):
     thumbimage = models.ImageField(
         upload_to="media/productthumb/", blank = True, null=True,  verbose_name=_("Зураг")
     )
+    hutlult = models.ForeignKey(Hutlult, on_delete=models.CASCADE,verbose_name=_("Хөтлөлт"))
     state = models.ForeignKey(State,related_name='products', on_delete=models.CASCADE, verbose_name=_("Төлөв"))
 
     class Meta:

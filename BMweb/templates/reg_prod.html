@@ -321,10 +321,20 @@
                                     {% endfor %} 
                                 </select>
                               </div>
+
+                              <div class="mb-3">
+                                <label for="hutlult_id" class="form-label">Хөтлөлт</label>
+                                <select name="hutlult_id" id="hutlult_id"  style="width: 220px;" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <option>-------------</option>
+                                    {% for h in hutlult %}
+                                    <option value="{{h.id}}" {% if data.posCat_id|add:"0" == h.id|add:"0" %} selected {% endif %}>{{h.hutlultName}}</option>
+                                    {% endfor %} 
+                                </select>
+                              </div>
                                                             
                               <div class="mb-3" id="imgCont">{{upFile}}::
                                 <label for="thumbimage" class="form-label">Зураг:</label>                                
-                                <input type="button" class="form-control form-control-sm" value="Зураг оруулах" onclick="bt1_click()" >       
+                                <input type="button" class="form-control form-control-sm" value="Зураг оруулах" onclick="bt1_click()" style="background-color: #6c757d; color: white;">       
                                 <input type="file"  id="thumbimage" name="thumbimage" placeholder="Зураг" required value="" multiple />                          
                               </div>
                               
