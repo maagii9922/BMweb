@@ -55,7 +55,8 @@
                               <!-- {{user.role_id}}::{{h.comState_id}} -->
                           {% if user.role_id|add:0 < 3 and h.comState_id|add:0 < 3 %}   
                             <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
-                            <a href="/company?del={{h.id}}"><i class="fas fa-trash-alt"></i></a> 
+                            <a href="/company?del={{h.id}}" class="confirm-delete" onclick="return confirm('Та устгахдаа итгэлтэй байна уу?')" ><i class="fas fa-trash-alt"></i></a>
+                             
                           {% endif %}
                           {% if user.role_id|add:0 == 3 and h.comState_id|add:0 == 1 %}  
                             <!-- <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
@@ -76,7 +77,13 @@
         </div>
     </div>
 </main>
-<script>
+<script>        
+
+    $(document).on('click', '.confirm-delete', function(){
+        return confirm('Та устгахдаа итгэлтэй байна уу?');
+    })
+            
+    
     window.addEventListener("load", function(){
         let size = "{{size}}"
         if (size){
@@ -110,8 +117,6 @@
         // let old_tbody = document.getElementById('datatablesSimple').getElementsByTagName('tbody')[0]
         // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
 
-        
-        
         
 
         

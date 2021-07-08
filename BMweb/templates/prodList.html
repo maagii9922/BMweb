@@ -99,7 +99,7 @@
                                     <!-- {{user.role_id}}::{{h.state_id}} -->
                                 {% if user.role_id|add:0 < 3 and h.state_id|add:0 < 3 %}    
                                     <a href="/product?edit={{h.id}}"><i class="fas fa-edit"></i></a></form>
-                                    <a href="/product?del={{h.id}}"><i class="fas fa-trash-alt"></i></a></form>
+                                    <a href="/product?del={{h.id}}" class="confirm-delete" onclick="return confirm('Та устгахдаа итгэлтэй байна уу?')"><i class="fas fa-trash-alt"></i></a></form>
                                 {% endif  %}
                                   {% if user.role_id|add:0 >= 3 and h.state_id|add:0 == 1 %}  
                                   <!-- <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
@@ -127,6 +127,10 @@
     </div>
 </main>
 <script>
+    $(document).on('click', '.confirm-delete', function(){
+        return confirm('Та устгахдаа итгэлтэй байна уу?');
+    })
+      
     window.addEventListener("load", function(){
         let size = "{{size}}"
         if (size){
