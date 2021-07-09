@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse,HttpResponseRedirect, request
+from django.http import HttpResponse,HttpResponseRedirect, request, response
 from .models import Customer, EmHelber, HemNegj, Hereglegch, Hutlult,Paiz, PosCategory,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 import base64
@@ -36,11 +36,13 @@ def odoo_rpc():
     return connection
 
 
-
 def get_user_data(odoo, name):
     # user_data = odoo.execute('res.users', 'read', [user.id])
     datas = odoo.env['product.template'].search_read([('id', '=', name)], ['name'])
-    print(datas)
+    if datas:
+        msg ="54654"
+    return msg
+    
 
 # # ,('default_code')('barcode')
 # def get_product_data(odoo):
@@ -304,6 +306,7 @@ def product(request):
                 data = request.POST['prodName']
                 if data :
                     get_user_data(data)
+                    
                 h = Product(
                         prodName= request.POST['prodName'],
                         prodName_en= request.POST['prodName_en'],
