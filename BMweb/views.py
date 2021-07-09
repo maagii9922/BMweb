@@ -1,4 +1,4 @@
-from BMweb.settings import AUTH_PASSWORD_VALIDATORS
+from BMweb.settings import AUTH_PASSWORD_VALIDATORS, DATABASES
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
@@ -11,6 +11,42 @@ from django.core.files.storage import FileSystemStorage
 from django.core import serializers
 from django.core.paginator import Paginator
 
+import json
+import random
+import urllib.request
+import odoorpc
+HOST = '10.0.0.178'
+PORT = 8069
+DB = 'test-training​'
+
+
+USER = 'admin_cos'
+PASS = 'M*on8aalj'
+import json
+import random
+import urllib.request
+
+def odoo_rpc():
+    odoo = odoorpc.ODOO(HOST, port=PORT)
+
+    connection = odoo.login('test-training', 'admin_cos', 'M*on8aalj')    
+    user = odoo.env.user
+    # get_user_data(odoo, user)
+    # get_product_data(odoo)
+    return connection
+
+
+
+def get_user_data(odoo, name):
+    # user_data = odoo.execute('res.users', 'read', [user.id])
+    datas = odoo.env['product.template'].search_read([('id', '=', name)], ['name'])
+    print(datas)
+
+# # ,('default_code')('barcode')
+# def get_product_data(odoo):
+#     vat = odoo.env['product.product'].search([("name", "like", 't')]).read(['name'])
+#     for i in vat:
+#         print(i.name)
 
 
 def login(request):
@@ -265,6 +301,9 @@ def product(request):
                 if 'pos' in request.POST:
                     pos = True
                 # h = ProductForm(request.POST, request.FILES)
+                data = request.POST['prodName']
+                if data :
+                    get_user_data(data)
                 h = Product(
                         prodName= request.POST['prodName'],
                         prodName_en= request.POST['prodName_en'],
@@ -292,8 +331,10 @@ def product(request):
                         hutlult = Hutlult.objects.get(pk= int(request.POST['hutlult_id'])),
                         state=  State.objects.get(pk= 1),
                         )
+                
                 h.save()
                 company=  Company.objects.filter(pk__in = request.POST.getlist('selected_company'))
+                
                 # print(company)
                 h.company.add(*company)                
                 # return render(request,'product.html',{'user': h,  "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch} )
