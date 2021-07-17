@@ -53,8 +53,8 @@ def get_user_data(odoo, name):
 
 
 def login(request):
-    print('aaaaabbbbbbbbbbbbbbbcccccccccccccccccdddddddddddddddddddddddd')
-    print(odoo_rpc())
+    # print('aaaaabbbbbbbbbbbbbbbcccccccccccccccccdddddddddddddddddddddddd')
+    # print(odoo_rpc())
     if request.method == 'GET':
         h = HereglegchForm()
         return render(request,'login.html', {'form': h})
@@ -158,7 +158,7 @@ def company(request):
             
 def companyList(request):
     if 'user_id' in request.session:
-        p = Company.objects.all().order_by('comState')
+        p = Company.objects.filter(reg_user=request.session['user_id']).order_by('comState')
         size = 25
         if 'size' in request.GET:
             size = request.GET['size']
@@ -176,11 +176,11 @@ def companyList(request):
         return redirect('/login')  
 
 @csrf_exempt
-def changeStateCom(request, company_id, state_id):
+def changeStateCom(request, company_id, state_id, desc=''):
     h = Company.objects.get(pk=company_id)
     h.comState = State.objects.get(pk=state_id) 
     h.save()    
-    return redirect('/company-list')
+    return redirect('/reqCom-list')
 
 def product(request):
     # r = HereglegchRole(levelname = 'Бараа шинээр бүртгэх хүсэлт илгээх')
@@ -383,11 +383,12 @@ def productList(request):
         return redirect('/login')  
 
 @csrf_exempt
-def changeStateProd(request, product_id, state_id):
+def changeStateProd(request, product_id, state_id, desc=''):
+    print(desc)
     h = Product.objects.get(pk=product_id)
     h.state = State.objects.get(pk=state_id) 
     h.save()    
-    return redirect('/product-list')
+    return redirect('/reqCom-list')
 
 def register(request):
     return render(request,'register.html')
@@ -451,18 +452,26 @@ def init(request):
     # cus1 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus2 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
     # cus3 = Customer.objects.create(name='comp1', hayag='hayag1', company='utas1',mail='mail',password='123')
-    state1 = State.objects.create(stateName="Захиалсан")
+    
+    state1 = State.objects.create(stateName="Илгээсэн")
     state2 = State.objects.create(stateName="Цуцалсан")
     state3 = State.objects.create(stateName="Батлагдсан")
     posCat1 = PosCategory.objects.create(posCatName="posCatName1")
     posCat2 = PosCategory.objects.create(posCatName="posCatName2")
-    c1 = Company.objects.create(comName='emonos', hayag='hayag1', phone='utas1',comState=state1)
-    c2 = Company.objects.create(comName='Ундрам хан хангай ХХК', hayag='hayag2', phone='utas2',comState=state2)
-    c3 = Company.objects.create(comName='МУБ', hayag='hayag3', phone='utas3',comState=state3)
+    c1 = Company.objects.create(comName='emonos', hayag='hayag1', phone='utas1',comState=state1,description="sdsddf",reg_user=2)
+    c2 = Company.objects.create(comName='Ундрам хан хангай ХХК', hayag='hayag2', phone='utas2',comState=state2,description="cdhgfh",reg_user=6)
+    c3 = Company.objects.create(comName='МУБ', hayag='hayag3', phone='utas3',comState=state3,description="cdhgfh",reg_user=2)
+    c4 = Company.objects.create(comName='emonos2', hayag='hayag1', phone='utas1',comState=state1,description="sdsddf",reg_user=2)
+    c5 = Company.objects.create(comName='Ундрам хан хангай ХХК2', hayag='hayag2', phone='utas2',comState=state2,description="cdhgfh",reg_user=6)
+    c6 = Company.objects.create(comName='МУБ2', hayag='hayag3', phone='utas3',comState=state3,description="cdhgfh",reg_user=2)
     h1 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах', mail = 'user1@gmail.com', role=l1, state=s2, company=c1, password='123')
     h2 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа', mail = 'user2@gmail.com', role=l2, state=s2, company=c1, password='123')
-    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s1, company=c1, password='123')
-    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s1, company=c1, password='123')
+    h3 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж', mail = 'user3@gmail.com', role=l3, state=s2, company=c1, password='123')
+    h4 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа', mail = 'user4@gmail.com', role=l4, state=s2, company=c1, password='123')
+    h5 = Hereglegch.objects.create(ovog='Батаа', ner='Мандах2', mail = 'user5@gmail.com', role=l1, state=s2, company=c1, password='123')
+    h6 = Hereglegch.objects.create(ovog='Сараа', ner='Батаа2', mail = 'user6@gmail.com', role=l2, state=s2, company=c1, password='123')
+    h7 = Hereglegch.objects.create(ovog='Мандах', ner='Дорж2', mail = 'user7@gmail.com', role=l3, state=s2, company=c1, password='123')
+    h8 = Hereglegch.objects.create(ovog='Дорж', ner='Сараа2', mail = 'user8@gmail.com', role=l4, state=s2, company=c1, password='123')
     em1 = EmHelber.objects.create(emHelberName="Тун")
     em2 = EmHelber.objects.create(emHelberName="Капсул")
     hut1 = Hutlult.objects.create(hutlultName="Цувралаар")

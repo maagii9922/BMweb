@@ -14,15 +14,17 @@ urlpatterns = [
     path('register', views.register),
 
     path('thanks/', views.thanks),
-    path('company/', views.company,name='company'),
-    path('company-list',views.companyList,name='company-list'),
+    path('company123', views.company,name='company'),
+    path('company-list',views.companyList, name='company-list'),
     path('change-stateCom/<company_id>/<state_id>', views.changeStateCom),
+    path('change-stateCom/<company_id>/<state_id>/<desc>', views.changeStateCom),
     
     path('product',views.product,name='product'),
     path('product-list',views.productList,name='product-list'),
     path('api/product-list/<val>/<lang>',views.productListApi,name='product-list-api'),
 
     path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
+    
 
     path('reqCom-list', views.reqComList),
 

@@ -257,7 +257,7 @@
                                         <input type="button" value='>>' class="btn btn-sm btn-secondary" onclick="company_select()" /> 
                                         <input type="button" value='<<' class="btn btn-sm btn-secondary" onclick="company_deselect()"/> </div>
                                         <div class="col-auto">
-                                        <select name="selected_company" id="selected_company" style="width: 250px;"  class="form-select" size="3" aria-label="size 3 select example" multiple>  
+                                        <select name="selected_company" id="selected_company" style="width: 250px;"  class="form-select" size="3" aria-label="size 3 select example" multiple ondblclick="company_deselect()">  
                                             {% for co in comp %}
                                               {% for sc in selected_company %}
                                                 {% if co.id|add:"0" == sc|add:"0" %}
