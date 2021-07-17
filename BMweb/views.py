@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .forms import HereglegchForm, CompanyForm, ProductForm,ProdType
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse,HttpResponseRedirect, request, response
+from django.http import HttpResponse,HttpResponseRedirect, request, response, JsonResponse
 from .models import Customer, EmHelber, HemNegj, Hereglegch, Hutlult,Paiz, PosCategory,State,Niiluulegch, HereglegchRole,Product,Manufacturer,ProdBrand,Company,Category, HereglegchState
 from django.contrib.auth.models import User
 import base64
@@ -25,6 +25,7 @@ PASS = 'M*on8aalj'
 import json
 import random
 import urllib.request
+
 
 def odoo_rpc():
     odoo = odoorpc.ODOO(HOST, port=PORT)
@@ -52,6 +53,8 @@ def get_user_data(odoo, name):
 
 
 def login(request):
+    print('aaaaabbbbbbbbbbbbbbbcccccccccccccccccdddddddddddddddddddddddd')
+    print(odoo_rpc())
     if request.method == 'GET':
         h = HereglegchForm()
         return render(request,'login.html', {'form': h})
@@ -342,7 +345,23 @@ def product(request):
                 h.company.add(*company)                
                 # return render(request,'product.html',{'user': h,  "data": request.POST, 'brand': b, 'type': t, 'emHelber': eh, 'cat': cat, 'comp': comp, 'hemNegj': hemNegj, 'uildwerlegch':uildwerlegch} )
                 return redirect('/')
-       
+
+def productListApi(request, val, lang): 
+    print(val)
+    if lang=='mn':
+        plist = Product.objects.filter(prodName__startswith = val).only("prodName")
+    elif lang=='eng':
+        plist = Product.objects.filter(prodName_en__startswith = val).only("prodName_en")
+    print(plist)
+    data = []
+    for i, p in enumerate(plist):
+        if lang=='mn':
+            data.append(p.prodName)
+        elif lang=='eng':
+            data.append(p.prodName_en)
+    # print (data)
+    return JsonResponse({'data': data})
+
 def productList(request):    
     if 'user_id' in request.session:
         p = Product.objects.all().order_by('state')

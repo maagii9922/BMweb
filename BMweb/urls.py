@@ -20,6 +20,8 @@ urlpatterns = [
     
     path('product',views.product,name='product'),
     path('product-list',views.productList,name='product-list'),
+    path('api/product-list/<val>/<lang>',views.productListApi,name='product-list-api'),
+
     path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
 
     path('reqCom-list', views.reqComList),
