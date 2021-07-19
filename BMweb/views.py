@@ -32,29 +32,29 @@ def odoo_rpc():
 
     connection = odoo.login('test-training', 'admin_cos', 'M*on8aalj')    
     user = odoo.env.user
-    # get_user_data(odoo, user)
-    # get_product_data(odoo)
+    get_user_data(odoo, user)
+    get_product_data(odoo)
     return connection
 
 
-def get_user_data(odoo, name):
-    # user_data = odoo.execute('res.users', 'read', [user.id])
-    datas = odoo.env['product.template'].search_read([('id', '=', name)], ['name'])
-    if datas:
-        msg ="54654"
-    return msg
+def get_user_data(odoo, user):
+    user_data = odoo.env['res.users'].search_read([('id', '=', [user.id])])
+    print("user_data", user_data)
+    return user_data
     
 
-# # ,('default_code')('barcode')
-# def get_product_data(odoo):
-#     vat = odoo.env['product.product'].search([("name", "like", 't')]).read(['name'])
-#     for i in vat:
-#         print(i.name)
+# ,('default_code')('barcode')
+def get_product_data(odoo):
+    product_ids = odoo.env['product.product'].search_read([("id", "=", 1)])
+    for product_id in product_ids:
+        product_name = product_id['name']
+        print("product_name", product_name)
+    return product_id 
 
 
 def login(request):
     # print('aaaaabbbbbbbbbbbbbbbcccccccccccccccccdddddddddddddddddddddddd')
-    # print(odoo_rpc())
+    odoo_rpc()
     if request.method == 'GET':
         h = HereglegchForm()
         return render(request,'login.html', {'form': h})
@@ -307,8 +307,8 @@ def product(request):
                     pos = True
                 # h = ProductForm(request.POST, request.FILES)
                 data = request.POST['prodName']
-                if data :
-                    get_user_data(data)
+                # if data :
+                #     get_user_data(data)
                     
                 h = Product(
                         prodName= request.POST['prodName'],

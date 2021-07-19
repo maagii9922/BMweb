@@ -14,7 +14,7 @@ urlpatterns = [
     path('register', views.register),
 
     path('thanks/', views.thanks),
-    path('company123', views.company,name='company'),
+    path('company', views.company,name='company'),
     path('company-list',views.companyList, name='company-list'),
     path('change-stateCom/<company_id>/<state_id>', views.changeStateCom),
     path('change-stateCom/<company_id>/<state_id>/<desc>', views.changeStateCom),

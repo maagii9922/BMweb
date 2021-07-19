@@ -5,7 +5,7 @@
     }
 </style>
 <div class="dataTable-bottom">
-    <div class="dataTable-info">нийт бичлэг : {{count}} хуудсын тоо : {{page_count}}     эхлэх дугаар:   дуусах дугаар :</div>
+    <div class="dataTable-info">Нийт бичлэг : {{count}} Хуудсын тоо : {{page_count}} </div>
     <nav class="dataTable-pagination">
         <ul class="dataTable-pagination-list">
             <li {% if has_previous == False %}  class="pager disabled" {% else %} class="pager" {% endif %}  ><a href="?size={{size}}&page={{ page_num|add:-1 }}" data-page="5" >‹</a></li>

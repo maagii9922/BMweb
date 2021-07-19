@@ -1,4 +1,4 @@
-#!/home/ubuntu/Desktop/BMweb/env/bin/python
+#!/home/ubuntu/Desktop/BMweb/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
