@@ -39,15 +39,17 @@ def odoo_rpc():
 
 def get_user_data(odoo, user):
     user_data = odoo.env['res.users'].search_read([('id', '=', [user.id])])
-    print("user_data", user_data)
+    # print("user_data", user_data)
+    # print("user_data", user_data[0])
+    print("user_data", user_data[0]['id'])
     return user_data
     
 
 # ,('default_code')('barcode')
 def get_product_data(odoo):
-    product_ids = odoo.env['product.product'].search_read([("id", "=", 1)])
+    product_ids = odoo.env['product.product'].search_read([("id", "=", 2)])
     for product_id in product_ids:
-        product_name = product_id['name']
+        product_name = product_id["name"]
         print("product_name", product_name)
     return product_id 
 
@@ -309,6 +311,7 @@ def product(request):
                 data = request.POST['prodName']
                 # if data :
                 #     get_user_data(data)
+
                     
                 h = Product(
                         prodName= request.POST['prodName'],

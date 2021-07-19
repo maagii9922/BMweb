@@ -51,7 +51,7 @@
                           <td>{{ h.thumbimage }}</td>
                           <td>{{ h.comState }}</td>
                           <td>{{ h.description|default_if_none:"" }}</td>
-                          <td>   awdg dsfg dsgsdg dsdg dsg dst
+                          <td>   
                               <!-- {{user.role_id}}::{{h.comState_id}} -->
                           {% if user.role_id|add:0 < 3 and h.comState_id|add:0 < 3 %}   
                             <a href="/company?edit={{h.id}}"><i class="fas fa-edit"></i></a>
