@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('odoo', views.odoo),
     path('login', views.login),
     path('',views.home),
     path('reg-user', views.hereglegch,name='reg-user'),

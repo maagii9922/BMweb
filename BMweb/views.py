@@ -27,17 +27,19 @@ import random
 import urllib.request
 
 
+
 def odoo_rpc():
     odoo = odoorpc.ODOO(HOST, port=PORT)
 
     connection = odoo.login('test-training', 'admin_cos', 'M*on8aalj')    
+    # user = odoo.env.user
+    # return connection
+    return odoo
+
+
+def get_user_data():
+    odoo = odoo_rpc()
     user = odoo.env.user
-    get_user_data(odoo, user)
-    get_product_data(odoo)
-    return connection
-
-
-def get_user_data(odoo, user):
     user_data = odoo.env['res.users'].search_read([('id', '=', [user.id])])
     # print("user_data", user_data)
     # print("user_data", user_data[0])
@@ -46,17 +48,42 @@ def get_user_data(odoo, user):
     
 
 # ,('default_code')('barcode')
-def get_product_data(odoo):
-    product_ids = odoo.env['product.product'].search_read([("id", "=", 2)])
-    for product_id in product_ids:
-        product_name = product_id["name"]
-        print("product_name", product_name)
-    return product_id 
+def get_product_data():
+    odoo = odoo_rpc()
+    product_ids = odoo.env['product.product'].search_read([("id", "=", 3)])
+    # print('product', product_ids[0])
+    for key , v in product_ids[0].items():
+        print(key, ' ->', v) 
+    # for product_id in product_ids:
+    #     product_name = product_id["name"]
+    #     print("product_name", product_name)
+    return 'hello' 
+
+def get_product_name(prodName):
+    odoo = odoo_rpc()
+    product_ids = odoo.env['product.product'].search_read([("name", "=", prodName)])
+    names = []
+    for v in product_ids:
+       names.append(v['name'])
+    print(names)
+    return names
+
+def get_product_category():
+    odoo = odoo_rpc()
+    product_ids = odoo.env['product.category'].search([])   #.search_read([("id", "=", 1)])
+    print(product_ids[0])
+    return 678
+
+def odoo(request):
+    pass
+    odoo_rpc()
+    # get_user_data()
+    # get_product_name('Хөнгөлөлт')
+    get_product_category()
+    return HttpResponse('asfsdf')
 
 
 def login(request):
-    # print('aaaaabbbbbbbbbbbbbbbcccccccccccccccccdddddddddddddddddddddddd')
-    odoo_rpc()
     if request.method == 'GET':
         h = HereglegchForm()
         return render(request,'login.html', {'form': h})
@@ -351,18 +378,19 @@ def product(request):
 
 def productListApi(request, val, lang): 
     print(val)
-    if lang=='mn':
-        plist = Product.objects.filter(prodName__startswith = val).only("prodName")
-    elif lang=='eng':
-        plist = Product.objects.filter(prodName_en__startswith = val).only("prodName_en")
-    print(plist)
-    data = []
-    for i, p in enumerate(plist):
-        if lang=='mn':
-            data.append(p.prodName)
-        elif lang=='eng':
-            data.append(p.prodName_en)
+    # if lang=='mn':
+    #     plist = Product.objects.filter(prodName__startswith = val).only("prodName")
+    # elif lang=='eng':
+    #     plist = Product.objects.filter(prodName_en__startswith = val).only("prodName_en")
+    # print(plist)
+    # data = []
+    # for i, p in enumerate(plist):
+    #     if lang=='mn':
+    #         data.append(p.prodName)
+    #     elif lang=='eng':
+    #         data.append(p.prodName_en)
     # print (data)
+    data = get_product_name(val)
     return JsonResponse({'data': data})
 
 def productList(request):    
