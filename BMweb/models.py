@@ -242,6 +242,7 @@ class Product(models.Model):
     )
     hutlult = models.ForeignKey(Hutlult, on_delete=models.CASCADE,verbose_name=_("Хөтлөлт"))
     state = models.ForeignKey(State,related_name='products', on_delete=models.CASCADE, verbose_name=_("Төлөв"))
+    description = models.TextField(blank = True, null=True,verbose_name=_("Тайлбар"))
 
     class Meta:
         verbose_name = _("Бараа")

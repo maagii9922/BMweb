@@ -72,6 +72,7 @@ def get_product_category():
     odoo = odoo_rpc()
     product_ids = odoo.env['product.category'].search([])   #.search_read([("id", "=", 1)])
     print(product_ids[0])
+    print(odoo.db.list())
     return 678
 
 def odoo(request):
@@ -181,13 +182,21 @@ def company(request):
                 if Company.objects.filter(comName= request.POST['comName']):
                     errmsg = "Компаний нэр давхардлаа"       
                     return render(request,'company.html', {'user': h, "errmsg": errmsg})                               
-                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'],thumbimage = request.POST['thumbimage'],comState = State.objects.get(pk= 1))
+                p = Company(comName= request.POST['comName'], hayag= request.POST['hayag'], phone= request.POST['phone'],thumbimage = request.POST['thumbimage'],comState = State.objects.get(pk= 1),reg_user=request.session['user_id'])
                 p.save()
                 return redirect('/', {'user': h})            
             
 def companyList(request):
     if 'user_id' in request.session:
         p = Company.objects.filter(reg_user=request.session['user_id']).order_by('comState')
+        # p = Company.objects.filter(comState_id=1).order_by('comState')
+
+        # h = Hereglegch.objects.filter(pk=request.session['user_id'])
+        # if h.role_id == 2:
+        #     p=Company.objects.filter(reg_user=request.session['user_id']).order_by('comState')
+        # elif h.role_id == 3:
+        #     p=Company.objects.filter(comState_id=1).order_by('comState')
+
         size = 25
         if 'size' in request.GET:
             size = request.GET['size']
@@ -520,11 +529,11 @@ def init(request):
     niil4 = Niiluulegch.objects.create(niiName="emonos")
     brand1 = ProdBrand.objects.create(brandName="Pigeon", brandCode="brandCode1", description="description1", ontslohEseh=False, idewhiteiEseh=True)
     brand2 = ProdBrand.objects.create(brandName="Friso", brandCode="brandCode2", description="description2", ontslohEseh=False, idewhiteiEseh=True)
-    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, hutlult=hut1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat1)
+    prod1 = Product.objects.create(prodName="Сүү", prodName_en="Friso", brand=brand1, zCode=123, prodType=pt1, hutlult=hut1, zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil1', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil1, category=cat1, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat1,description="cdhgfh")
     prod1.company.add(c1)
     prod1.company.add(c2)
     prod1.company.add(c3)
-    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, hutlult=hut2,  zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat2)
+    prod2 = Product.objects.create(prodName="Угж", prodName_en="Pigeon", brand=brand2, zCode=123, prodType=pt1, hutlult=hut2,  zzCode=123, price=123, hemNegj=hemNegj1, hudNegj=hemNegj2, erNershil= 'erNershil2', emHelber=em1, paiz=paiz1, uildwerlegch=uildver1,uNiiluulegch=niil2, category=cat2, borBoloh=True, hudAwch=True, zarBoloh=True,pos=True,state=state1, posCat=posCat2,description="cdhgfh")
     prod2.company.add(c3)
     prod2.company.add(c2)
     prod2.company.add(c1)
