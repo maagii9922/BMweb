@@ -72,7 +72,7 @@ def get_product_category():
     odoo = odoo_rpc()
     product_ids = odoo.env['product.category'].search([])   #.search_read([("id", "=", 1)])
     print(product_ids[0])
-    print(odoo.db.list())
+    # print(odoo.db.list())
     return 678
 
 def odoo(request):
@@ -189,9 +189,11 @@ def company(request):
 def companyList(request):
     if 'user_id' in request.session:
         p = Company.objects.filter(reg_user=request.session['user_id']).order_by('comState')
+        print(p)
         # p = Company.objects.filter(comState_id=1).order_by('comState')
 
         # h = Hereglegch.objects.filter(pk=request.session['user_id'])
+        # print(h)
         # if h.role_id == 2:
         #     p=Company.objects.filter(reg_user=request.session['user_id']).order_by('comState')
         # elif h.role_id == 3:

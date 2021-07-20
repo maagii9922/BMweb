@@ -14,6 +14,7 @@
             <div class="card-body">
                 {% include "tableTop.html" %}
                     <table id="datatablesSimple" class="dataTable-table">
+                        <!-- <table id="datatablesSimple" class="table table-striped table-bordered" style="width:100%"> -->
                         <thead>
                             <tr>
                                 <th data-sortable="" class="asc">
@@ -126,6 +127,22 @@
     </div>
 </main>
 <script>
+    // $(document).ready(function() { $('#datatablesSimple').DataTable(); } );
+
+//     $(document).ready(function() {
+//     var eventFired = function ( type ) {
+//         var n = $('#demo_info')[0];
+//         n.innerHTML += '<div>'+type+' event - '+new Date().getTime()+'</div>';
+//         n.scrollTop = n.scrollHeight;      
+//     }
+ 
+//     $('#example')
+//         .on( 'order.dt',  function () { eventFired( 'Order' ); } )
+//         .on( 'search.dt', function () { eventFired( 'Search' ); } )
+//         .on( 'page.dt',   function () { eventFired( 'Page' ); } )
+//         .DataTable();
+// } );
+
     $(document).on('click', '.confirm-delete', function(){
         return confirm('Та устгахдаа итгэлтэй байна уу?');
     })
