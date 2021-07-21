@@ -181,7 +181,14 @@
         // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
 
         
-        function cancelDialog(id){console.log('hehah', id)
+       
+        
+
+        
+
+     
+    }
+    function cancelDialog(id){console.log('hehah', id)
         var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {keyboard: false})        
         myModal.show()
         title = document.getElementById('exampleModalLabel')
@@ -192,12 +199,6 @@
     function saveDialog(){
         desc = document.getElementById('description')
         window.location.href = "/change-stateProd/" + desc.name + "/2/" + desc.value;
-    }
-        
-
-        
-
-     
     }
 </script>
 

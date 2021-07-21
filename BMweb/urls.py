@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/product-list/<val>/<lang>',views.productListApi,name='product-list-api'),
 
     path('change-stateProd/<product_id>/<state_id>', views.changeStateProd),
+    path('change-stateProd/<product_id>/<state_id>/<desc>', views.changeStateProd),
     
 
     path('reqCom-list', views.reqComList),
