@@ -104,7 +104,7 @@
                                   <!-- <a href="/change-stateProd/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
                                   <a href="/change-stateProd/{{h.id}}/3"><i class="fas fa-check-square"></i></a>
                                   <!-- <a href="/change-stateProd/{{h.id}}/2"><i class="fas fa-window-close"></i></a> -->
-                            <a id='cancel' href="#cancel" onclick="cancelDialog({{h.id}})"><i class="fas fa-window-close"></i></a> 
+                                    <a id='cancel' href="#cancel" onclick="cancelDialog({{h.id}})"><i class="fas fa-window-close"></i></a> 
                                   {% endif %}
 
                                 </td>
@@ -181,13 +181,9 @@
         // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
 
         
-       
-        
-
-        
-
      
     }
+
     function cancelDialog(id){console.log('hehah', id)
         var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {keyboard: false})        
         myModal.show()
@@ -206,7 +202,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Цуцлах тайлбар</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

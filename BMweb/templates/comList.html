@@ -61,8 +61,8 @@
                           {% if user.role_id|add:0 == 3 and h.comState_id|add:0 == 1 %}  
                             <!-- <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
                             <a href="/change-stateCom/{{h.id}}/3"><i class="fas fa-check-square"></i></a> 
-                            <!-- <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a>  -->
-                            <a id='cancel' href="#cancel" onclick="cancelDialog({{h.id}})"><i class="fas fa-window-close"></i></a>                           
+                            <a href="/change-stateCom/{{h.id}}/2"><i class="fas fa-window-close"></i></a> 
+                            <!-- <a id='cancel' href="#cancel" onclick="cancelDialog({{h.id}})"><i class="fas fa-window-close"></i></a>                            -->
                           {% endif %}
                           {% if user.role_id|add:0 == 4 and h.comState_id|add:0 > 2 %}  
                             <!-- <a href="/change-stateCom/{{h.id}}/1"><i class="fas fa-paper-plane"></i></a> -->
@@ -121,9 +121,6 @@
         // old_tbody.parentNode.replaceChild(new_tbody, old_tbody)
 
         
-
-        
-
      
     }
 
